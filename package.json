@@ -1,0 +1,25 @@
+{
+  "name": "sigil",
+  "version": "0.1.0",
+  "description": "Svelte UI components for Bolt ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamplouff/sigil.git"
+  },
+  "author": "Adam Plouff<adamplouff@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamplouff/sigil/issues"
+  },
+  "homepage": "https://github.com/adamplouff/sigil#readme",
+  "devDependencies": {
+    "starlette": "latest",
+    "svelte": "^3.44.0",
+    "svelte-check": "^2.7.1",
+    "svelte-preprocess": "^4.10.6"
+  }
+}

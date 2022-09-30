@@ -1,0 +1,16 @@
+:root {
+    --color-bg: #323232;
+    --button: #3a3a3a;
+    --button-color: #cccccc;
+    --button-hover: #4b4b4b;
+}
+
+.app-header {
+    // background-color: salmon;
+    background-color: var(--color-bg);
+    font-family: "Avenir", "Helvetica", "Arial", sans-serif;
+    font-size: 12px;
+}
+button {
+    font-size: inherit;
+}
