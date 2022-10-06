@@ -43,7 +43,7 @@
 		</div>
 	</div>
 
-  <div class="{isOpen ? '' : 'isClosed'}">
+  <div class="fold-content {isOpen ? '' : 'isClosed'}">
     <slot/>
   </div>
 </div>
@@ -58,7 +58,9 @@
   cursor: default;
   user-select: none;
 }
+
 .fold-content > .isOpen {
+  padding-bottom: 100px;
   width: calc(100% - 10px);
   padding-left: 10px;
 }
@@ -90,6 +92,9 @@
 }
 .removeBorder {
 	border-top: none;
+  padding-top: 0;
+}
+.removeBorder > .fold-label {
   padding-top: 0;
 }
 .isClosed {
