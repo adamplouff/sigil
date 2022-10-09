@@ -30,7 +30,10 @@
 </script>
 
 <div>
-  <div class="list-item folder" on:click={ toggle }>{name}</div>
+  <div class="list-item folder" on:click={ toggle }>
+    <div class="fold-icon">{ (isOpen) ? '–' : '+' }</div>
+    <span>{name}</span>
+  </div>
   <div class="indent {isOpen ? '' : 'isClosed'}">
 
     <slot />
@@ -41,12 +44,15 @@
 <style>
   .list-item {
     padding: 2px;
+    display: flex;
   }
   .isClosed {
     display: none;
   }
-  .list-item.folder::before {
-    content: '📁 ';
+  .fold-icon {
+    width: 10px;
+    margin-right: 2px;
+    text-align: center;
   }
   .indent {
     margin-left: 12px;
