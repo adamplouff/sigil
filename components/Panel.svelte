@@ -8,6 +8,15 @@
       starlette.initAs('AEFT', 'gradient', 0)
       // starlette.initAs('ILST', 'darkest')
   }
+
+  window.addEventListener("dragover",function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
+  window.addEventListener("drop",function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
 </script>
 
 <div class="panel" style="background-color: {backgroundColor};">
