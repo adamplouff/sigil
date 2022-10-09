@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import { fade } from 'svelte/transition';
   import util from './mixinPrefs.js'
 
   export let value
@@ -51,6 +52,23 @@
   const blur = () => {
     hasFocus = false
   }
+
+  import { createPopperActions } from 'svelte-popperjs';
+    const [popperRef, popperContent] = createPopperActions({
+        placement: 'bottom',
+        strategy: 'fixed',
+        applyStyles: true,
+    });
+    const extraOpts = {
+        modifiers: [
+            { name: 
+                'offset', 
+                options: { 
+                    offset: [0, 4] ,
+                } 
+            }
+        ],
+    }
 </script>
 
 
@@ -59,20 +77,12 @@
   class:readOnly
   class:disabled
   style="width: {width}"
+  use:popperRef
   >
   {#if label}
   <span class="input-label">{label}</span>
   {/if}
 
-  {#if tooltip}
-    <div ref="tooltipWrapper" class="button-tooltip-wrapper" >
-        <span
-        ref="tooltip"
-        class="button-tooltip bottom"
-        class:hover
-        >{ tooltip }</span >
-    </div>
-  {/if}
 
   <div class="input-wrapper" 
     class:flat class:filled 
@@ -128,6 +138,13 @@
   </div>
   <!-- <div v-if="error" class="input-error-message">{{ error }}</div> -->
 </div>
+
+{#if tooltip && hover}
+  <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
+    {tooltip}
+    <div id="arrow" data-popper-arrow />
+  </div>
+{/if}
 
 <style>
 .input-container.readOnly {
@@ -272,32 +289,12 @@
   padding-right: 5px;
 }
 
-/* Tooltips */
-.button-tooltip-wrapper {
-    position: absolute;
-    /* width: 100%;
-    left: 0; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    pointer-events: none;
-    font-size: 10px;
+#tooltip {
+  padding: 2px 4px;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
-.button-tooltip {
-    position: absolute;
-    width: fit-content;
-    height: fit-content;
-    padding: 2px 4px;
-    background-color: var(--tooltip-bg);
-    color: var(--tooltip-color);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-    top: 13px;
-    opacity: 0;
-}
-.button-tooltip.hover {
-    transition: all 160ms var(--quint) 0.4s;
-    opacity: 1;
-    top: 16px;
-}
+
 </style>
