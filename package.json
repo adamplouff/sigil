@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/adamplouff/sigil#readme",
   "devDependencies": {
+    "@popperjs/svelte": "^0.1.1",
     "starlette": "latest",
     "svelte": "^3.44.0",
     "svelte-check": "^2.7.1",
     "svelte-preprocess": "^4.10.6"
+  },
+  "dependencies": {
+    "svelte-file-dropzone": "^1.0.0"
   }
 }
