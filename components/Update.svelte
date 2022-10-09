@@ -10,18 +10,19 @@
   export let version = '1.0.0'
   export let name = ''
   export let url = 'https://battleaxe.dev/iteration/'
+  export let color = 'var(--color-selection)'
 
   let updateAvailable = false
   let expanded = false
 
-  let details = ''
-  let downloadURL = ''
+  let details = 'Update data unavailable'
+  let downloadURL = 'https://battleaxe.co'
 
   onMount(() => {
-    versionCheck()
-
+    
     setTimeout(() => {
-      updateAvailable = true
+      // updateAvailable = true
+      versionCheck()
     }, 1000);
   })
 
@@ -32,7 +33,7 @@
     .then((response) => response.json())
     .then((data) => {
       updateData = data?.[`${name}`]
-      console.log(updateData)
+      // console.log(updateData)
       const availableVersion = updateData?.version
 
       if (versionCompare(availableVersion, version) > 0) {
@@ -75,63 +76,102 @@
       return -1;
     }
 
-  // Otherwise they are the same.
-  return 0;
-}
+    // Otherwise they are the same.
+    return 0;
+  }
 </script>
 
-<div class="update" 
-  class:updateAvailable
-  class:expanded>
-  <div class="click" on:click={() => expanded = !expanded}>{ (expanded) ? 'x': '↓'}</div>
-  <div>
-    {#if expanded}
-      <div in:fade class="details">
-        {@html details}
-        <Button on:click={() => openLinkInBrowser(downloadURL)}>Download</Button>
-      </div>
-    {/if}
+<div class="update" class:updateAvailable>
+  <div class="scrim" class:expanded on:click={() => expanded = false}/>
+  <div class="tab" class:expanded on:click={() => expanded = !expanded}
+    style="background: linear-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
+    <div>{ (expanded) ? 'x': '↓'}</div>
+  </div>
+  <div class="detail-page" class:expanded style="background: {color}">
+    <Button on:click={() => openLinkInBrowser(downloadURL)}>Download</Button>
+    <div class="details">
+      {@html details}
+    </div>
   </div>
 </div>
 
 <style>
+/* .scrim {
+  transition: all 0.25s cubic-bezier(.2,.07,.62,1);
+} */
+
+* {
+  transition: all 0.25s cubic-bezier(.2,.07,.62,1);
+}
 .update {
+  /* display: flex; */
   position: absolute;
-  display: flex;
   flex-direction: column;
   z-index: 10;
   top: 0;
-  right: 0;
-  background-color: var(--color-selection);
-  width: 0;
-  height: 0;
-  /* padding: 0; */
-  transition: all 0.25s cubic-bezier(.2,.07,.62,1);
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
   overflow: hidden;
-  padding: 8px;
+  pointer-events: none;
+  display: none;
 }
 .updateAvailable {
-  width: 10px;
-  height: 10px;
+  display: block;
 }
-.expanded {
-  width: calc(100vw - 32px);
-  height: calc(100vh - 32px);
+.scrim {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
 }
-.click {
-  /* background-color: brown; */
+.scrim.expanded {
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: all;
+}
+.tab {
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: right;
   margin-bottom: -24px;
   position: fixed;
-  top: 0;
   right: 0;
   z-index: 1;
+  top: calc(100vh - 36px);
+  pointer-events: all;
+}
+.tab > * {
+  font-size: 12px;
   padding: 8px;
+  width: 100%;
+  margin-top: 8px;
+  text-align: right;
+}
+.expanded.tab {
+  top: 0;
+}
+.detail-page {
+  position: fixed;
+  top: 100vh;
+  height: calc(100vh - 64px);
+  width: -webkit-fill-available;
+  /* background-color: color; */
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: scroll;
+  pointer-events: all;
+}
+.expanded.detail-page {
+  top: 36px;
 }
 .details {
-  width: 100%;
-  /* width: calc(100vw - 58px); */
+  overflow-y: scroll;
+  padding-bottom: 16px;
+  /* display: none; */
 }
 
 </style>
