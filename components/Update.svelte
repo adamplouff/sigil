@@ -11,8 +11,10 @@
   export let name = ''
   export let url = 'https://battleaxe.dev/iteration/'
   export let color = 'var(--color-selection)'
+  export let locale = 'en'
 
   let updateAvailable = false
+  let newVersion = '0'
   let expanded = false
 
   let details = 'Update data unavailable'
@@ -38,8 +40,9 @@
 
       if (versionCompare(availableVersion, version) > 0) {
         updateAvailable = true
-        details = updateData.details
+        details = updateData[locale] || updateData.en
         downloadURL = updateData.downloadURL
+        newVersion = availableVersion
       }
     })
   }
@@ -82,13 +85,15 @@
 </script>
 
 <div class="update" class:updateAvailable>
-  <div class="scrim" class:expanded on:click={() => expanded = false}/>
+  <div class="update-scrim" class:expanded on:click={() => expanded = false}/>
   <div class="tab" class:expanded on:click={() => expanded = !expanded}
     style="background: linear-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
     <div>{ (expanded) ? 'x': '↓'}</div>
   </div>
   <div class="detail-page" class:expanded style="background: {color}">
-    <Button on:click={() => openLinkInBrowser(downloadURL)}>Download</Button>
+    <div style="width: calc(100% - 32px)">
+      <Button on:click={() => openLinkInBrowser(downloadURL)}>Download {newVersion}</Button>
+    </div>
     <div class="details">
       {@html details}
     </div>
@@ -96,7 +101,7 @@
 </div>
 
 <style>
-/* .scrim {
+/* .update-scrim {
   transition: all 0.25s cubic-bezier(.2,.07,.62,1);
 } */
 
@@ -107,7 +112,7 @@
   /* display: flex; */
   position: absolute;
   flex-direction: column;
-  z-index: 10;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100vw;
@@ -120,13 +125,13 @@
 .updateAvailable {
   display: block;
 }
-.scrim {
+.update-scrim {
   position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
 }
-.scrim.expanded {
+.update-scrim.expanded {
   background-color: rgba(0, 0, 0, 0.4);
   pointer-events: all;
 }
@@ -149,14 +154,22 @@
   margin-top: 8px;
   text-align: right;
 }
+.expanded.tab > * {
+  font-size: 12px;
+  padding: 8px;
+  width: 100%;
+  margin-top: -2px;
+  text-align: right;
+}
 .expanded.tab {
-  top: 0;
+  top: 16px;
+  background: none !important;
 }
 .detail-page {
   position: fixed;
   top: 100vh;
-  height: calc(100vh - 64px);
-  width: -webkit-fill-available;
+  height: calc(100vh - 48px);
+  width: calc(100vw - 16px);
   /* background-color: color; */
   display: flex;
   gap: 16px;
@@ -164,14 +177,27 @@
   padding: 16px;
   overflow-y: scroll;
   pointer-events: all;
+  text-align: left;
 }
 .expanded.detail-page {
-  top: 36px;
+  top: 16px;
 }
 .details {
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-bottom: 16px;
   /* display: none; */
+}
+.details::-webkit-scrollbar {
+  display: block;
+  background-color: rgba(0,0,0,0.1);
+  width: 10px;
+}
+.details::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.35);
+  border-radius: 15px;
+}
+.details::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.4)5;
 }
 
 </style>
