@@ -9,7 +9,7 @@
   onMount(() => {
     if (prefsId?.length) {
       util.checkLocalPrefs();
-      let lastState = util.checkPrefsFor(prefsId, 'fold');
+      let lastState = util.checkPrefsFor(prefsId, 'styleFolder');
       if (lastState === null) {
         isOpen = open
       } else {
@@ -22,9 +22,9 @@
 
   const toggle = () => {
     isOpen = !isOpen
-
     if (prefsId) {
       util.setPrefsById(prefsId, isOpen, 'styleFolder')
+      console.log('toggle', prefsId);
     }
   }
 </script>

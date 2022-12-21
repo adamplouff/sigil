@@ -1,27 +1,41 @@
 <script>
-  import { onMount, createEventDispatcher } from 'svelte'  
+  import { onMount, createEventDispatcher } from 'svelte'
   import { fade } from 'svelte/transition';
   import util from './mixinPrefs.js'
+  import NumberSpinner from "svelte-number-spinner";    // https://www.npmjs.com/package/svelte-number-spinner/v/0.7.9
 
   const dispatch = createEventDispatcher();
 
   export let value
-  export let label = ''
-  export let placeholder = ''
+  export let label = false
+  export let row = false
   export let readOnly = false
   export let disabled = false
-  export let flat = false
-  export let filled = false
+  // export let flat = false
+  // export let filled = false
+  export let outline = false
   export let prefix = false
+  export let suffix = false
   export let truncate = false
   export let uppercase = false
   export let width = null
-  // export let margin = ''
+  export let margin = ''
   export let autoSelect = false
-  export let autoFocus = false
   export let tooltip = ''
   export let type = 'text'
   export let prefsId = null
+  export let placeholder = ''
+
+  // number options
+  export let min = 0
+  export let max = 1000
+  export let step = 1
+
+  const numberOptions = {
+    min,
+    max,
+    step,
+  }
 
   onMount(() => {
     if (prefsId?.length) {
@@ -29,16 +43,20 @@
       let lastState = util.checkPrefsFor(prefsId, 'input');
       if (lastState !== null) {
         value = lastState.value;
+          
+        dispatch('change', value)
       }
     } else {
       value = value
     }
   })
 
-  const changeValue = (evt) => {
+  const changeValue = () => {
+    // console.log('change');
     if (prefsId) {
       util.setPrefsById(prefsId, value, 'input')
     }
+    dispatch('change', value)
   }
 
   $: hover = false
@@ -51,29 +69,17 @@
 
     if (autoSelect)
       evt.target.select()
+    
   }
-  const blur = (evt) => {
+  const blur = () => {
     hasFocus = false
   }
-  const handleKeypress = (evt) => {
-    if (evt.key == 'Enter') {
+  const onKeyPress = (e) => {
+    if (e.charCode === 13) {
       dispatch('submit')
-    }
-    if (evt.key == 'Escape') {
-      console.log('esc');
-      dispatch('cancel')
-    }
-  }
-
-  ///// autofocust input
-  function inputFocus(el){
-    if (autoFocus) {
-      el.focus()
-      hasFocus = true
-
-      if (autoSelect)
-        el.select()
-    }
+    } else {
+      dispatch('change', value)
+    }   
   }
 
   import { createPopperActions } from 'svelte-popperjs';
@@ -95,7 +101,7 @@
 </script>
 
 
-<div 
+<!-- <div 
   class="input-container"
   class:readOnly
   class:disabled
@@ -114,7 +120,7 @@
     <div class="input-contents" class:hover>
       <div class="input-inside" class:active class:filled class:flat>
         {#if prefix}
-        <span>{ prefix }</span>
+        <div>{ prefix }</div>
         {/if}
 
         {#if type == 'number'}
@@ -126,14 +132,13 @@
           class:uppercase
           class:active
           class:flat class:filled
-
+          
           on:input={ changeValue }
           on:focus={ focus }
           on:blur={ blur }
           />
-        {:else}
-        <input 
-          use:inputFocus
+          {:else}
+          <input 
           class="input-value" 
           bind:value={value}
           class:truncate
@@ -145,14 +150,18 @@
           on:input={ changeValue }
           on:focus={ focus }
           on:blur={ blur }
-          on:keydown={ handleKeypress }
+          on:keypress={ onKeyPress }
           />
+          {/if}
+
+          {#if suffix}
+          <div>{ suffix }</div>
           {/if}
       </div>
     </div>
   </div>
 
-  <!-- <div class="input-indicator-wrapper" >
+  <div class="input-indicator-wrapper" >
     {#if !filled}
     <div
       class="input-indicator"
@@ -161,8 +170,47 @@
       style="background: {indicatorColor}"
       />
     {/if}
-  </div> -->
-  <!-- <div v-if="error" class="input-error-message">{{ error }}</div> -->
+  </div>
+</div> -->
+
+<div
+class="input-container"
+class:readOnly
+class:disabled
+class:outline
+class:row
+use:popperRef
+>
+{#if label}
+<div class="input-label">{ label }</div>
+{/if}
+
+{#if prefix}
+<span>{ prefix }</span>
+{/if}
+
+<div
+  on:mouseenter={() => hover = true}
+  on:mouseleave={() => hover = false}
+>
+  {#if type == 'number'}
+    <NumberSpinner 
+      bind:value 
+      mainStyle={`width: ${ width }`}
+      class="number-spinner-custom"
+      options={ numberOptions }
+      on:input={ changeValue }
+      on:focus={ focus }
+    />
+  {:else}
+
+  {/if}
+
+{#if suffix}
+<span>{ suffix }</span>
+{/if}
+</div>
+
 </div>
 
 {#if tooltip && hover}
@@ -173,6 +221,48 @@
 {/if}
 
 <style>
+
+:global(.number-spinner-custom) {
+  display: inline-block;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+  width: 60px;
+  height: 16px;
+  margin: 0px;
+  padding: 3px;
+  background: none;
+  color: var(--default-color);
+  border-radius: 0px;
+  border: none;
+  text-align: right;
+  cursor: initial;
+  font-size: 11px;
+}
+.outline :global(.number-spinner-custom) {
+  background: var(--color-dropdown);
+  border: 1px solid var(--color-input-border);
+  height: 18px;
+  border-radius: 2px;
+}
+/* when dragging */
+:global(.number-spinner-custom):focus {
+  outline:none;
+}
+:global(.number-spinner-custom.editing) {
+  background-color: var(--color-input-focus) !important;
+  color: var(--color-input);
+  border: 1px solid var(--color-input-focus-border);
+  border-radius: 2px;
+  outline:none;
+}
+:global(.number-spinner-custom.dragging) {
+  color: var(--color-input-focus-border);
+  border-bottom: 1px solid #4892cb;
+}
+:global(.number-spinner-custom)::selection {
+  background: rgba(72, 146, 203, 0.25);
+}
+
 .input-container.readOnly {
   pointer-events: none;
 }
@@ -192,18 +282,26 @@
 .input-label {
   font-size: 10px;
   position: relative;
-  height: 3px;
-  top: -4px;
+  text-align: left;
+  width: max-content;
+  /* height: 3px; */
+  /* top: -4px; */
 }
-.input-container:not(.noLabel) {
+/* .input-container:not(.noLabel) {
   margin: 6px 0px 10px 0px;
-}
+} */
 .input-container {
-  padding: 1px 4px;
+  /* padding: 1px 4px; */
   width: calc(100% - 8px);
-  font-size: 12px;
+  font-size: 10px;
   font-family: "Open Sans", sans-serif;
   color: var(--color-icon);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.input-container.row {
+  flex-direction: row;
 }
 .input-wrapper {
   display: flex;
@@ -232,9 +330,6 @@
   text-overflow: ellipsis;
 }
 .input-value {
-  background-color: var(--color-dropdown);
-  border: 1px solid var(--color-dropdown-border);
-  border-radius: 2px;
   margin: 0px;
   padding: 2px 0px 2px 4px;
   overflow: visible;
@@ -246,25 +341,17 @@
   color: var(--color-input-text);
   border-radius: 2px 2px 0px 0px;
 }
-.input-value:focus {
-  color: var(--color-input-focus-text);
-}
 .uppercase {
   text-transform: uppercase;
 }
 .input-inside:hover:not(.active) {
   color: var(--default-color) !important;
 }
-.input-inside {
-  background: var(--color-dropdown);
-  border: 1px solid var(--color-dropdown-border);
-  border-radius: 3px;
-}
-.input-inside.active:not(.flat) {
+.input-inside.active:not(.filled):not(.flat) {
   background: var(--color-input-focus);
-  /* color: var(--color-input-text); */
+  color: var(--color-input-text);
 }
-/* .input-inside.filled.idle {
+.input-inside.filled.idle {
   background: var(--color-input);
   border: 1.5px solid var(--color-input-border) !important;
   color: var(--color-input-text) !important;
@@ -288,9 +375,12 @@
   padding: 4px;
 }
 .input-indicator {
+  /* background: var(--color-selection); */
   transition: all 200ms var(--quad) 20ms;
   width: 100%;
   height: 1px;
+  /* position: absolute;
+	bottom: 0px; */
 }
 .input-indicator-wrapper {
   width: 100%;
@@ -321,7 +411,7 @@
 }
 .input-append-icon {
   padding-right: 5px;
-} */
+}
 
 #tooltip {
   padding: 2px 4px;

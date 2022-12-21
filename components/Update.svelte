@@ -21,11 +21,10 @@
   let downloadURL = 'https://battleaxe.co'
 
   onMount(() => {
-    
-    setTimeout(() => {
-      // updateAvailable = true
-      versionCheck()
-    }, 1000);
+    if (navigator.onLine)
+      setTimeout(() => {
+        versionCheck()
+      }, 1000)
   })
 
   //// update check
@@ -35,7 +34,7 @@
     .then((response) => response.json())
     .then((data) => {
       updateData = data?.[`${name}`]
-      // console.log(updateData)
+      console.log(updateData)
       const availableVersion = updateData?.version
 
       if (versionCompare(availableVersion, version) > 0) {
@@ -106,7 +105,7 @@
 } */
 
 * {
-  transition: all 0.25s cubic-bezier(.2,.07,.62,1);
+  transition: all 0.2s cubic-bezier(.2,.07,.62,1);
 }
 .update {
   /* display: flex; */

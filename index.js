@@ -12,6 +12,11 @@ import TreeView from './components/TreeView.svelte'
 import StyleFolder from './components/StyleFolder.svelte'
 import Menus from './components/Menus.svelte'
 import Dropzone from './components/Dropzone.svelte'
+import ColorPicker from './components/Color-Picker.svelte'
+import Toggle from './components/Toggle.svelte'
+import Auth from './components/Auth.svelte'
+import Modal from './components/Modal.svelte'
+import Select from './components/Select.svelte'
 
 export {
     Panel,
@@ -27,4 +32,9 @@ export {
     StyleFolder,
     Menus,
     Dropzone,
+    ColorPicker,
+    Toggle,
+    Auth,
+    Modal,
+    Select,
 }

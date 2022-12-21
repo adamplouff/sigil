@@ -1,5 +1,8 @@
 <script>
     import { fade } from 'svelte/transition';
+    import {
+        openLinkInBrowser,
+    } from "../lib/utils";
 
     export let uppercase = false
     export let block = false
@@ -15,6 +18,10 @@
     export let color = ''
     export let label = ''
     export let tooltip = ''
+    export let goto = null
+    export let mini = false
+    export let center = false
+
     let colorHover = (bg !== '')
 
     $: hover = false
@@ -36,11 +43,16 @@
         ],
     }
 
+    const handleClick = () => {
+        if (goto) {
+            openLinkInBrowser(goto)
+        }
+    }
 </script>
 
 <div 
     class="button" 
-    on:click 
+    on:click
     class:uppercase
     class:block
     class:tall 
@@ -52,9 +64,12 @@
     class:disabled
     class:colorHover
     class:toolbar
-    style={`background-color: ${bg}; color: ${color}`}
+    class:mini
+    class:center
+    style={`background-color: ${bg}; color: ${color};`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
+    on:click={ () => handleClick() }
     use:popperRef
 >
 
@@ -81,10 +96,11 @@
     justify-content: center;
     align-items: center;
     flex-shrink: inherit;
-    padding: 4px 6px;
+    padding: 6px;
     border-radius: 2px;
-    height: 24px;
+    /* height: 24px; */
     white-space: nowrap;
+    /* transition: width 0.2s, height 4s; */
 }
 .button:hover {
     background: var(--button-hover);
@@ -107,7 +123,11 @@
 }
 .primary {
     background: rgba(160, 160, 160, 0.3);
-    border-color: var(--button-primary-border);
+    /* border-color: var(--button-primary-border); */
+    border-color: rgba(160, 160, 160, 0.5);
+}
+.primary:hover {
+    background: rgba(160, 160, 160, 0.4);
 }
 .flat,
 .toolbar {
@@ -183,5 +203,11 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
-
+.mini {
+    width: fit-content;
+    padding: 4px 8px;
+}
+.center {
+    margin: auto;
+}
 </style>

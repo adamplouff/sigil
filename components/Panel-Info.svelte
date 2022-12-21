@@ -40,6 +40,7 @@
 <style>
 .panel-info {
   text-align: left;
+  margin-top: 16px;
 }
 .panel-info > p {
   margin: 3px 0;
