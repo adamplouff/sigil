@@ -51,7 +51,7 @@
 {#if open}
   <div 
     class="scrim" 
-    style={ `height: ${ scrimTop + menuHeight }px` }
+    style={ `height: max(${ scrimTop + menuHeight }px, 100%)` }
     on:click={ () => open = false } />
 {/if}
 <div
@@ -280,6 +280,6 @@ ul {
   height: 120%;
   z-index: 1;
   text-align: left;
-  background: rgba(0,0,0,0.5);
+  /* background: rgba(0,0,0,0.5); */
 }
 </style>
