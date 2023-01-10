@@ -14,7 +14,11 @@
 	export let prefsId = null
 
 	$: hover = false
-	let isEnabled
+	let isEnabled = false
+
+	$: {
+		isEnabled = state
+	}
 
 	onMount(() => {
     if (prefsId?.length) {
@@ -70,7 +74,7 @@
   flex-wrap: nowrap;
   align-items: center;
 	margin: 4px auto;
-	margin-bottom: 16px;
+	/* margin-bottom: 16px; */
 }
 .toggle-item {
   box-sizing: border-box;
