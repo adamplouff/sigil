@@ -121,11 +121,12 @@ lang.fr.loading = `Chargement...`
   <div class="message">
     { message }
   </div>
-  <div class="input-row">
+  <div class="input-row" style="padding: 0 4px">
     <Input 
       placeholder={ _lang.authPlaceholder.toUpperCase() } 
       bind:value={ key }
       on:submit={ () => dispatch('submit', key) }
+      width="100%"
       uppercase
       autoSelect
       truncate

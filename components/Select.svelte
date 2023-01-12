@@ -6,7 +6,7 @@
   ]
   export let label = ''
   export let active = 0
-  export let width = 100
+  export let width = '100%'
   export let prefsId = null
 
   const dispatch = createEventDispatcher();
@@ -66,11 +66,11 @@
   {/if}
 
   <div class="dropdown-container"
-    style={ `width: ${width}px` }
+    style={ `width: ${width}` }
   >
     <div class="dropdown-active">{ items[activeIndex] }</div>
 
-    <div>
+    <div class="down-arrow">
       <svg viewBox="0 0 24 24">
         <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
       </svg>
@@ -127,12 +127,15 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  /* margin: 6px auto; */
+  margin: 6px 0px 10px 0px;
 }
 svg {
   fill: var(--color-icon);
   width: 15px;
   pointer-events: none;
+}
+.down-arrow {
+  display: contents;
 }
 .dropdown-label {
   /* width: 100%; */
@@ -153,14 +156,16 @@ svg {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-top: -2px;
 }
 .dropdown-container {
   box-sizing: border-box;
   position: relative;
   /* width: 100%; */
   min-width: 60px;
-  height: 20px;
-  padding: 0px 2px 0 8px;
+  height: 18px;
+  padding: 0px 2px 0 6px;
+  font-size: 11px;
   display: flex;
   justify-content: space-between;
   align-items: center;

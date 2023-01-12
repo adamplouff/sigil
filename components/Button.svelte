@@ -3,6 +3,7 @@
     import {
         openLinkInBrowser,
     } from "../lib/utils";
+    import Icon from './Icon.svelte';
 
     export let uppercase = false
     export let block = false
@@ -21,6 +22,7 @@
     export let goto = null
     export let mini = false
     export let center = false
+    export let icon = null
 
     let colorHover = (bg !== '')
 
@@ -66,14 +68,20 @@
     class:toolbar
     class:mini
     class:center
+    class:icon-button={!label && icon}
     style={`background-color: ${bg}; color: ${color};`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
     on:click={ () => handleClick() }
     use:popperRef
 >
+    {#if icon}
+        <Icon name="{icon}" size="{18}" />
+    {/if}
 
-    {label}
+    {#if label}
+        {label}
+    {/if}
     <slot />
 </div>
 
@@ -100,6 +108,7 @@
     border-radius: 2px;
     /* height: 24px; */
     white-space: nowrap;
+    gap: 8px
     /* transition: width 0.2s, height 4s; */
 }
 .button:hover {
@@ -195,7 +204,9 @@
     opacity: 0.4;
     pointer-events: none;
 }
-
+.icon-button {
+    min-width: 32px;
+}
 #tooltip {
     padding: 2px 4px;
     background-color: var(--tooltip-bg);

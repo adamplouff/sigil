@@ -9,7 +9,8 @@ import PanelInfo from './components/Panel-Info.svelte'
 import Footer from './components/Footer.svelte'
 import Update from './components/Update.svelte'
 import TreeView from './components/TreeView.svelte'
-import StyleFolder from './components/StyleFolder.svelte'
+// import FolderNode from './components/FolderNode.svelte'
+import FileNode from './components/FileNode.svelte'
 import Menus from './components/Menus.svelte'
 import Dropzone from './components/Dropzone.svelte'
 import ColorPicker from './components/Color-Picker.svelte'
@@ -17,6 +18,7 @@ import Toggle from './components/Toggle.svelte'
 import Auth from './components/Auth.svelte'
 import Modal from './components/Modal.svelte'
 import Select from './components/Select.svelte'
+import Icon from './components/Icon.svelte'
 
 export {
     Panel,
@@ -29,7 +31,8 @@ export {
     Footer,
     Update,
     TreeView,
-    StyleFolder,
+    // FolderNode,
+    FileNode,
     Menus,
     Dropzone,
     ColorPicker,
@@ -37,4 +40,5 @@ export {
     Auth,
     Modal,
     Select,
+    Icon,
 }

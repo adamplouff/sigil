@@ -199,8 +199,8 @@
   margin: 6px 0px 10px 0px;
 }
 .input-container {
-  padding: 1px 4px;
-  width: calc(100% - 8px);
+  /* padding: 1px 4px; */
+  /* width: calc(100% - 8px); */
   font-size: 12px;
   font-family: "Open Sans", sans-serif;
   color: var(--color-icon);
@@ -236,14 +236,15 @@
   border: 1px solid var(--color-dropdown-border);
   border-radius: 2px;
   margin: 0px;
-  padding: 2px 0px 2px 4px;
+  padding: 2px 0px 2px 6px;
   overflow: visible;
   background: transparent;
   outline: none;
   border: none !important;
   border-style: solid;
   width: 100%;
-  color: var(--color-input-text);
+  color: var(--color-btn-pill-border);
+  /* color: var(--color-input-text); */
   border-radius: 2px 2px 0px 0px;
 }
 .input-value:focus {

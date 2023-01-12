@@ -26,7 +26,7 @@
 
 
 {#if show}
-<div class="overlay" in:fade={{duration:140}} out:fade={{duration:80}}>
+<div class="overlay" in:fade={{duration:120}} out:fade={{duration:80}}>
   <div class="scrim" on:click={ closeModal } />
   <div class="modal">
 
@@ -40,13 +40,13 @@
     
     {#if confirm}
     <div class="buttons">
-      <Button block label={ confirmText.cancel } on:click={ closeModal } />
-      <Button primary block label={ confirmText.confirm } on:click={ confirmModal } />
+      <Button label={ confirmText.cancel } on:click={ closeModal } />
+      <Button primary label={ confirmText.confirm } on:click={ confirmModal } />
     </div>
     {:else}
     <div class="buttons">
-      <Button block label={ confirmText.cancel } on:click={ closeModal } />
-      <Button primary block label={ confirmText.confirm } on:click={ confirmModal } />
+      <Button label={ confirmText.cancel } on:click={ closeModal } />
+      <Button primary label={ confirmText.confirm } on:click={ confirmModal } />
     </div>
     {/if}
 
@@ -61,7 +61,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 20;
   text-align: left;
 }
 .scrim {
@@ -70,12 +70,14 @@
   background: rgba(0,0,0,0.5);
 }
 .modal {
-  min-width: 50%;
-  max-width: 90%;
+  width: calc(100% - 70px);
+  max-width: 300px;
   position: absolute;
   top: 45%;
   left: 50%;
   background: var(--color-bg);
+  border: 1px solid var(--color-dropdown-hover);
+  border-radius: 4px;
   padding: 16px;
   transform: translate(-50%, -50%);
 }
@@ -85,6 +87,7 @@
 .buttons {
   display: flex;
   gap: 4px;
+  flex-wrap: wrap;
   /* min-width: 50%; */
 }
 .slot {

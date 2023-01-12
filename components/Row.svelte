@@ -1,12 +1,14 @@
 <script>
 	export let fill = false
 	export let center = false
+	export let column = false
 </script>
 
 
 <div class="row" 
 	class:fill
 	class:center
+	class:column
 	>
     <slot/>
 </div>
@@ -19,6 +21,9 @@
 	flex-wrap: wrap;
 	margin-bottom: 4px;
 	gap: 4px;
+}
+.column {
+	flex-direction: column;
 }
 .center {
 	justify-content: center;
