@@ -82,8 +82,8 @@
         {#if label}
             {label}
         {/if}
+        <slot />
     </div>
-    <slot />
 </div>
 
 {#if tooltip && hover}
