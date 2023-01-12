@@ -58,7 +58,6 @@
     class:uppercase
     class:block
     class:tall 
-    class:left
     class:right
     class:primary
     class:flat
@@ -75,13 +74,15 @@
     on:click={ () => handleClick() }
     use:popperRef
 >
-    {#if icon}
-        <Icon name="{icon}" size="{18}" />
-    {/if}
+    <div class="button-content" class:left>
+        {#if icon}
+            <Icon name="{icon}" size="{18}" />
+        {/if}
 
-    {#if label}
-        {label}
-    {/if}
+        {#if label}
+            {label}
+        {/if}
+    </div>
     <slot />
 </div>
 
@@ -103,16 +104,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: inherit;
+    /* flex-shrink: inherit; */
     padding: 6px;
     border-radius: 2px;
     /* height: 24px; */
     white-space: nowrap;
-    gap: 8px
+    gap: 8px;
+    max-width: -webkit-fill-available;
     /* transition: width 0.2s, height 4s; */
 }
 .button:hover {
     background: var(--button-hover);
+}
+.button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .uppercase {
     text-transform: uppercase;

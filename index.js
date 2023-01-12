@@ -9,7 +9,6 @@ import PanelInfo from './components/Panel-Info.svelte'
 import Footer from './components/Footer.svelte'
 import Update from './components/Update.svelte'
 import TreeView from './components/TreeView.svelte'
-// import FolderNode from './components/FolderNode.svelte'
 import FileNode from './components/FileNode.svelte'
 import Menus from './components/Menus.svelte'
 import Dropzone from './components/Dropzone.svelte'
@@ -31,7 +30,6 @@ export {
     Footer,
     Update,
     TreeView,
-    // FolderNode,
     FileNode,
     Menus,
     Dropzone,
