@@ -50,10 +50,12 @@
     hasFocus = true
 
     if (autoSelect)
+      evt.target.selectionStart = 0
+      evt.target.selectionEnd = 0
       evt.target.select()
-  }
-  const blur = (evt) => {
-    hasFocus = false
+    }
+    const blur = (evt) => {
+      hasFocus = false
   }
   const handleKeypress = (evt) => {
     if (evt.key == 'Enter') {
@@ -65,16 +67,16 @@
     }
   }
 
-  ///// autofocust input
-  function inputFocus(el){
-    if (autoFocus) {
-      el.focus()
-      hasFocus = true
+  ///// autofocus input
+  // function inputFocus(el){
+  //   if (autoFocus) {
+  //     el.focus()
+  //     hasFocus = true
 
-      if (autoSelect)
-        el.select()
-    }
-  }
+  //     if (autoSelect)
+  //       el.select()
+  //   }
+  // }
 
   import { createPopperActions } from 'svelte-popperjs';
     const [popperRef, popperContent] = createPopperActions({
@@ -133,7 +135,6 @@
           />
         {:else}
         <input 
-          use:inputFocus
           class="input-value" 
           bind:value={value}
           class:truncate
