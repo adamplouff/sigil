@@ -114,6 +114,7 @@ lang.de.loading = 'Laden...'
 lang.ru.loading = 'Загрузка...'
 lang.zh.loading = '正在加载...'
 lang.fr.loading = `Chargement...`
+
 </script>
 <div class="auth"
   class:locked>
@@ -122,24 +123,19 @@ lang.fr.loading = `Chargement...`
     { message }
   </div>
   <div class="input-row" style="padding: 0 4px">
-    <Input 
-      placeholder={ _lang.authPlaceholder.toUpperCase() } 
-      bind:value={ key }
-      on:submit={ () => dispatch('submit', key) }
-      width="100%"
-      uppercase
-      autoSelect
-      truncate
-      />
+    <div class="input-field">
+      <Input 
+        placeholder={ _lang.authPlaceholder.toUpperCase() } 
+        bind:value={ key }
+        on:submit={ () => dispatch('submit', key) }
+        width="100%"
+        uppercase
+        autoSelect
+        truncate
+        />
+    </div>
     <div class="unlock"> 
-      <Button block flat on:click={ () => dispatch('submit', key) }>
-        <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M463 237C463 183.981 420.019 141 367 141C313.981 141 271 183.981 271 237C271 290.019 313.981 333 367 333C420.019 333 463 290.019 463 237ZM495 237C495 166.308 437.692 109 367 109C296.308 109 239 166.308 239 237C239 307.692 296.308 365 367 365C437.692 365 495 307.692 495 237Z" fill="#B2B2B2"/>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M317.113 264.26L393.113 187.26L415.888 209.739L339.888 286.739L317.113 264.26Z" fill="#B2B2B2"/>
-          <path d="M254 241H176M16 241H48M48 241V302M48 241H112M112 241V333.5M112 241H176M176 241V302" stroke="#B2B2B2" stroke-width="32"/>
-          </svg>          
-          
-      </Button>
+      <Button icon="key" block flat on:click={ () => dispatch('submit', key) } />
     </div>
   </div>
   
@@ -149,7 +145,7 @@ lang.fr.loading = `Chargement...`
   </div>
 </div>
 {#if locked}
-<!-- <div class="scrim"></div> -->
+<div class="scrim"></div>
 {/if}
 
 <style>
@@ -162,9 +158,9 @@ lang.fr.loading = `Chargement...`
   top: 6px;
   left: 7px;
   background: var(--color-bg);
-  width: calc(100% - 20px);
+  width: calc(100% - 26px);
   height: 100vh;
-  padding-right: 6px;
+  padding: 0 6px;
   border-radius: 4px;
   margin-top: 100vh;
   box-shadow: 0 1px 14px rgba(0, 0, 0, 0.8)  ; 
@@ -200,15 +196,27 @@ input {
 }
 .input-row {
   display: flex;
+  gap: 4px;
+  margin: 8px auto;
+}
+.input-field {
+  width: calc(100% - 32px);
+}
+:global(.input-field .input-value) {
+  padding: 8px 4px;
+}
+:global(.input-field .input-container) {
+  margin: 0 !important;
 }
 .unlock {
-  display: flex;
-  width: 36px;
-  height: 32px;
+  /* display: flex;
+  margin-right: 14px;
+  width: 28px;
+  height: 32px; */
 }
 .unlock .button {
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
+  /* width: -webkit-fill-available;
+  height: -webkit-fill-available; */
 }
 
 
