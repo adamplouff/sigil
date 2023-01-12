@@ -40,8 +40,8 @@
     
     {#if confirm}
     <div class="buttons">
-      <Button label={ confirmText.cancel } on:click={ closeModal } />
-      <Button primary label={ confirmText.confirm } on:click={ confirmModal } />
+      <Button block label={ confirmText.cancel } on:click={ closeModal } />
+      <Button block primary label={ confirmText.confirm } on:click={ confirmModal } />
     </div>
     {:else}
     <div class="buttons">
@@ -87,7 +87,6 @@
 .buttons {
   display: flex;
   gap: 4px;
-  flex-wrap: wrap;
   /* min-width: 50%; */
 }
 .slot {
@@ -95,5 +94,13 @@
 }
 .slot:empty {
   margin-top: 0;
+}
+@media (max-width: 230px) {
+  :global(.row) {
+    /* flex-direction: column !important; */
+  }
+  .buttons {
+    flex-wrap: wrap;
+  }
 }
 </style>
