@@ -4,11 +4,13 @@
   const dispatch = createEventDispatcher()
 
   export let list
-
+// console.log('TreeView', list);
   let selectedPath = ''
 
   const dblClick = (path) => {
-    dispatch('dblClick', path.detail)
+    // console.log('path', path.detail);
+    // console.log('path replace', path.detail.replace(/\\/g, '\\'));
+    dispatch('dblClick', path.detail.replace(/\\/g, '\\\\'))
   } 
   
 </script>
@@ -20,6 +22,7 @@
   <FileNode 
     item={ style } 
     { selectedPath }
+    prefsId={ style.path }
     on:select={ (path) => selectedPath = path.detail }
     on:dblClick={ (path) => dblClick(path) }
   />

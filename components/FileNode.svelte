@@ -8,9 +8,10 @@
 
   export let item
   export let selectedPath
+  export let altType = '_bend'
   $: selected = selectedPath == item.path
   let isOpen
-  let prefsId
+  export let prefsId
 
   onMount(() => {
     if (prefsId?.length) {
@@ -54,7 +55,7 @@
 
   <div class="indent {isOpen ? '' : 'isClosed'}">
     {#each item.children as child}
-    <svelte:self { select } { dblClick } { selectedPath } item={ child } />
+    <svelte:self { select } { dblClick } { selectedPath } prefsId={ child.path } item={ child } />
     {/each}
   </div>
   
@@ -67,11 +68,15 @@
     on:dblclick={ () => dblClick(item) }
     >
     <div class="file-name">
+      {#if item.name.includes(altType)}
+      <Icon name="triangle-up" color="skyblue" size={ 7 } />
+      {:else}
       <Icon name="circle-dot" size={ 7 } />
+      {/if}
       <!-- <div class:hide={ !selected }> <Icon name="circle-dot" size={ 7 } color="skyblue"/> </div>
       <div class:hide={ selected }> <Icon name="circle-dot" size={ 7 } /> </div> -->
       <span>
-        { item.name.replace(/.ffx/i, '') }
+        { item.name.replace(/.ffx/i, '').replace(altType, '') }
       </span>
     </div>
 
@@ -93,8 +98,9 @@
     display: flex;
     align-items: baseline;
     gap: var(--gap);
-    margin-right: 1px;
+    margin-right: 2px;
     /* border-bottom: 1px solid #333; */
+    padding-left: 1.5px;
   }
   .list-item.file {
     justify-content: space-between;
@@ -109,9 +115,10 @@
     width: 10px;
     /* margin-right: 2px; */
     text-align: center;
+    margin-right: -2px;
   }
   .indent {
-    margin-left: calc(10px + var(--gap));
+    margin-left: calc(8px + var(--gap));
   }
   .apply-style {
     float: right;
