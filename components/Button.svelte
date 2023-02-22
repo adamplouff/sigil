@@ -23,6 +23,8 @@
     export let mini = false
     export let center = false
     export let icon = null
+    export let iconSize = 18
+    export let height = null
 
     let colorHover = (bg !== '')
 
@@ -68,7 +70,7 @@
     class:mini
     class:center
     class:icon-button={!label && icon}
-    style={`background-color: ${bg}; color: ${color};`}
+    style={`background-color: ${bg}; color: ${color}; height: ${height}`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
     on:click={ () => handleClick() }
@@ -76,11 +78,11 @@
 >
     <div class="button-content" class:left>
         {#if icon}
-            <Icon name="{icon}" size="{18}" />
+            <Icon name="{icon}" size="{ iconSize }" />
         {/if}
 
         {#if label}
-            {label}
+            <span>{ label }</span>
         {/if}
         <slot />
     </div>
@@ -102,7 +104,7 @@
     color: var(--button-color);
     border: 1px solid transparent;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     /* flex-shrink: inherit; */
     padding: 6px;
@@ -121,8 +123,10 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    /* overflow: hidden; */
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .uppercase {
     text-transform: uppercase;
@@ -214,7 +218,7 @@
     opacity: 0.4;
     pointer-events: none;
 }
-.icon-button {
+.icon-button:not(.mini) {
     min-width: 32px;
 }
 #tooltip {
@@ -226,7 +230,10 @@
 }
 .mini {
     width: fit-content;
-    padding: 4px 8px;
+    padding: 0 !important;
+    height: 14px !important;
+    width: 14px !important;
+    margin: auto 0;
 }
 .center {
     margin: auto;
