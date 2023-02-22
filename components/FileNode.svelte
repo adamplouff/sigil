@@ -11,6 +11,7 @@
   export let altType = '_bend'
   $: selected = selectedPath == item.path
   let isOpen
+  let open = false
   export let prefsId
 
   onMount(() => {

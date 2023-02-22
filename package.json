@@ -1,6 +1,6 @@
 {
   "name": "sigil",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Svelte UI components for Bolt ",
   "main": "index.js",
   "scripts": {

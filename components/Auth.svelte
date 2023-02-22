@@ -185,10 +185,10 @@ input {
 }
 .message {
     font-family: 'Fira Mono', monospace;
-    width: 100%;
+    /* width: 100%; */
     text-align: center;
     display: block;
-    letter-spacing: .04em;
+    letter-spacing: .1em;
     line-height: 1.6em;
     padding: 0 8px;
     padding-top: 12px;

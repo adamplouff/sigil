@@ -3,11 +3,15 @@
   import { fade } from 'svelte/transition';
   import util from './mixinPrefs.js'
 
+  import NumberSpinner from "svelte-number-spinner";    // https://www.npmjs.com/package/svelte-number-spinner/v/0.7.9
+
+
   const dispatch = createEventDispatcher();
 
   export let value
   export let label = ''
   export let placeholder = ''
+  export let inputFirst = false
   export let readOnly = false
   export let disabled = false
   export let flat = false
@@ -15,6 +19,7 @@
   export let prefix = false
   export let truncate = false
   export let uppercase = false
+  export let totalwWdth = null
   export let width = null
   // export let margin = ''
   export let autoSelect = false
@@ -39,23 +44,34 @@
     if (prefsId) {
       util.setPrefsById(prefsId, value, 'input')
     }
+    dispatch('change', value)
   }
 
   $: hover = false
   let hasFocus
   $: active = hasFocus
-  $: indicatorColor = hasFocus ? 'var(--color-selection)' : 'var(--color-default)'
+  $: indicatorColor = hasFocus ? 'var(--text-accent)' : 'var(--color-default)'
 
   const focus = (evt) => {
     hasFocus = true
 
-    if (autoSelect)
+    if (autoSelect && type == 'text') {
       evt.target.selectionStart = 0
       evt.target.selectionEnd = 0
       evt.target.select()
     }
-    const blur = (evt) => {
-      hasFocus = false
+  }
+  const focusNumber = (evt) => {
+    hasFocus = true
+    // console.log('focusNumber', evt);
+    // if (autoSelect && type == 'text') {
+    //   evt.target.selectionStart = 0
+    //   evt.target.selectionEnd = 0
+      // evt.target.select()
+    // }
+  }
+  const blur = (evt) => {
+    hasFocus = false
   }
   const handleKeypress = (evt) => {
     if (evt.key == 'Enter') {
@@ -68,15 +84,16 @@
   }
 
   ///// autofocus input
-  // function inputFocus(el){
-  //   if (autoFocus) {
-  //     el.focus()
-  //     hasFocus = true
+  function inputFocus(el){
+    console.log('input focus');
+    if (autoFocus) {
+      el.focus()
+      hasFocus = true
 
-  //     if (autoSelect)
-  //       el.select()
-  //   }
-  // }
+      if (autoSelect)
+        el.select()
+    }
+  }
 
   import { createPopperActions } from 'svelte-popperjs';
     const [popperRef, popperContent] = createPopperActions({
@@ -94,6 +111,19 @@
             }
         ],
     }
+
+  // number options
+  export let min = 0
+  export let max = 1000
+  export let step = 1
+  export let decimals = 0
+
+  const numberOptions = {
+    min,
+    max,
+    step,
+    decimals,
+  }
 </script>
 
 
@@ -101,26 +131,32 @@
   class="input-container"
   class:readOnly
   class:disabled
-  style="width: {width}"
+  class:inputFirst
+  style="width: { totalwWdth }"
   use:popperRef
   >
-  {#if label}
-  <span class="input-label">{label}</span>
+  {#if label && !inputFirst}
+  <span class="input-label">{ label }</span>
   {/if}
-
 
   <div class="input-wrapper" 
     class:flat class:filled 
+    style="width: { width }"
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}>
     <div class="input-contents" class:hover>
-      <div class="input-inside" class:active class:filled class:flat>
+      <div class="input-inside" 
+        class:spinner={type == 'number'}
+        class:active 
+        class:filled 
+        class:flat
+        >
         {#if prefix}
         <span>{ prefix }</span>
         {/if}
 
         {#if type == 'number'}
-        <input 
+        <!-- <input 
           type="number"
           class="input-value" 
           bind:value={value}
@@ -129,18 +165,30 @@
           class:active
           class:flat class:filled
 
-          on:input={ changeValue }
+          on:change={ changeValue }
           on:focus={ focus }
           on:blur={ blur }
+          /> -->
+          <!-- mainStyle={`width: ${ width }`} -->
+          <NumberSpinner 
+            class="spinner-input"
+            bind:value 
+            options={ numberOptions }
+            on:focus={ focusNumber }
+            on:blur={ blur }
+            on:dragend={ blur }
+            on:input={ changeValue }
           />
         {:else}
         <input 
+        use:inputFocus
           class="input-value" 
           bind:value={value}
           class:truncate
           class:uppercase
           class:active
-          class:flat class:filled
+          class:flat 
+          class:filled
           placeholder={ placeholder }
 
           on:input={ changeValue }
@@ -153,6 +201,9 @@
     </div>
   </div>
 
+  {#if label && inputFirst}
+  <span class="input-label">{ label }</span>
+  {/if}
   <!-- <div class="input-indicator-wrapper" >
     {#if !filled}
     <div
@@ -174,6 +225,22 @@
 {/if}
 
 <style>
+
+:root {
+  --text-accent: #5fa5ef;
+  /* --text-accent: white; */
+}
+.input-container {
+  /* padding: 1px 4px; */
+  /* width: calc(100% - 8px); */
+  font-size: 12px;
+  font-family: "Open Sans", sans-serif;
+  color: var(--color-icon);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
 .input-container.readOnly {
   pointer-events: none;
 }
@@ -193,18 +260,11 @@
 .input-label {
   font-size: 10px;
   position: relative;
-  height: 3px;
-  top: -4px;
+  height: auto;
+  /* top: -4px; */
 }
 .input-container:not(.noLabel) {
-  margin: 6px 0px 10px 0px;
-}
-.input-container {
-  /* padding: 1px 4px; */
-  /* width: calc(100% - 8px); */
-  font-size: 12px;
-  font-family: "Open Sans", sans-serif;
-  color: var(--color-icon);
+  /* margin: 6px 0px 10px 0px; */
 }
 .input-wrapper {
   display: flex;
@@ -232,7 +292,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.input-value {
+.input-value, :global(.spinner-input) {
   background-color: var(--color-dropdown);
   border: 1px solid var(--color-dropdown-border);
   border-radius: 2px;
@@ -248,6 +308,7 @@
   /* color: var(--color-input-text); */
   border-radius: 2px 2px 0px 0px;
 }
+/* .input-value:focus, :global(.spinner-input:focus) { */
 .input-value:focus {
   color: var(--color-input-focus-text);
 }
@@ -262,68 +323,66 @@
   border: 1px solid var(--color-dropdown-border);
   border-radius: 3px;
 }
-.input-inside.active:not(.flat) {
+.input-inside.active:not(.flat):not(.spinner) {
   background: var(--color-input-focus);
   /* color: var(--color-input-text); */
 }
-/* .input-inside.filled.idle {
-  background: var(--color-input);
-  border: 1.5px solid var(--color-input-border) !important;
-  color: var(--color-input-text) !important;
-}
-.input-inside.filled.active {
-  background: var(--color-input-focus);
-  border: 1.5px solid var(--color-input-focus-border) !important;
-  color: var(--color-input-focus-text) !important;
-}
-.input-value.active:not(.flat):not(.filled) {
-  background: var(--color-input-focus);
-  color: var(--color-input);
-}
-.input-contents,
-.input-inside {
-  border-radius: 3px;
-  display: flex;
-  align-items: baseline;
-}
-.input-error-message {
-  padding: 4px;
-}
-.input-indicator {
-  transition: all 200ms var(--quad) 20ms;
-  width: 100%;
-  height: 1px;
-}
-.input-indicator-wrapper {
-  width: 100%;
-  display: flex;
-  overflow: visible;
-  height: 3px;
-  align-items: flex-start;
-}
-.flat,
-.toolbar {
+.flat {
+  border-color: transparent;
   background: transparent;
 }
-.flat .input-indicator.hasFocus,
-.default .input-indicator {
+
+:global(.spinner-input) {
+  display: inline-block;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+  /* background-color: var(--color-dropdown);
+  color: var(--color-btn-pill-border); */
   width: 100%;
+  height: 1.6em;
+  margin: 0px;
+  padding: 0.25em;
+  /* border: 0.075em solid #0004; */
+  /* border-radius: 0.15em; */
+  text-align: center;
+  vertical-align: baseline;
+  cursor: ew-resize;
 }
-.flat .input-indicator:not(.hasFocus) {
-  width: 0%;
+
+/* input is active after dragging and may still be edited with arrows */
+:global(.spinner-input:focus) {   
+  outline: none; /* removes the standard focus border */
+  background-color: transparent !important;
+  color: var(--text-accent);
 }
-.input-append-outer-icon,
-.input-prepend-outer-icon {
-  padding: 0px 5px;
-  margin: 2px 0px 0px 0px;
-  height: 100%;
+
+:global(.spinner-input.fast) {
+  border-top-width: 0.15em;
+  padding-top: 0.175em;
 }
-.input-prepend-icon {
-  padding-left: 5px;
+
+:global(.spinner-input.slow) {
+  border-bottom-width: 0.15em;
+  padding-bottom: 0.175em;
 }
-.input-append-icon {
-  padding-right: 5px;
-} */
+
+/* currently dragging */
+:global(.spinner-input.dragging) {
+  /* border-color: #04c; */
+  background-color: transparent !important;
+  /* background: var(--color-bg) !important; */
+  color: var(--text-accent);
+  border-bottom: var(--text-accent) solid 1px !important;
+}
+
+/* clicked into the input to type */
+:global(.spinner-input.editing) {
+  background: var(--color-input-focus) !important;
+  /* background: salmon !important; */
+  color: var(--highlight-text);
+  border-radius: 2px;
+  cursor: initial;
+}
 
 #tooltip {
   padding: 2px 4px;

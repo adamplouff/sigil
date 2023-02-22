@@ -13,20 +13,20 @@ export const openLinkInBrowser = (url: string) => {
   }
 };
 
-// export const evalES = (script: string, isGlobal = false): Promise<string> => {
-//   return new Promise(function (resolve, reject) {
-//     const pre = isGlobal
-//       ? ""
-//       : `var host = typeof $ !== 'undefined' ? $ : window; host["${ns}"].`;
-//     const fullString = pre + script;
-//     csi.evalScript(
-//       "try{" + fullString + "}catch(e){alert(e);}",
-//       (res: string) => {
-//         resolve(res);
-//       }
-//     );
-//   });
-// };
+export const evalES = (script: string, isGlobal = false): Promise<string> => {
+  return new Promise(function (resolve, reject) {
+    const pre = isGlobal
+      ? ""
+      : `var host = typeof $ !== 'undefined' ? $ : window; host["${ns}"].`;
+    const fullString = pre + script;
+    csi.evalScript(
+      "try{" + fullString + "}catch(e){alert(e);}",
+      (res: string) => {
+        resolve(res);
+      }
+    );
+  });
+};
 
 // export const evalFile = (file: string) => {
 //   return evalES(

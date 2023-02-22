@@ -43,7 +43,8 @@
             const colorUpdate = arrayToHex(colorArray)
             console.log('colorUpdate', colorUpdate);
             _color = colorUpdate
-            dispatch('update', {state: arrayToHex(colorArray)})
+            // dispatch('update', _color.toString())
+            dispatch('update', {state: sanitizeHex(arrayToHex(colorArray))})
         }
     }
 
@@ -59,6 +60,7 @@ if (!thisComp) {
     pickerComp.remove()
     retColor
 } else {
+    app.activeViewer.setActive();
     var retColor = pickColor(thisComp, color)
     retColor
 }

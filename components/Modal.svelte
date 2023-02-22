@@ -45,8 +45,8 @@
     </div>
     {:else}
     <div class="buttons">
-      <Button label={ confirmText.cancel } on:click={ closeModal } />
-      <Button primary label={ confirmText.confirm } on:click={ confirmModal } />
+      <Button block label={ confirmText.cancel } on:click={ closeModal } />
+      <Button block primary label={ confirmText.confirm } on:click={ confirmModal } />
     </div>
     {/if}
 
