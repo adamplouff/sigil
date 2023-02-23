@@ -44,7 +44,7 @@
 }
 const _lang = lang[locale]
 
-//#region Authentication
+//#region Authentication strings
 lang.en.authLabel = 'Be at rest upon the Sacred Mountain'
 lang.es.authLabel = 'Toma un descanso sobre la montaña sagrada'
 lang.pt.authLabel = 'Descanse na montanha sagrada'
@@ -114,10 +114,12 @@ lang.de.loading = 'Laden...'
 lang.ru.loading = 'Загрузка...'
 lang.zh.loading = '正在加载...'
 lang.fr.loading = `Chargement...`
+//#endregion
 
 </script>
 <div class="auth"
-  class:locked>
+  class:locked
+  class:hidden="{ !locked }">
 
   <div class="message">
     { message }
@@ -170,6 +172,10 @@ lang.fr.loading = `Chargement...`
 
 .locked {
   margin-top: 0 !important;
+}
+.hidden {
+  visibility: hidden;
+  transition-delay: 2s;
 }
 .scrim {
     z-index: 9;
