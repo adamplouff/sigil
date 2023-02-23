@@ -82,7 +82,7 @@
         {/if}
 
         {#if label}
-            <span>{ label }</span>
+            { label }
         {/if}
         <slot />
     </div>
@@ -104,7 +104,7 @@
     color: var(--button-color);
     border: 1px solid transparent;
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     /* flex-shrink: inherit; */
     padding: 6px;
