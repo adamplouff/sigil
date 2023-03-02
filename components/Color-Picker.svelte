@@ -128,7 +128,7 @@ function pickColor(comp, color) {
     </div>
     <!-- {color} : {_color} -->
     <span class="label">
-        {label}
+        { @html label }
     </span>
 </div>
 
@@ -151,6 +151,9 @@ function pickColor(comp, color) {
     align-items: center;
     gap: 8px;
     margin-right: 8px;
+}
+.label {
+    white-space: nowrap;
 }
 
 </style>

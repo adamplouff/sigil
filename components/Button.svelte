@@ -25,6 +25,7 @@
     export let icon = null
     export let iconSize = 18
     export let height = null
+    export let width = null
 
     let colorHover = (bg !== '')
 
@@ -70,7 +71,7 @@
     class:mini
     class:center
     class:icon-button={!label && icon}
-    style={`background-color: ${bg}; color: ${color}; height: ${height}`}
+    style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
     on:click={ () => handleClick() }
@@ -90,7 +91,7 @@
 
 {#if tooltip && hover}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
-    {tooltip}
+    { @html tooltip }
     <div id="arrow" data-popper-arrow />
   </div>
 {/if}
@@ -124,7 +125,7 @@
     justify-content: center;
     gap: 8px;
     /* overflow: hidden; */
-    overflow: hidden;
+    x-overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -227,12 +228,13 @@
     color: var(--tooltip-color);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
+    text-align: left;
 }
 .mini {
     width: fit-content;
     padding: 0 !important;
-    height: 14px !important;
-    width: 14px !important;
+    height: 14px;
+    width: 14px;
     margin: auto 0;
 }
 .center {
