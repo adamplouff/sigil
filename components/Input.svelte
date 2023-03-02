@@ -393,7 +393,7 @@
 /* clicked into the input to type */
 :global(.spinner-input.editing) {
   background: var(--color-input-focus) !important;
-  background: salmon !important;
+  /* background: salmon !important; */
   color: var(--highlight-text);
   border-radius: 2px;
   cursor: initial;
