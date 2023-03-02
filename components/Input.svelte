@@ -3,7 +3,8 @@
   import { fade } from 'svelte/transition';
   import util from './mixinPrefs.js'
 
-  import NumberSpinner from "svelte-number-spinner";    // https://www.npmjs.com/package/svelte-number-spinner/v/0.7.9
+  import NumberSpinner from './NumberSpinner.svelte';
+  // import NumberSpinner from "svelte-number-spinner";    // https://www.npmjs.com/package/svelte-number-spinner/v/0.7.9
 
 
   const dispatch = createEventDispatcher();
@@ -17,6 +18,7 @@
   export let flat = false
   export let filled = false
   export let prefix = false
+  export let suffix = false
   export let truncate = false
   export let uppercase = false
   export let totalwWdth = null
@@ -41,6 +43,7 @@
   })
 
   const changeValue = (evt) => {
+    console.log('change', evt);
     if (prefsId) {
       util.setPrefsById(prefsId, value, 'input')
     }
@@ -62,6 +65,7 @@
     }
   }
   const focusNumber = (evt) => {
+    // console.log(evt);
     hasFocus = true
     // console.log('focusNumber', evt);
     // if (autoSelect && type == 'text') {
@@ -72,6 +76,10 @@
   }
   const blur = (evt) => {
     hasFocus = false
+  }
+  const numberBlur = (evt) => {
+    hasFocus = false
+    dispatch('change', value)
   }
   const handleKeypress = (evt) => {
     if (evt.key == 'Enter') {
@@ -145,15 +153,15 @@
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}>
     <div class="input-contents" class:hover>
+      {#if prefix}
+      <span>{ prefix }</span>
+      {/if}
       <div class="input-inside" 
         class:spinner={type == 'number'}
         class:active 
         class:filled 
         class:flat
         >
-        {#if prefix}
-        <span>{ prefix }</span>
-        {/if}
 
         {#if type == 'number'}
         <!-- <input 
@@ -175,10 +183,10 @@
             bind:value 
             options={ numberOptions }
             on:focus={ focusNumber }
-            on:blur={ blur }
-            on:dragend={ blur }
-            on:input={ changeValue }
-          />
+            on:blur={ numberBlur }
+            on:dragend={ numberBlur }
+            />
+            <!-- on:input={ changeValue } -->
         {:else}
         <input 
         use:inputFocus
@@ -197,7 +205,12 @@
           on:keydown={ handleKeypress }
           />
           {/if}
-      </div>
+
+        </div>
+        
+        {#if suffix}
+        <span>{ suffix }</span>
+        {/if}
     </div>
   </div>
 
@@ -301,7 +314,7 @@
   overflow: visible;
   background: transparent;
   outline: none;
-  border: none !important;
+  /* border: none !important; */
   border-style: solid;
   width: 100%;
   color: var(--color-btn-pill-border);
@@ -342,11 +355,13 @@
   height: 1.6em;
   margin: 0px;
   padding: 0.25em;
+  padding-bottom: 0.1em;
   /* border: 0.075em solid #0004; */
   /* border-radius: 0.15em; */
   text-align: center;
   vertical-align: baseline;
   cursor: ew-resize;
+  border-bottom: 1px solid transparent;
 }
 
 /* input is active after dragging and may still be edited with arrows */
@@ -378,7 +393,7 @@
 /* clicked into the input to type */
 :global(.spinner-input.editing) {
   background: var(--color-input-focus) !important;
-  /* background: salmon !important; */
+  background: salmon !important;
   color: var(--highlight-text);
   border-radius: 2px;
   cursor: initial;
