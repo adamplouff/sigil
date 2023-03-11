@@ -154,7 +154,6 @@
     // start editing only if element was already focussed on mousedown and no dragging was done
     if (!hasMoved) {
     // if (wasActiveOnClick && !hasMoved) {
-      console.log('startEditing');
       startEditing();
     }
   }
