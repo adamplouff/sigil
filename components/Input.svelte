@@ -43,7 +43,7 @@
   })
 
   const changeValue = (evt) => {
-    console.log('change', evt);
+    // console.log('change', evt);
     if (prefsId) {
       util.setPrefsById(prefsId, value, 'input')
     }
@@ -93,7 +93,7 @@
 
   ///// autofocus input
   function inputFocus(el){
-    console.log('input focus');
+    // console.log('input focus');
     if (autoFocus) {
       el.focus()
       hasFocus = true
@@ -154,7 +154,7 @@
     on:mouseleave={() => hover = false}>
     <div class="input-contents" class:hover>
       {#if prefix}
-      <span>{ prefix }</span>
+      <span class="input-label suffix">{ prefix }</span>
       {/if}
       <div class="input-inside" 
         class:spinner={type == 'number'}
@@ -209,7 +209,7 @@
         </div>
         
         {#if suffix}
-        <span>{ suffix }</span>
+        <span class="input-label suffix">{ suffix }</span>
         {/if}
     </div>
   </div>
@@ -275,6 +275,10 @@
   position: relative;
   height: auto;
   /* top: -4px; */
+}
+.suffix {
+  /* background: salmon; */
+  margin-bottom: 6px;
 }
 .input-container:not(.noLabel) {
   /* margin: 6px 0px 10px 0px; */
@@ -368,6 +372,7 @@
 :global(.spinner-input:focus) {   
   outline: none; /* removes the standard focus border */
   background-color: transparent !important;
+  /* background: skyblue !important; */
   color: var(--text-accent);
 }
 
