@@ -5,7 +5,6 @@
   export let message = ''
   export let locale = 'en'
   export let locked = false
-  export let eligibleForTrial = false
 
   const dispatch = createEventDispatcher();
   
@@ -41,80 +40,80 @@
     'de': { },
     // Chinese 
     'zh': { },
-}
-const _lang = lang[locale]
+  }
+  const _lang = lang[locale]
 
-//#region Authentication strings
-lang.en.authLabel = 'Be at rest upon the Sacred Mountain'
-lang.es.authLabel = 'Toma un descanso sobre la montaña sagrada'
-lang.pt.authLabel = 'Descanse na montanha sagrada'
-lang.ja.authLabel = '神聖なる山で安らぎなさい'
-lang.it.authLabel = 'Riposa sulla montagna sacra'
-lang.de.authLabel = 'Finde Ruhe auf dem heiligen Berg'
-lang.ru.authLabel = 'Переведи дух на священной горе'
-lang.zh.authLabel = '在圣山上安息'
-lang.fr.authLabel = 'Reposez-vous sur la montagne sacrée'
+  //#region Authentication strings
+  lang.en.authLabel = 'Be at rest upon the Sacred Mountain'
+  lang.es.authLabel = 'Toma un descanso sobre la montaña sagrada'
+  lang.pt.authLabel = 'Descanse na montanha sagrada'
+  lang.ja.authLabel = '神聖なる山で安らぎなさい'
+  lang.it.authLabel = 'Riposa sulla montagna sacra'
+  lang.de.authLabel = 'Finde Ruhe auf dem heiligen Berg'
+  lang.ru.authLabel = 'Переведи дух на священной горе'
+  lang.zh.authLabel = '在圣山上安息'
+  lang.fr.authLabel = 'Reposez-vous sur la montagne sacrée'
 
-lang.en.authPlaceholder = 'Paste license key'
-lang.es.authPlaceholder = 'Pegar código de licencia'
-lang.pt.authPlaceholder = 'Cole a chave de licença'
-lang.ja.authPlaceholder = 'ライセンスキーをペースト'
-lang.it.authPlaceholder = 'Incolla il tuo codice di licenza'
-lang.de.authPlaceholder = 'Lizenzschlüssel einfügen'
-lang.ru.authPlaceholder = 'Вставить лицензионный ключ'
-lang.zh.authPlaceholder = '粘贴你的许可证代码'
-lang.fr.authPlaceholder = `Coller la clé d'activation`
+  lang.en.authPlaceholder = 'Paste license key'
+  lang.es.authPlaceholder = 'Pegar código de licencia'
+  lang.pt.authPlaceholder = 'Cole a chave de licença'
+  lang.ja.authPlaceholder = 'ライセンスキーをペースト'
+  lang.it.authPlaceholder = 'Incolla il tuo codice di licenza'
+  lang.de.authPlaceholder = 'Lizenzschlüssel einfügen'
+  lang.ru.authPlaceholder = 'Вставить лицензионный ключ'
+  lang.zh.authPlaceholder = '粘贴你的许可证代码'
+  lang.fr.authPlaceholder = `Coller la clé d'activation`
 
-lang.en.failed = 'This code is not valid. Try again.'
-lang.es.failed = 'Este código no es válido. Inténtalo de nuevo.'
-lang.pt.failed = 'Esta licença não é válida. Tente novamente.'
-lang.ja.failed = 'コードが無効です。再度試してください。'
-lang.it.failed = 'Codice non valido. Riprova.'
-lang.de.failed = 'Dieser Code ist nicht gültig – versuche es erneut'
-lang.ru.failed = 'Код недействителен. Попробуйте еще раз.'
-lang.zh.failed = '此代码无效。请重新尝试。'
-lang.fr.failed = `Le code est incorrect. Réessayez.`
+  lang.en.failed = 'This code is not valid. Try again.'
+  lang.es.failed = 'Este código no es válido. Inténtalo de nuevo.'
+  lang.pt.failed = 'Esta licença não é válida. Tente novamente.'
+  lang.ja.failed = 'コードが無効です。再度試してください。'
+  lang.it.failed = 'Codice non valido. Riprova.'
+  lang.de.failed = 'Dieser Code ist nicht gültig – versuche es erneut'
+  lang.ru.failed = 'Код недействителен. Попробуйте еще раз.'
+  lang.zh.failed = '此代码无效。请重新尝试。'
+  lang.fr.failed = `Le code est incorrect. Réessayez.`
 
-lang.en.refunded = 'This purchase was refunded'
-lang.es.refunded = 'Esta compra fue reembolsada'
-lang.pt.refunded = 'Esta compra foi reembolsada'
-lang.ja.refunded = 'この購入は返品されました。'
-lang.it.refunded = 'Il tuo acquisto è stato rimborsato'
-lang.de.refunded = 'Der Kauf wurde erstattet'
-lang.ru.refunded = 'Осуществлен возврат средств'
-lang.zh.refunded = '这笔购买已退款'
-lang.fr.refunded = `Cet achat a été remboursé`
+  lang.en.refunded = 'This purchase was refunded'
+  lang.es.refunded = 'Esta compra fue reembolsada'
+  lang.pt.refunded = 'Esta compra foi reembolsada'
+  lang.ja.refunded = 'この購入は返品されました。'
+  lang.it.refunded = 'Il tuo acquisto è stato rimborsato'
+  lang.de.refunded = 'Der Kauf wurde erstattet'
+  lang.ru.refunded = 'Осуществлен возврат средств'
+  lang.zh.refunded = '这笔购买已退款'
+  lang.fr.refunded = `Cet achat a été remboursé`
 
-lang.en.chargebacked = 'This purchase was canceled with a chargeback'
-lang.es.chargebacked = 'Esta compra se canceló con un contracargo'
-lang.pt.chargebacked = 'Esta compra foi cancelada com um estorno'
-lang.ja.chargebacked = 'この購入はキャンセルされ返金されました。'
-lang.it.chargebacked = 'Il tuo acquisto è stato cancellato e riaddebitato'
-lang.de.chargebacked = 'Der Kauf wurde mit einer Rückbuchung storniert'
-lang.ru.chargebacked = 'Покупка отменена с возвратным платежом'
-lang.zh.chargebacked = '这笔购买已被取消并退款'
-lang.fr.chargebacked = 'Cet achat a été annulé et remboursé'
+  lang.en.chargebacked = 'This purchase was canceled with a chargeback'
+  lang.es.chargebacked = 'Esta compra se canceló con un contracargo'
+  lang.pt.chargebacked = 'Esta compra foi cancelada com um estorno'
+  lang.ja.chargebacked = 'この購入はキャンセルされ返金されました。'
+  lang.it.chargebacked = 'Il tuo acquisto è stato cancellato e riaddebitato'
+  lang.de.chargebacked = 'Der Kauf wurde mit einer Rückbuchung storniert'
+  lang.ru.chargebacked = 'Покупка отменена с возвратным платежом'
+  lang.zh.chargebacked = '这笔购买已被取消并退款'
+  lang.fr.chargebacked = 'Cet achat a été annulé et remboursé'
 
-lang.en.cantConnect = 'Unable to connect to authentication server'
-lang.es.cantConnect = 'No se puede conectar al servidor de autenticación'
-lang.pt.cantConnect = 'Não foi possível se conectar ao servidor de autenticação'
-lang.ja.cantConnect = '認証サーバーに接続できません。'
-lang.it.cantConnect = 'Impossibile connettersi al server di autenticazione'
-lang.de.cantConnect = 'Verbindung zum Authentifizierungsserver kann nicht hergestellt werden'
-lang.ru.cantConnect = 'Невозможно подключиться к серверу аутентификации'
-lang.zh.cantConnect = '无法连接到认证服务器'
-lang.fr.cantConnect = `Impossible de se connecter au serveur d'authentification`
+  lang.en.cantConnect = 'Unable to connect to authentication server'
+  lang.es.cantConnect = 'No se puede conectar al servidor de autenticación'
+  lang.pt.cantConnect = 'Não foi possível se conectar ao servidor de autenticação'
+  lang.ja.cantConnect = '認証サーバーに接続できません。'
+  lang.it.cantConnect = 'Impossibile connettersi al server di autenticazione'
+  lang.de.cantConnect = 'Verbindung zum Authentifizierungsserver kann nicht hergestellt werden'
+  lang.ru.cantConnect = 'Невозможно подключиться к серверу аутентификации'
+  lang.zh.cantConnect = '无法连接到认证服务器'
+  lang.fr.cantConnect = `Impossible de se connecter au serveur d'authentification`
 
-lang.en.loading = 'Loading...'
-lang.es.loading = 'Cargando...'
-lang.pt.loading = 'Carregando...'
-lang.ja.loading = 'ロード中...'
-lang.it.loading = 'Caricamento in corso...'
-lang.de.loading = 'Laden...'
-lang.ru.loading = 'Загрузка...'
-lang.zh.loading = '正在加载...'
-lang.fr.loading = `Chargement...`
-//#endregion
+  lang.en.loading = 'Loading...'
+  lang.es.loading = 'Cargando...'
+  lang.pt.loading = 'Carregando...'
+  lang.ja.loading = 'ロード中...'
+  lang.it.loading = 'Caricamento in corso...'
+  lang.de.loading = 'Laden...'
+  lang.ru.loading = 'Загрузка...'
+  lang.zh.loading = '正在加载...'
+  lang.fr.loading = `Chargement...`
+  //#endregion
 
 </script>
 <div class="auth"
