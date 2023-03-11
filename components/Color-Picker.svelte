@@ -44,7 +44,7 @@
             console.log('colorUpdate', colorUpdate);
             _color = colorUpdate
             // dispatch('update', _color.toString())
-            dispatch('update', {state: sanitizeHex(arrayToHex(colorArray))})
+            dispatch('change', sanitizeHex(arrayToHex(colorArray)))
         }
     }
 

@@ -41,9 +41,7 @@
       util.setPrefsById(prefsId, isEnabled, 'toggle')
     }
 
-		dispatch('update', {
-			state: isEnabled,
-		})
+		dispatch('change', isEnabled)
 	}
 
 </script>
