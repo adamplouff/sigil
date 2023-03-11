@@ -151,6 +151,7 @@ function pickColor(comp, color) {
     align-items: center;
     gap: 8px;
     margin-right: 8px;
+    color: var(--color-icon);
 }
 .label {
     white-space: nowrap;
