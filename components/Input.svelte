@@ -312,6 +312,7 @@
 .input-value, :global(.spinner-input) {
   background-color: var(--color-dropdown);
   border: 1px solid var(--color-dropdown-border);
+  /* border-color: salmon; */
   border-radius: 2px;
   margin: 0px;
   padding: 2px 0px 2px 6px;
@@ -323,7 +324,7 @@
   width: 100%;
   color: var(--color-btn-pill-border);
   /* color: var(--color-input-text); */
-  border-radius: 2px 2px 0px 0px;
+  /* border-radius: 2px 2px 0px 0px; */
 }
 /* .input-value:focus, :global(.spinner-input:focus) { */
 .input-value:focus {
@@ -337,12 +338,13 @@
 }
 .input-inside {
   background: var(--color-dropdown);
-  border: 1px solid var(--color-dropdown-border);
-  border-radius: 3px;
+  /* border: 1px solid var(--color-dropdown-border); */
+  border-radius: 2px;
 }
 .input-inside.active:not(.flat):not(.spinner) {
   background: var(--color-input-focus);
   /* color: var(--color-input-text); */
+  border-radius: 3px;
 }
 .flat {
   border-color: transparent;
@@ -365,7 +367,7 @@
   text-align: center;
   vertical-align: baseline;
   cursor: ew-resize;
-  border-bottom: 1px solid transparent;
+  /* border-bottom: 1px solid transparent; */
 }
 
 /* input is active after dragging and may still be edited with arrows */
