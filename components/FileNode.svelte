@@ -50,8 +50,14 @@
   {#if item.type == 'folder'}
 
   <div class="list-item folder" on:click={ toggle }>
-    <div class="fold-icon">{ (isOpen) ? '–' : '+' }</div>
-    <span>{ item.name }</span>
+    <div class="fold-icon" class:isOpen>
+			<svg width="18" height="18" viewBox="0 0 24 24">
+			<path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+			<path d="M0 0h24v24H0z" fill="none" />
+			</svg>
+		</div>
+    <!-- <div class="fold-icon">{ (isOpen) ? '–' : '+' }</div> -->
+    <div>{ item.name }</div>
   </div>
 
   <div class="indent {isOpen ? '' : 'isClosed'}">
@@ -97,7 +103,7 @@
   }
   .list-item, .file-name {
     display: flex;
-    align-items: baseline;
+    /* align-items: baseline; */
     gap: var(--gap);
     margin-right: 2px;
     /* border-bottom: 1px solid #333; */
@@ -113,10 +119,30 @@
     display: none;
   }
   .fold-icon {
-    width: 10px;
-    /* margin-right: 2px; */
+    /* width: 10px;
     text-align: center;
-    margin-right: -2px;
+    margin-left: -4px;
+    fill: var(--color-icon);
+    transform: rotate(90); */
+    /* background-color: seagreen; */
+    width: 10px;
+    height: 10px;
+    margin-right: -1px;
+
+    float: right;
+    margin-top: -2px;
+    fill: var(--color-icon);
+    height: 14px;
+    transform-origin: 50% 50%;
+    transition: all 0.15s cubic-bezier(0, 0, 0.2, 1);
+    transform: rotate(-90deg);
+  }
+  .fold-icon.isOpen {
+    transform: rotate(0);
+  }
+  .fold-icon > svg {
+    margin-left: -40%;
+    margin-top: -20%;
   }
   .indent {
     margin-left: calc(8px + var(--gap));
