@@ -76,9 +76,13 @@
     >
     <div class="file-name">
       {#if item.name.includes(altType)}
-      <Icon name="triangle-up" color="#FFBA49" size={ 7 } />
+      <div>
+        <Icon name="triangle-up" color="#FFBA49" size={ 7 } />
+      </div>
       {:else}
-      <Icon name="circle-dot" color="#68B0AB" size={ 7 } />
+      <div>
+        <Icon name="circle-dot" color="#68B0AB" size={ 7 } />
+      </div>
       {/if}
       <!-- <div class:hide={ !selected }> <Icon name="circle-dot" size={ 7 } color="skyblue"/> </div>
       <div class:hide={ selected }> <Icon name="circle-dot" size={ 7 } /> </div> -->
