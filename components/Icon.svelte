@@ -14,4 +14,6 @@
   const props = { name, title, color, size, disableFill, removeInitialStyle };
 </script>
 
-<Icomoon {...props} iconSet="{iconSet}" />
+<div>
+  <Icomoon {...props} iconSet="{iconSet}" />
+</div>

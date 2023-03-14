@@ -57,7 +57,7 @@
 			</svg>
 		</div>
     <!-- <div class="fold-icon">{ (isOpen) ? '–' : '+' }</div> -->
-    <div>{ item.name }</div>
+    <div class="item-name">{ item.name }</div>
   </div>
 
   <div class="indent {isOpen ? '' : 'isClosed'}">
@@ -82,9 +82,9 @@
       {/if}
       <!-- <div class:hide={ !selected }> <Icon name="circle-dot" size={ 7 } color="skyblue"/> </div>
       <div class:hide={ selected }> <Icon name="circle-dot" size={ 7 } /> </div> -->
-      <span>
+      <div class="item-name">
         { item.name.replace(/.ffx/i, '').replace(altType, '') }
-      </span>
+      </div>
     </div>
 
     <div class="apply-style" on:click={ () => dblClick(item) }>
@@ -130,7 +130,7 @@
     margin-right: -1px;
 
     float: right;
-    margin-top: -2px;
+    margin-top: -1px;
     fill: var(--color-icon);
     height: 14px;
     transform-origin: 50% 50%;
@@ -157,6 +157,10 @@
   }
   .hide {
     display: none;
+  }
+  .file-name:first-child {
+    /* margin-top: 3px;
+    margin-bottom: -3px; */
   }
   /* .apply-style::before {
     content: '▶';

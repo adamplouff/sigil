@@ -127,7 +127,8 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 6px 0px 10px 0px;
+  /* margin: 6px 0px 10px 0px; */
+  /* margin-bottom: 10px; */
 }
 svg {
   fill: var(--color-icon);
