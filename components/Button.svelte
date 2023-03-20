@@ -83,7 +83,9 @@
         {/if}
 
         {#if label}
-            { label }
+            <span class="label">
+                { label }
+            </span>
         {/if}
         <slot />
     </div>
@@ -124,10 +126,14 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    /* overflow: hidden; */
-    x-overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.button-content .label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
 }
 .uppercase {
     text-transform: uppercase;
