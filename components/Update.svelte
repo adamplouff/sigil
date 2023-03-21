@@ -9,6 +9,7 @@
 
   export let version = '1.0.0'
   export let name = ''
+  export let key = ''
   export let url = 'https://battleaxe.dev/iteration/'
   export let color = 'var(--color-selection)'
   export let locale = 'en'
@@ -18,7 +19,7 @@
   let expanded = false
 
   let details = 'Update data unavailable'
-  let downloadURL = 'https://battleaxe.co'
+  let downloadURL = `https://battleaxe.co/`
 
   onMount(() => {
     if (navigator.onLine)
@@ -33,6 +34,8 @@
     fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
+      
 
       // updateData = data?.[`${ name.toLowerCase() }`]
       updateData = getParameterCaseInsensitive(data, name)
@@ -42,7 +45,7 @@
       if (versionCompare(availableVersion, version) > 0) {
         updateAvailable = true
         details = updateData[locale] || updateData.en
-        downloadURL = updateData.downloadURL
+        downloadURL = `https://license.battleaxe.co/download?product=${ name }&key=${ key }`
         newVersion = availableVersion
       }
     })
@@ -100,7 +103,7 @@
   </div>
   <div class="detail-page" class:expanded style="background: {color}">
     <div style="width: calc(100% - 32px)">
-      <Button on:click={() => openLinkInBrowser(downloadURL)}>Download {newVersion}</Button>
+      <Button on:click={() => openLinkInBrowser(downloadURL)}>Download { newVersion }</Button>
     </div>
     <div class="details">
       {@html details}
@@ -206,6 +209,9 @@
 }
 .details::-webkit-scrollbar-thumb:hover {
   background: rgba(0,0,0,0.4)5;
+}
+:global(ul) {
+  padding-inline-start: 16px;
 }
 
 </style>
