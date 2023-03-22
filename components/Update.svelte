@@ -107,8 +107,8 @@
     </div>
   </div>
   <div class="detail-page" class:expanded style="background: {color}">
-    <div style="width: calc(100% - 58px);">
-      <Button on:click={() => openLinkInBrowser(downloadURL)}>Download { newVersion }</Button>
+    <div style="width: calc(100% - 48px);">
+      <Button label={ `Download ${ newVersion }` } on:click={() => openLinkInBrowser(downloadURL)} />
     </div>
     <div class="details">
       {@html details}
@@ -177,7 +177,7 @@
   font-size: 12px;
   padding: 12px;
   width: 100%;
-  margin-top: 14px;
+  margin-top: 16px;
   text-align: right;
 }
 .expanded.tab {
