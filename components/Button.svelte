@@ -210,8 +210,8 @@
     min-width: 16px;
     width: 16px;
     height: 16px;
-    margin-top: -1px;
-    margin-bottom: -1px !important;
+    /* margin-top: -1px;
+    margin-bottom: -1px !important; */
     fill: var(--color-icon);
 }
 .button.custom :global(svg) {
