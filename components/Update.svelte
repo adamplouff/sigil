@@ -97,7 +97,7 @@
 <div class="update" class:updateAvailable>
   <div class="update-scrim" class:expanded on:click={() => expanded = false}/>
   <div class="tab" class:expanded on:click={() => expanded = !expanded}
-    style="background: linear-gradient(to top right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
+    style="background: linear-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
     <div>
       {#if expanded}
       <Icon name="close" size={ 14 } />
@@ -107,7 +107,7 @@
     </div>
   </div>
   <div class="detail-page" class:expanded style="background: {color}">
-    <div style="width: calc(100% - 64px);">
+    <div style="width: calc(100% - 58px);">
       <Button on:click={() => openLinkInBrowser(downloadURL)}>Download { newVersion }</Button>
     </div>
     <div class="details">
@@ -162,31 +162,31 @@
   position: fixed;
   right: 0;
   z-index: 1;
-  /* top: calc(100vh - 36px); */
-  top: 0;
+  top: calc(100vh - 58px);
+  /* top: 0; */
   pointer-events: all;
 }
 .tab > * {
   font-size: 12px;
   padding: 12px;
   width: 100%;
-  margin-bottom: 12px;
+  margin-top: 20px;
   text-align: right;
 }
 .expanded.tab > * {
   font-size: 12px;
   padding: 12px;
   width: 100%;
-  margin-top: -2px;
+  margin-top: 14px;
   text-align: right;
 }
 .expanded.tab {
   top: 12px;
-  /* background: none !important; */
+  background: none !important;
 }
 .detail-page {
   position: fixed;
-  bottom: 100vh;
+  top: 100vh;
   height: calc(100vh - 48px);
   width: calc(100vw - 16px);
   /* background-color: color; */
@@ -199,7 +199,7 @@
   text-align: left;
 }
 .expanded.detail-page {
-  bottom: 16px;
+  top: 16px;
 }
 .details {
   overflow-y: auto;
