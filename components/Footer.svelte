@@ -50,5 +50,6 @@
 	word-wrap: break-word;
 	font-family: inherit;
 	bottom: 0;
+  font-size: 11px;
 }
 </style>

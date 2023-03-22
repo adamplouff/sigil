@@ -13,7 +13,7 @@
   export let name = ''
   export let key = ''
   export let url = 'https://battleaxe.dev/iteration/'
-  export let color = 'var(--color-selection)'
+  export let color = '#298EE0'
   export let locale = 'en'
 
   let updateAvailable = false
