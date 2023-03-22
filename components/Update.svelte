@@ -2,10 +2,12 @@
   import { onMount } from "svelte";
   import { fly, fade } from 'svelte/transition';
   import Button from "./Button.svelte";
+  import Icon from "./Icon.svelte";
 
   import {
     openLinkInBrowser,
   } from "../lib/utils";
+    import Icon from "./Icon.svelte";
 
   export let version = '1.0.0'
   export let name = ''
@@ -34,9 +36,6 @@
     fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      
-
       // updateData = data?.[`${ name.toLowerCase() }`]
       updateData = getParameterCaseInsensitive(data, name)
       console.log('updateData', updateData)
@@ -98,11 +97,17 @@
 <div class="update" class:updateAvailable>
   <div class="update-scrim" class:expanded on:click={() => expanded = false}/>
   <div class="tab" class:expanded on:click={() => expanded = !expanded}
-    style="background: linear-gradient(to bottom right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
-    <div>{ (expanded) ? 'x': '↓'}</div>
+    style="background: linear-gradient(to top right, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, {color} 50%, {color} 100%)">
+    <div>
+      {#if expanded}
+      <Icon name="close" size={ 14 } />
+      {:else}
+      <Icon name="arrow-down" size={ 14 } />
+      {/if}
+    </div>
   </div>
   <div class="detail-page" class:expanded style="background: {color}">
-    <div style="width: calc(100% - 32px)">
+    <div style="width: calc(100% - 64px);">
       <Button on:click={() => openLinkInBrowser(downloadURL)}>Download { newVersion }</Button>
     </div>
     <div class="details">
@@ -132,6 +137,8 @@
   overflow: hidden;
   pointer-events: none;
   display: none;
+  font-size: 11px;
+  line-height: 1.6em;
 }
 .updateAvailable {
   display: block;
@@ -147,38 +154,39 @@
   pointer-events: all;
 }
 .tab {
-  width: 36px;
-  height: 36px;
+  width: 58px;
+  height: 58px;
   display: flex;
   justify-content: right;
   margin-bottom: -24px;
   position: fixed;
   right: 0;
   z-index: 1;
-  top: calc(100vh - 36px);
+  /* top: calc(100vh - 36px); */
+  top: 0;
   pointer-events: all;
 }
 .tab > * {
   font-size: 12px;
-  padding: 8px;
+  padding: 12px;
   width: 100%;
-  margin-top: 8px;
+  margin-bottom: 12px;
   text-align: right;
 }
 .expanded.tab > * {
   font-size: 12px;
-  padding: 8px;
+  padding: 12px;
   width: 100%;
   margin-top: -2px;
   text-align: right;
 }
 .expanded.tab {
-  top: 16px;
-  background: none !important;
+  top: 12px;
+  /* background: none !important; */
 }
 .detail-page {
   position: fixed;
-  top: 100vh;
+  bottom: 100vh;
   height: calc(100vh - 48px);
   width: calc(100vw - 16px);
   /* background-color: color; */
@@ -191,7 +199,7 @@
   text-align: left;
 }
 .expanded.detail-page {
-  top: 16px;
+  bottom: 16px;
 }
 .details {
   overflow-y: auto;
