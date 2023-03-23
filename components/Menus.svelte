@@ -59,6 +59,9 @@
       })
       clickedItem.callback()
     }
+    const flyoutCallback = (event) => {
+      callback(event.data.menuId)
+    }
 
     const buildContextMenu = () => {
       if (refresh) { contextMenu.menu.push({
@@ -116,7 +119,8 @@
       buildContextMenu()
 
       csi.setContextMenuByJSON(JSON.stringify(contextMenu), callback)
-      csi.setPanelFlyoutMenu(buildFlyoutMenuInXML(contextMenu), callback)
+      csi.setPanelFlyoutMenu(buildFlyoutMenuInXML(contextMenu))
+      csi.addEventListener("com.adobe.csxs.events.flyoutMenuClicked", flyoutCallback)
     })
   }
 
