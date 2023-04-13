@@ -20,7 +20,7 @@
         }
     }
     let _color = sanitizeHex(color) 
-    console.log('_color', _color);
+    // console.log('_color', _color);
     
     const hexToArray = (hexString) => {
         const hexColor = hexString.replace('#', '');
@@ -29,13 +29,16 @@
         b = parseInt(hexColor.slice(4, 6), 16) / 255 || 0;
         return [r, g, b, 1];
     }
-    function arrayToHex(colorArray) {
-        const red = parseInt(colorArray[0] * 255)
-        const green = parseInt(colorArray[1] * 255)
-        const blue = parseInt(colorArray[2] * 255)
-
-        return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
-    };
+    const arrayToHex = (colorArray) => {
+        var r = Math.round(colorArray[0] * 255).toString(16);
+        if (r.length < 2) r = "0" + r;
+        var g = Math.round(colorArray[1] * 255).toString(16);
+        if (g.length < 2) g = "0" + g;
+        var b = Math.round(colorArray[2] * 255).toString(16);
+        if (b.length < 2) b = "0" + b;
+        var hex = (r + g + b).toUpperCase();
+        return `#${hex}`;
+    }
     const parseColorArray = (colorString) => {
         if (colorString) {
             const colorArray = JSON.parse(`[${colorString}]`)

@@ -10,6 +10,7 @@
   export let label = ``
   export let confirm = null
   export let delay = 0
+  export let noButtons = false
 
   let confirmText = {
     cancel: confirm?.cancel || 'Cancel',
@@ -31,7 +32,7 @@
   <div class="modal">
 
     {#if label} 
-      <div class="message">{ label }</div>
+      <div class="message">{ @html label }</div>
     {/if}
 
     <div class="slot">
@@ -43,6 +44,8 @@
       <Button block label={ confirmText.cancel } on:click={ closeModal } />
       <Button block primary label={ confirmText.confirm } on:click={ confirmModal } />
     </div>
+    {:else if noButtons}
+    <div />
     {:else}
     <div class="buttons">
       <Button block label={ confirmText.cancel } on:click={ closeModal } />
