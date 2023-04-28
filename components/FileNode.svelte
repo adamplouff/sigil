@@ -87,7 +87,7 @@
       <!-- <div class:hide={ !selected }> <Icon name="circle-dot" size={ 7 } color="skyblue"/> </div>
       <div class:hide={ selected }> <Icon name="circle-dot" size={ 7 } /> </div> -->
       <div class="item-name">
-        { item.name.replace(/.ffx/i, '').replace(altType, '') }
+        { item.name.replace(altType, '') }
       </div>
     </div>
 
