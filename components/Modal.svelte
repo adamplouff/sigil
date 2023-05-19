@@ -11,6 +11,8 @@
   export let confirm = null
   export let delay = 0
   export let noButtons = false
+  export let showLoader = false
+  export let center = false
 
   let confirmText = {
     cancel: confirm?.cancel || 'Cancel',
@@ -35,9 +37,17 @@
       <div class="message">{ @html label }</div>
     {/if}
 
-    <div class="slot">
+    <div 
+      class="slot"
+      class:center>
       <slot />
     </div>
+
+    {#if showLoader}
+      <div class="progress-bar">
+        <div class="progress-bar-value"></div>
+      </div>
+    {/if}
     
     {#if confirm}
     <div class="buttons">
@@ -86,6 +96,7 @@
 }
 .message {
   margin-bottom: 16px;
+  line-height: 0.95rem;
 }
 .buttons {
   display: flex;
@@ -97,6 +108,36 @@
 }
 .slot:empty {
   margin-top: 0;
+}
+.center {
+  text-align: center;
+}
+.progress-bar {
+  margin-top: 12px;
+  height: 2px;
+  background-color: #1e425f;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-bar-value {
+  width: 100%;
+  height: 100%;
+  background-color: #298ee0;
+  animation: indeterminateAnimation 1s infinite linear;
+  transform-origin: 0% 50%;
+}
+
+@keyframes indeterminateAnimation {
+  0% {
+    transform:  translateX(0) scaleX(0);
+  }
+  40% {
+    transform:  translateX(0) scaleX(0.4);
+  }
+  100% {
+    transform:  translateX(100%) scaleX(0.5);
+  }
 }
 @media (max-width: 230px) {
   :global(.row) {
