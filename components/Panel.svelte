@@ -70,4 +70,11 @@ body {
 button {
     font-size: inherit;
 }
+
+:global(h1) {
+  line-height: 1em;
+}
+:global(h3) {
+  margin-bottom: -0.6em;
+}
 </style>

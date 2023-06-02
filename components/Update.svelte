@@ -218,8 +218,16 @@
 .details::-webkit-scrollbar-thumb:hover {
   background: rgba(0,0,0,0.4)5;
 }
-:global(ul) {
+:global(ul), :global(ol) {
   padding-inline-start: 16px;
+}
+:global(code) {
+  background: rgba(80, 80, 80, 0.2);
+}
+:global(hr) {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 </style>
