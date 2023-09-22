@@ -1,42 +1,20 @@
-// import './index.scss'
-import Panel from './components/Panel.svelte'
-import Fold from './components/Fold.svelte'
-import Button from './components/Button.svelte'
-import Input from './components/Input.svelte'
-import Row from './components/Row.svelte'
-import Divider from './components/Divider.svelte'
-import PanelInfo from './components/Panel-Info.svelte'
-import Footer from './components/Footer.svelte'
-import Update from './components/Update.svelte'
-import TreeView from './components/TreeView.svelte'
-import FileNode from './components/FileNode.svelte'
-import Menus from './components/Menus.svelte'
-import Dropzone from './components/Dropzone.svelte'
-import ColorPicker from './components/Color-Picker.svelte'
-import Toggle from './components/Toggle.svelte'
-import Auth from './components/Auth.svelte'
-import Modal from './components/Modal.svelte'
-import Select from './components/Select.svelte'
-import Icon from './components/Icon.svelte'
 
-export {
-    Panel,
-    Fold,
-    Button,
-    Input,
-    Row,
-    Divider,
-    PanelInfo,
-    Footer,
-    Update,
-    TreeView,
-    FileNode,
-    Menus,
-    Dropzone,
-    ColorPicker,
-    Toggle,
-    Auth,
-    Modal,
-    Select,
-    Icon,
-}
+export { default as Panel } from './components/Panel.svelte'
+export { default as Fold } from './components/Fold.svelte'
+export { default as Button } from './components/Button.svelte'
+export { default as Input } from './components/Input.svelte'
+export { default as Row } from './components/Row.svelte'
+export { default as Divider } from './components/Divider.svelte'
+export { default as PanelInfo } from './components/Panel-Info.svelte'
+export { default as Footer } from './components/Footer.svelte'
+export { default as Update } from './components/Update.svelte'
+export { default as TreeView } from './components/TreeView.svelte'
+export { default as FileNode } from './components/FileNode.svelte'
+export { default as Menus } from './components/Menus.svelte'
+export { default as Dropzone } from './components/Dropzone.svelte'
+export { default as ColorPicker } from './components/Color-Picker.svelte'
+export { default as Toggle } from './components/Toggle.svelte'
+export { default as Auth } from './components/Auth.svelte'
+export { default as Modal } from './components/Modal.svelte'
+export { default as Select } from './components/Select.svelte'
+export { default as Icon } from './components/Icon.svelte'
