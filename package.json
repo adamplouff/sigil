@@ -1,5 +1,5 @@
 {
-  "name": "sigil",
+  "name": "@battleaxe/sigil",
   "version": "0.1.2",
   "description": "Svelte UI components for Bolt ",
   "main": "index.js",
