@@ -14,7 +14,7 @@ There will be no external support. Use at your own risk.
 5. `cd` into the [Bolt](https://github.com/hyperbrew/bolt-cep) project
 6. `yarn link @battleaxe/sigil`
 
-![Sigil](https://github.com/adamplouff/sigil/assets/8580225/5c12e67d-dea4-4864-9ea9-37452687edde|width=346px)
+<img src="https://github.com/adamplouff/sigil/assets/8580225/5c12e67d-dea4-4864-9ea9-37452687edde" width="346">
 
 
 ```svelte
