@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import FileNode from './FileNode.svelte';
   import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()

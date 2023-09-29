@@ -1,4 +1,15 @@
-<script>
+<!-- 
+@component
+
+### Ae Color-Picker
+
+@props
+- `color` - Initial color to display
+- `label` - Label to display
+
+ -->
+
+<script lang="ts">
     import { createEventDispatcher } from 'svelte'
     import { fade } from 'svelte/transition';
     import {

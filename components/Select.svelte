@@ -1,6 +1,20 @@
-<script>
+<!-- 
+@component
+
+### Select
+
+@props
+- `items` - Array of items to select from
+- `label` - Label of the select
+- `active` - Active item index
+- `width` - Width of the select
+- `prefsId` - ID of the preferences to save the state of the select
+
+ -->
+
+<script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte'  
-  import util from './mixinPrefs.js'
+  import util from '../lib/mixinPrefs'
   export let items = [
     'one', 'two', 'three'
   ]

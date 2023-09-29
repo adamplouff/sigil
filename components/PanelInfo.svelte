@@ -1,16 +1,28 @@
-<script>
-  import {onMount} from 'svelte'
-  export let name 
-  export let version
+<!-- 
+@component
+
+### Panel-Info
+
+@props
+- `name` - Name of the panel
+- `version` - Version number of the panel
+- `author` - Author of the panel
+- `releaseYear` - First year of release
+
+ -->
+
+<script lang="ts">
+  export let name = 'Fart basket'
+  export let version = '1.0.0'
   export let author = 'Battle Axe Inc'
-  export let releaseYear
+  export let releaseYear = ''
 
   const calcYears = (year) => {
     const currentYear = new Date().getFullYear().toString()
       if (!year) { return currentYear }
 
       let ccYear = year
-      if (year != currentYear) {
+      if (year < currentYear) {
           ccYear += `-${currentYear}`
       }
 

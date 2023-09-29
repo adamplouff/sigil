@@ -1,11 +1,36 @@
-<script>
+<!-- 
+@component
+
+### Input
+
+@props
+- `value` - Input value
+- `label` - Input label
+- `placeholder` - Input placeholder
+- `inputFirst` - Label before input
+- `readOnly` - Make the input read only
+- `disabled` - Disable the input
+- `flat` - Make the input flat
+- `filled` - Make the input filled
+- `prefix` - Input prefix
+- `suffix` - Input suffix
+- `truncate` - Truncate the input text
+- `uppercase` - Uppercase the input text
+- `totalWdth` - Total width of the input
+- `width` - Width of the input
+- `autoSelect` - Auto select the input text
+- `autoFocus` - Auto focus the input
+- `tooltip` - Input tooltip
+- `type` - Input type
+- `prefsId` - Local storage ID to save the input state
+
+ -->
+<script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte'  
   import { fade } from 'svelte/transition';
-  import util from './mixinPrefs.js'
+  import util from '../lib/mixinPrefs.js'
 
   import NumberSpinner from './NumberSpinner.svelte';
-  // import NumberSpinner from "svelte-number-spinner";    // https://www.npmjs.com/package/svelte-number-spinner/v/0.7.9
-
 
   const dispatch = createEventDispatcher();
 
@@ -21,7 +46,7 @@
   export let suffix = false
   export let truncate = false
   export let uppercase = false
-  export let totalwWdth = null
+  export let totalWdth = null
   export let width = null
   // export let margin = ''
   export let autoSelect = false
@@ -140,7 +165,7 @@
   class:readOnly
   class:disabled
   class:inputFirst
-  style="width: { totalwWdth }"
+  style="width: { totalWdth }"
   use:popperRef
   >
   {#if label && !inputFirst}

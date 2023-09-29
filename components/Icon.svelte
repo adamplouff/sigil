@@ -1,3 +1,19 @@
+<!-- 
+@component
+
+### Icon
+
+@props
+
+- `name` - Name of the icon
+- `title` - Title of the icon
+- `color` - Color of the icon
+- `size` - Size of the icon
+- `disableFill` - Disable the fill of the icon
+- `removeInitialStyle` - Remove the initial style of the icon
+- `style` - CSS style of the icon
+ -->
+
 <script>
   import Icomoon from "svelte-icomoon";
 

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    // only create a declaration file
+    "declaration": true,
+  },
+  "include": [
+    "index.ts"
+  ]
+}

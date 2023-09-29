@@ -1,4 +1,16 @@
-<script>
+<!-- 
+@component
+
+### Menus
+
+@props
+- `refresh` - Add a refresh menu item
+- `menuItems` - Array of menu items
+- `locale` - Locale of the panel (default `en`)
+
+ -->
+
+<script lang="ts">
   import { onMount } from 'svelte'
 
   import { csi } from '../lib/utils'

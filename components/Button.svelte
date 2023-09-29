@@ -1,4 +1,37 @@
-<script>
+<!-- 
+@component
+
+### Button
+
+@props
+- `uppercase` - Uppercase the button text
+- `block` - Make the button fill the width of its container
+- `tall` - Make the button taller
+- `left` - Align the button text to the left
+- `right` - Align the button text to the right
+- `primary` - Make the button primary
+- `flat` - Make the button flat
+- `filled` - Make the button filled
+- `disabled` - Disable the button
+- `toolbar` - Make the button a toolbar button
+- `bg` - Set the background color of the button
+- `color` - Set the text color of the button
+- `label` - Set the button text
+- `tooltip` - Set the button tooltip
+- `goto` - Set the button link
+- `mini` - Make the button mini
+- `center` - Center the button text
+- `icon` - Set the button icon
+- `iconSize` - Set the button icon size
+- `height` - Set the button height
+- `width` - Set the button width
+
+#### Events
+- `click` - Click event
+
+ -->
+
+<script lang="ts">
     import { fade } from 'svelte/transition';
     import {
         openLinkInBrowser,
@@ -22,7 +55,7 @@
     export let goto = null
     export let mini = false
     export let center = false
-    export let icon = null
+    export let icon = ''
     export let iconSize = 18
     export let height = null
     export let width = null
@@ -32,6 +65,7 @@
     $: hover = false
 
     import { createPopperActions } from 'svelte-popperjs';
+    import { preprocess } from 'svelte/compiler';
     const [popperRef, popperContent] = createPopperActions({
         placement: 'bottom',
         strategy: 'fixed',
@@ -79,7 +113,7 @@
 >
     <div class="button-content" class:left>
         {#if icon}
-            <Icon name="{icon}" size="{ iconSize }" />
+            <Icon name="{ icon }" size="{ iconSize }" />
         {/if}
 
         {#if label}

@@ -1,3 +1,15 @@
+<!-- 
+@component
+
+### Auth
+
+@props
+- `message` - Message to display
+- `locale` - Locale to use
+- `locked` - Lock the auth
+
+ -->
+
 <script>
   import { onMount, createEventDispatcher } from 'svelte'
   import Button from './Button.svelte';

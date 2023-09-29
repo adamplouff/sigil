@@ -1,4 +1,34 @@
-<script>
+<!-- 
+@component
+
+### Modal
+
+@props
+
+- `show` - Show the modal
+- `label` - Modal label
+- `confirm` - Confirm object
+- `delay` - Delay in ms
+- `noButtons` - Hide the buttons
+- `showLoader` - Show the loader
+- `center` - Center the modal
+
+### Events
+
+- `close` - Dispatched when the modal is closed
+- `confirm` - Dispatched when the modal is confirmed
+
+@example
+<Modal label="Are you sure you want to deauthorize this computer?" 
+  show={ deauthorizeModal } 
+  confirm={{
+      cancel: 'No way!', 
+      confirm: 'Hell yeah' }}
+  on:close={ () => deauthorizeModal = false } />
+
+ -->
+
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import { fade } from 'svelte/transition';
   import Button from './Button.svelte';
@@ -8,7 +38,10 @@
   export let show = true
   
   export let label = ``
-  export let confirm = null
+  export let confirm: null | {
+    cancel: string
+    confirm: string
+  } = null 
   export let delay = 0
   export let noButtons = false
   export let showLoader = false

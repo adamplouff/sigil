@@ -1,3 +1,18 @@
+<!-- 
+@component
+
+### Update
+
+@props
+- `version` - Current version of the plugin
+- `name` - Plugin name
+- `key` - License key of the plugin
+- `url` - URL of the version JSON file (default to Iteration)
+- `color` - Color of the background
+- `locale` - Locale of the plugin
+
+ -->
+
 <script lang="ts">
   import { onMount } from "svelte";
   import { fly, fade } from 'svelte/transition';
@@ -7,7 +22,6 @@
   import {
     openLinkInBrowser,
   } from "../lib/utils";
-    import Icon from "./Icon.svelte";
 
   export let version = '1.0.0'
   export let name = ''

@@ -1,4 +1,20 @@
-<script>
+<!-- 
+@component
+
+### Footer
+
+@props
+- `footerMessage` - Message to display
+- `timeout` - Timeout in ms
+- `color` - Background color of the footer
+
+@example
+
+<Footer footerMessage="A really cool string" />
+
+ -->
+
+<script lang="ts">
   import { fly, fade } from 'svelte/transition';
 
   export let footerMessage = ''

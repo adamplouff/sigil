@@ -1,4 +1,17 @@
-<script>
+<!-- 
+
+@component
+
+### Row
+
+@props
+- `fill` - Make the contents Fill the row
+- `center` - Center the row
+- `column` - Make the row a column\
+
+ -->
+
+<script lang="ts">
 	export let fill = false
 	export let center = false
 	export let column = false

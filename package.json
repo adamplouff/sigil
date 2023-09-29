@@ -1,36 +1,28 @@
 {
   "name": "@battleaxe/sigil",
-  "version": "0.1.3",
-  "description": "Svelte UI components for Bolt ",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adamplouff/sigil.git"
-  },
-  "author": "Adam Plouff<adamplouff@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adamplouff/sigil/issues"
-  },
-  "homepage": "https://github.com/adamplouff/sigil#readme",
   "devDependencies": {
     "starlette": "latest",
-    "svelte": "^3.44.0",
-    "svelte-check": "^2.7.1",
-    "svelte-popperjs": "^1.3.2",
-    "svelte-preprocess": "^4.10.6"
+    "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@tsconfig/svelte": "^5.0.0",
+    "svelte": "^4.0.5",
+    "svelte-check": "^3.4.6",
+    "tslib": "^2.6.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "shelljs": "^0.8.5",
-    "svelecte": "^3.12.0",
-    "svelte-awesome-color-picker": "^2.2.1",
-    "svelte-file-dropzone": "^1.0.0",
-    "svelte-icomoon": "^0.4.4",
-    "svelte-number-spinner": "^0.7.9",
-    "svelte-select": "^5.0.0"
+    "svelte-icomoon": "^0.4.6",
+    "svelte-popperjs": "^1.3.2"
   }
 }

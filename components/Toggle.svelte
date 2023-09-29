@@ -1,6 +1,23 @@
-<script>
+<!-- 
+@component
+
+### Toggle
+
+@props
+- `label` - Toggle label
+- `state` - Initial toggle the toggle state
+- `disabled` - Disable the toggle
+- `readOnly` - Make the toggle read only
+- `prefsId` - Local storage ID to save the toggle state
+
+### Events
+- `change` - Dispatched when the toggle state changes
+
+ -->
+
+<script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte'
-  import util from './mixinPrefs.js'
+  import util from '../lib/mixinPrefs'
 
 	const dispatch = createEventDispatcher();
 
@@ -9,7 +26,6 @@
 	export let custom = false
 	export let readOnly = false
 	export let label = ''
-	// export let color = ''
 	export let state = true
 	export let prefsId = null
 

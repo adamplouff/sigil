@@ -6,6 +6,7 @@ export const csi = new CSInterface();
 // export const vulcan = new Vulcan();
 
 export const openLinkInBrowser = (url: string) => {
+  //@ts-ignore
   if (window.cep) {
     csi.openURLInDefaultBrowser(url);
   } else {
@@ -17,6 +18,7 @@ export const evalES = (script: string, isGlobal = false): Promise<string> => {
   return new Promise(function (resolve, reject) {
     const pre = isGlobal
       ? ""
+      //@ts-ignore
       : `var host = typeof $ !== 'undefined' ? $ : window; host["${ns}"].`;
     const fullString = pre + script;
     csi.evalScript(

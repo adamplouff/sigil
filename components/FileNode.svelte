@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import Icon from './Icon.svelte';
   import { onMount } from 'svelte'
-  import util from './mixinPrefs.js'
+  import util from '../lib/mixinPrefs'
 
   import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()

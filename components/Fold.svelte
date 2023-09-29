@@ -1,6 +1,19 @@
-<script>
+<!-- 
+@component
+
+### Fold
+
+@props
+- `label` - Label of the fold
+- `open` - The initial state of the fold
+- `removeBorder` - Remove the border of the fold
+- `prefsId` - Local storage ID to save the state of the fold
+
+ -->
+
+<script lang="ts">
   import { onMount } from 'svelte'
-  import util from './mixinPrefs.js'
+  import util from '../lib/mixinPrefs'
 	export let label = 'fold'
 	export let open = true
 	export let removeBorder = false
