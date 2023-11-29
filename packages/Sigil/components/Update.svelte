@@ -52,7 +52,7 @@
     .then((data) => {
       // updateData = data?.[`${ name.toLowerCase() }`]
       updateData = getParameterCaseInsensitive(data, name)
-      console.log('updateData', updateData)
+      // console.log('updateData', updateData)
       const availableVersion = updateData?.version
 
       if (versionCompare(availableVersion, version) > 0) {
@@ -70,7 +70,7 @@
   }
 
   const versionCompare = (a: string, b: string) => {
-    console.log(`a: ${a}\nb: ${b}`);
+    // console.log(`a: ${a}\nb: ${b}`);
     
     if (a === b) {
       return 0;

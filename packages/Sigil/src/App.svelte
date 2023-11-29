@@ -1,5 +1,6 @@
 <script lang="ts">
   import Panel from '../components/Panel.svelte'
+  import Auth from '../components/Auth.svelte'
   import PanelInfo from '../components/PanelInfo.svelte'
   import Footer from '../components/Footer.svelte'
   import Button from '../components/Button.svelte'
@@ -66,7 +67,7 @@
     {/if}
 
     <Footer footerMessage={ footerMessage } />
-    <!-- <Auth message={ authMessage } locked={ authLock } on:submit={ () => callAuthServer() } /> -->
+    <Auth message={ authMessage } locked={ authLock } on:submit={ () => callAuthServer() } />
 
     <Input label="Number slider" placeholder="Placeholder" value={4} type="number" />
 

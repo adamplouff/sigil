@@ -10,7 +10,7 @@
 
  -->
 
-<script>
+<script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte'
   import Button from './Button.svelte';
   import Input from "./Input.svelte";
