@@ -21,7 +21,7 @@
   export let label = ''
   export let active = 0
   export let width = '100%'
-  export let prefsId = null
+  export let prefsId: null | string = null  
 
   const dispatch = createEventDispatcher();
 
@@ -29,6 +29,11 @@
   $: activeIndex = 0
   $: menuHeight = 0
   $: scrimTop = 0
+
+  $: {
+    if (active !== undefined)
+      activeIndex = active
+  }
 
   const makeActive = (item, i) => {
     if (activeIndex != i)
@@ -44,7 +49,7 @@
   const calcScrimTop = (evt) => {
     const top = evt.target.offsetParent.offsetTop + evt.target.offsetParent.offsetHeight
     scrimTop = top
-  }
+  } 
 
   onMount(() => {
     if (active !== undefined)
@@ -63,11 +68,15 @@
 </script>
 
 {#if open}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div 
     class="scrim" 
     style={ `height: max(${ scrimTop + menuHeight }px, 100%)` }
     on:click={ () => open = false } />
 {/if}
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
   class="dropdown-wrapper"
   on:click={ (evt) => {calcScrimTop(evt); open = !open} }
@@ -99,6 +108,8 @@
       {#if item == '-'}
         <li class="dropdown-menu-line" />
       {:else}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <li 
           class="dropdown-menu-item"
           class:active={ activeIndex == i }
@@ -116,21 +127,6 @@
           </li>
       {/if}
       {/each}
-      <!-- <li
-        v-for="(item, i) in menu"
-        :key="i"
-        :ref="i"
-        @click="makeActive(item)"
-        @mouseenter="mouseOver(item)"
-        @mouseleave="item.hover = false"
-        class="dropdown-menu-item"
-        :style="getMenuItemStyle(item)"
-      >
-        <span class="dropdown-menu-item-label">
-          {{ item.label || item.value }}
-        </span>
-        <span class="dropdown-menu-item-indicator" v-show="item.active" />
-      </li> -->
     </ul>
     {/if}
   </div>
@@ -179,7 +175,7 @@ svg {
   /* width: 100%; */
   min-width: 60px;
   height: 18px;
-  padding: 0px 2px 0 6px;
+  padding: 1px 2px 0 6px;
   font-size: 11px;
   display: flex;
   justify-content: space-between;

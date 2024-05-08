@@ -5,12 +5,13 @@
 <div 
   class="divider-line"
 	class:vertical
-/>
+></div>
 
 <style>
 .divider-line {
 	box-sizing: border-box;
 	max-width: 100%;
+	height: 1px;
 }
 .divider-line:not(.vertical) {
 	margin: 6px 0px;

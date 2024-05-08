@@ -42,18 +42,18 @@
   export let disabled = false
   export let flat = false
   export let filled = false
-  export let prefix = false
-  export let suffix = false
+  export let prefix: string|boolean = false
+  export let suffix: string|boolean = false
   export let truncate = false
   export let uppercase = false
   export let totalWdth = null
-  export let width = null
+  export let width: string|null = null
   // export let margin = ''
   export let autoSelect = false
   export let autoFocus = false
   export let tooltip = ''
   export let type = 'text'
-  export let prefsId = null
+  export let prefsId: string|null = null
 
   onMount(() => {
     if (prefsId?.length) {
@@ -172,6 +172,7 @@
   <span class="input-label">{ label }</span>
   {/if}
 
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="input-wrapper" 
     class:flat class:filled 
     style="width: { width }"
@@ -299,11 +300,11 @@
   font-size: 10px;
   position: relative;
   height: auto;
+  text-align: left;
   /* top: -4px; */
 }
 .suffix {
-  /* background: salmon; */
-  margin-bottom: 6px;
+  padding: 0 3px;
 }
 .input-container:not(.noLabel) {
   /* margin: 6px 0px 10px 0px; */
@@ -321,7 +322,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
 }
 .input-value.pseudo {
   cursor: pointer !important;
@@ -348,6 +349,7 @@
   border-style: solid;
   width: 100%;
   color: var(--color-btn-pill-border);
+  font-size: 12px;
   /* color: var(--color-input-text); */
   /* border-radius: 2px 2px 0px 0px; */
 }

@@ -13,6 +13,7 @@
 - `flat` - Make the button flat
 - `filled` - Make the button filled
 - `disabled` - Disable the button
+- `nonclickable` - Make the button non-clickable
 - `toolbar` - Make the button a toolbar button
 - `bg` - Set the background color of the button
 - `color` - Set the text color of the button
@@ -27,15 +28,20 @@
 - `width` - Set the button width
 
 #### Events
-- `click` - Click event
+- `normalClick` - Click event
+- `shiftClick` - Shift click event
+- `altClick` - Alt click event
+- `altShiftClick` - Alt + Shift click event
 
  -->
 
 <script lang="ts">
     import { fade } from 'svelte/transition';
-    import {
-        openLinkInBrowser,
-    } from "../lib/utils";
+    import { createEventDispatcher } from 'svelte'
+    import { openLinkInBrowser, } from "../lib/utils";
+
+    const dispatch = createEventDispatcher();
+
     import Icon from './Icon.svelte';
 
     export let uppercase = false
@@ -44,9 +50,11 @@
     export let left = false
     export let right = false
     export let primary = false
+    export let outline = false
     export let flat = false
     export let filled = false
     export let disabled = false
+    export let nonclickable = false
     export let toolbar = false
     export let bg = ''
     export let color = ''
@@ -56,9 +64,9 @@
     export let mini = false
     export let center = false
     export let icon = ''
-    export let iconSize = 18
-    export let height = null
-    export let width = null
+    export let iconSize: null | string = '18px'
+    export let height: null | string = null
+    export let width: null | string = null
 
     let colorHover = (bg !== '')
 
@@ -82,13 +90,23 @@
         ],
     }
 
-    const handleClick = () => {
+    const handleClick = (event) => {
         if (goto) {
             openLinkInBrowser(goto)
+        } else if (event.shiftKey) {
+            dispatch('shiftClick')
+        } else if (event.altKey) {
+            dispatch('altClick')
+        } else if (event.altKey && event.shiftKey) {
+            dispatch('altShiftClick')
+        } else {
+            dispatch('normalClick')
         }
     }
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div 
     class="button" 
     on:click
@@ -100,15 +118,17 @@
     class:flat
     class:filled
     class:disabled
+    class:nonclickable
     class:colorHover
     class:toolbar
     class:mini
     class:center
+    class:outline
     class:icon-button={!label && icon}
-    style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}`}
+    style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
-    on:click={ () => handleClick() }
+    on:click={ (event) => handleClick(event) }
     use:popperRef
 >
     <div class="button-content" class:left>
@@ -143,14 +163,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* flex-shrink: inherit; */
-    padding: 6px;
     border-radius: 2px;
-    /* height: 24px; */
     white-space: nowrap;
     gap: 8px;
     max-width: -webkit-fill-available;
-    /* transition: width 0.2s, height 4s; */
 }
 .button:hover {
     background: var(--button-hover);
@@ -192,6 +208,10 @@
 }
 .primary:hover {
     background: rgba(160, 160, 160, 0.4);
+}
+.outline {
+    background: transparent;
+    border-color: rgba(160, 160, 160, 0.2);
 }
 .flat,
 .toolbar {
@@ -249,7 +269,7 @@
     fill: var(--color-icon);
 }
 .button.custom :global(svg) {
-    min-width: 24px;
+    /* min-width: 24px; */
     width: 24px;
     height: 24px;
     margin-top: -1px;
@@ -259,16 +279,11 @@
     opacity: 0.4;
     pointer-events: none;
 }
+.nonclickable {
+    pointer-events: none;
+}
 .icon-button:not(.mini) {
     min-width: 32px;
-}
-#tooltip {
-    padding: 2px 4px;
-    background-color: var(--tooltip-bg);
-    color: var(--tooltip-color);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    text-align: left;
 }
 .mini {
     width: fit-content;

@@ -52,6 +52,9 @@
     'de': { },
     // Chinese 
     'zh': { },
+    // Korean
+    'ko': { },
+
   }
   const _lang = lang[locale]
 
@@ -65,6 +68,7 @@
   lang.ru.authLabel = 'Переведи дух на священной горе'
   lang.zh.authLabel = '在圣山上安息'
   lang.fr.authLabel = 'Reposez-vous sur la montagne sacrée'
+  lang.ko.authLabel = '유연하게 유지하고 위험한 리깅을 해주세요'
 
   lang.en.authPlaceholder = 'Paste license key'
   lang.es.authPlaceholder = 'Pegar código de licencia'
@@ -75,6 +79,7 @@
   lang.ru.authPlaceholder = 'Вставить лицензионный ключ'
   lang.zh.authPlaceholder = '粘贴你的许可证代码'
   lang.fr.authPlaceholder = `Coller la clé d'activation`
+  lang.ko.authPlaceholder = `라이선스 키 붙여넣기`
 
   lang.en.failed = 'This code is not valid. Try again.'
   lang.es.failed = 'Este código no es válido. Inténtalo de nuevo.'
@@ -85,6 +90,7 @@
   lang.ru.failed = 'Код недействителен. Попробуйте еще раз.'
   lang.zh.failed = '此代码无效。请重新尝试。'
   lang.fr.failed = `Le code est incorrect. Réessayez.`
+  lang.ko.failed = `이 코드는 유효하지 않습니다. 다시 시도해주세요.`
 
   lang.en.refunded = 'This purchase was refunded'
   lang.es.refunded = 'Esta compra fue reembolsada'
@@ -95,6 +101,7 @@
   lang.ru.refunded = 'Осуществлен возврат средств'
   lang.zh.refunded = '这笔购买已退款'
   lang.fr.refunded = `Cet achat a été remboursé`
+  lang.ko.refunded = `이 구매는 환불되었습니다.`
 
   lang.en.chargebacked = 'This purchase was canceled with a chargeback'
   lang.es.chargebacked = 'Esta compra se canceló con un contracargo'
@@ -105,6 +112,7 @@
   lang.ru.chargebacked = 'Покупка отменена с возвратным платежом'
   lang.zh.chargebacked = '这笔购买已被取消并退款'
   lang.fr.chargebacked = 'Cet achat a été annulé et remboursé'
+  lang.ko.chargebacked = '이 구매는 청구 취소로 취소되었습니다.'
 
   lang.en.cantConnect = 'Unable to connect to authentication server'
   lang.es.cantConnect = 'No se puede conectar al servidor de autenticación'
@@ -115,6 +123,7 @@
   lang.ru.cantConnect = 'Невозможно подключиться к серверу аутентификации'
   lang.zh.cantConnect = '无法连接到认证服务器'
   lang.fr.cantConnect = `Impossible de se connecter au serveur d'authentification`
+  lang.ko.cantConnect = `인증 서버에 연결할 수 없습니다.`
 
   lang.en.loading = 'Loading...'
   lang.es.loading = 'Cargando...'
@@ -125,6 +134,7 @@
   lang.ru.loading = 'Загрузка...'
   lang.zh.loading = '正在加载...'
   lang.fr.loading = `Chargement...`
+  lang.ko.loading = `로딩 중...`
   //#endregion
 
 </script>

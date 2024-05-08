@@ -8,6 +8,7 @@
 - `state` - Initial toggle the toggle state
 - `disabled` - Disable the toggle
 - `readOnly` - Make the toggle read only
+- `tooltip` - Set the toggle tooltip
 - `prefsId` - Local storage ID to save the toggle state
 
 ### Events
@@ -16,6 +17,7 @@
  -->
 
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { onMount, createEventDispatcher } from 'svelte'
   import util from '../lib/mixinPrefs'
 
@@ -27,7 +29,8 @@
 	export let readOnly = false
 	export let label = ''
 	export let state = true
-	export let prefsId = null
+	export let tooltip = ''
+	export let prefsId: string|null = null
 
 	$: hover = false
 	let isEnabled = false
@@ -60,9 +63,26 @@
 		dispatch('change', isEnabled)
 	}
 
+	import { createPopperActions } from 'svelte-popperjs';
+	const [popperRef, popperContent] = createPopperActions({
+        placement: 'bottom',
+        strategy: 'fixed',
+        applyStyles: true,
+    });
+    const extraOpts = {
+        modifiers: [
+            { name: 
+                'offset', 
+                options: { 
+                    offset: [0, 4] ,
+                } 
+            }
+        ],
+    }
+
 </script>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-	on:click={ updateState }
 	on:mouseenter={() => hover = true}
 	on:mouseleave={() => hover = false}
 	class:disabled
@@ -70,34 +90,47 @@
 	class:custom
 	class:readOnly
 	class="toggle-item"
+	use:popperRef
 >
-	<div class="toggle-contents">
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<div class="toggle-contents" on:click={ updateState }>
 		<div class="outer" >
-			<div class="{isEnabled ? 'enabled' : ''}" />
-			<!-- <div class="{isEnabled ? 'enabled' : ''}" /> -->
 		</div>
+		<div class="{isEnabled ? 'enabled' : ''}" />
 		<span class="label">{ label }</span>
 	</div>
 </div>
 
+{#if tooltip && hover}
+<div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
+	{ @html tooltip }
+	<div id="arrow" data-popper-arrow />
+</div>
+{/if}
+
 
 <style>
-.toggle-contents {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  align-items: center;
-	margin: 4px auto;
-	/* margin-bottom: 16px; */
-}
 .toggle-item {
-  box-sizing: border-box;
-  width: fit-content;
+	--box-size: 1.4em;
+	--enable-inset: 3px;
+	--enable-size: calc(var(--box-size) - calc(var(--enable-inset) * 2));
+	
+	position: relative;
+	box-sizing: border-box;
+  /* width: fit-content; */
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   overflow: hidden;
   color: var(--color-icon);
+	white-space: nowrap;
+}
+.toggle-contents {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  align-items: center;
+	margin: 4px 0;
 }
 .toggle-item.readOnly {
   pointer-events: none;
@@ -115,6 +148,7 @@
 .label {
   padding-left: 6px;
 	margin-right: 16px;
+	text-align: left;
 }
 .custom .label {
   margin-top: 2px;
@@ -122,13 +156,19 @@
 .outer {
 	border: 1px solid var(--color-icon);
 	border-radius: 1px;
-	width: 10px;
-	height: 10px;
+	box-sizing: border-box;
+	width: var(--box-size);
+	min-width: var(--box-size);
+	height: var(--box-size);
+	padding: 0 !important;
 }
 .enabled {
 	background-color: var(--color-icon);
-	margin: 2px;
-	width: 6px;
-	height: 6px;
+	position: absolute;
+	border: 1px solid transparent;
+	box-sizing: border-box;
+	margin-left: var(--enable-inset);
+	width: var(--enable-size);
+	height: var(--enable-size);
 }
 </style>

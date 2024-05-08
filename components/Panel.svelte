@@ -73,19 +73,40 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-scrollbar-thumb-hover);
 }
-body {
+/* body {
   margin: 0px;
   overflow: hidden;
 }
 
 button {
     font-size: inherit;
-}
+} */
 
+:global(h1, h2, h3, h4, h5, h6) {
+  text-align: start;
+  font-style: normal;
+  font-weight: 300;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.1ch;
+  opacity: 0.75;
+}
+:global(h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child) {
+  margin-top: 0.25em;
+}
 :global(h1) {
   line-height: 1em;
 }
 :global(h3) {
-  margin-bottom: -0.6em;
+  /* margin-bottom: 0.8em; */
+}
+:global(#tooltip) {
+    padding: 2px 4px;
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-color);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-align: left;
 }
 </style>
