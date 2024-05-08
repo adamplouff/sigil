@@ -688,7 +688,7 @@ source-map-js@^1.0.1, source-map-js@^1.2.0:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.2.0.tgz#16b809c162517b5b8c3e7dcd315a2a5c2612b2af"
   integrity sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==
 
-starlette@latest:
+starlette@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/starlette/-/starlette-1.0.7.tgz#a06d516faef75075e9c4682b99e1a563647a7e96"
   integrity sha512-Syt0h4va4NiXzrLwpCrBEKQgZrhSKqaZkxUxfzah9pkPGKThuTAgCdu5HU/Okgvh/PJUgCeYRwgyD2FSJE4KSw==
