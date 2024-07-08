@@ -1,6 +1,7 @@
 import Panel from './components/Panel.svelte';
 import Fold from './components/Fold.svelte';
 import Button from './components/Button.svelte';
+import ButtonCombo from './components/ButtonCombo.svelte';
 import Input from './components/Input.svelte';
 import Row from './components/Row.svelte';
 import PanelInfo from './components/Panel-Info.svelte';
@@ -22,6 +23,7 @@ export {
   Panel,
   Fold,
   Button,
+  ButtonCombo,
   Input,
   Row,
   PanelInfo,

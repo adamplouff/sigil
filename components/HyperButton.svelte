@@ -1,7 +1,7 @@
 <!--
 @component
 
-### Button
+### ButtonCombo
 
 @props
 - `uppercase` - Uppercase the button text
@@ -37,12 +37,27 @@
 
 <script lang="ts">
     import { fade } from 'svelte/transition';
-    import { createEventDispatcher } from 'svelte'
+    import { onMount, createEventDispatcher } from 'svelte'
     import { openLinkInBrowser, } from "../lib/utils";
+    import util from '../lib/mixinPrefs'
 
     const dispatch = createEventDispatcher();
 
     import Icon from './Icon.svelte';
+
+    export let menu: {
+      [key: string]: {
+        icon: string,
+        label: string,
+        tooltip: string
+      }
+    } = {
+    }
+    export let active = 'paste'
+
+    let activeItem = active
+
+    let icon = menu[activeItem]?.icon || null
 
     export let uppercase = false
     export let block = false
@@ -59,21 +74,40 @@
     export let bg = ''
     export let color = ''
     export let label = ''
-    export let tooltip = ''
     export let goto = null
     export let mini = false
     export let center = false
-    export let icon = ''
     export let iconSize: null | string = '18px'
     export let height: null | string = null
     export let width: null | string = null
+    export let prefsId: string | null = null
 
     let colorHover = (bg !== '')
 
+    let longPress = false
+
     $: hover = false
+    $: {
+      icon = menu[active]?.icon || null
+      activeItem = active
+    }
+
+    onMount(() => {
+      if (prefsId?.length) {
+        util.checkLocalPrefs();
+        let lastState = util.checkPrefsFor(prefsId, 'radio');
+
+        if (lastState === null) {
+          activeItem = active
+        } else {
+          activeItem = lastState.value;
+        }
+      } else {
+        activeItem = active
+      }
+    })
 
     import { createPopperActions } from 'svelte-popperjs';
-    import { preprocess } from 'svelte/compiler';
     const [popperRef, popperContent] = createPopperActions({
         placement: 'bottom',
         strategy: 'fixed',
@@ -90,18 +124,58 @@
         ],
     }
 
-    const handleClick = (event) => {
-        if (goto) {
-            openLinkInBrowser(goto)
-        } else if (event.shiftKey) {
-            dispatch('shiftClick')
-        } else if (event.altKey) {
-            dispatch('altClick')
-        } else if (event.altKey && event.shiftKey) {
-            dispatch('altShiftClick')
-        } else {
-            dispatch('normalClick')
+    const handleClick = (event: MouseEvent) => {
+      const node = event.currentTarget as HTMLElement;
+
+      const clickDuration = 300
+
+      let start = Date.now();
+      const timeout = setTimeout(() => {
+        handleLongPress()
+        return
+      }, clickDuration);
+
+      const cancel = () => {
+        clearTimeout(timeout);
+        node.removeEventListener('mouseup', cancel);
+
+        if (Date.now() - start < clickDuration) {
+          handleShortPress(event)
         }
+      };
+
+      node.addEventListener('mouseup', cancel);
+    }
+    const handleShortPress = (event: MouseEvent) => {
+      console.log('short press');
+      longPress = false
+      if (goto) {
+          openLinkInBrowser(goto)
+      } else if (event.shiftKey) {
+          dispatch('shiftClick')
+      } else if (event.altKey) {
+          dispatch('altClick')
+      } else if (event.altKey && event.shiftKey) {
+          dispatch('altShiftClick')
+      } else {
+          dispatch('normalClick')
+      }
+    }
+    const handleLongPress = () => {
+      longPress = true
+      console.log('long press');
+    }
+
+
+
+    function handleSwitch(key: string): any {
+      activeItem = key
+      longPress = false
+
+      if (prefsId) {
+        util.setPrefsById(prefsId, key, 'radio')
+      }
+      dispatch('change', key)
     }
 </script>
 
@@ -128,27 +202,59 @@
     style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}
-    on:click={ (event) => handleClick(event) }
+    on:mousedown={(event) => handleClick(event)}
     use:popperRef
 >
     <div class="button-content" class:left>
-        {#if icon}
-            <Icon name="{ icon }" size="{ iconSize }" />
-        {/if}
+        <!-- {#if icon} -->
+         {#each Object.entries(menu) as [key, item]}
+            {#if key === activeItem}
+            <Icon name="{ item.icon }" size="{ iconSize }" />
+            {/if}
+          {/each}
+        <!-- {/if} -->
 
-        {#if label}
+        <!-- {#if label}
             <span class="label">
                 { label }
             </span>
-        {/if}
+        {/if} -->
         <slot />
     </div>
+
+    <div class="corner-arrow" />
 </div>
 
-{#if tooltip && hover}
+{#if menu[activeItem].tooltip && hover}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
-    { @html tooltip }
+    { @html menu[activeItem].tooltip }
     <div id="arrow" data-popper-arrow />
+  </div>
+{/if}
+
+{#if longPress}
+  <div class="longpress">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="scrim" on:click={() => longPress = false} />
+    <div class="menu">
+      {#each Object.entries(menu) as [key, item]}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="menu-item" class:active={key === activeItem}
+          on:click={() => handleSwitch(key)}
+          on:mouseup={() => handleSwitch(key)}
+        >
+          <div class="check">
+            {#if key === activeItem}
+              <div class="mark" />
+            {/if}
+          </div>
+          <Icon name={item.icon} size="17px" />
+          <p>{ item.label }</p>
+        </div>
+      {/each}
+    </div>
   </div>
 {/if}
 
@@ -156,17 +262,29 @@
 
 <style>
 .button {
-    position: relative;
-    background: var(--button);
-    color: var(--button-color);
-    border: 1px solid transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2px;
-    white-space: nowrap;
-    gap: 8px;
-    max-width: -webkit-fill-available;
+  position: relative;
+  background: var(--button);
+  color: var(--button-color);
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  white-space: nowrap;
+  gap: 8px;
+  max-width: -webkit-fill-available;
+}
+.button .corner-arrow {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid var(--button-color);
+  border-right: 3px solid var(--button-color);
+  opacity: 0.7;
 }
 .button:hover {
     background: var(--button-hover);
@@ -175,18 +293,76 @@
     background: var(--button-active);
 }
 .button-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .button-content .label {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
+}
+
+.longpress {
+  margin-left: -4px;
+}
+.longpress .scrim {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background: rgba(0, 0, 0, 0.5); */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.longpress .menu {
+  position: fixed;
+  background: var(--color-bg);
+  border: 1px solid rgba(160, 160, 160, 0.1);
+  color: var(--button-color);
+  z-index: 20;
+  /* drop shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+.longpress .menu-item {
+  display: flex;
+  justify-content: start;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 12px 4px 2px;
+}
+.longpress .menu-item:hover {
+  background: rgba(160, 160, 160, 0.2);
+}
+.longpress .menu-item .check {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.longpress .menu-item p {
+  margin: 0;
+}
+.longpress .menu-item.active {
+  background: rgba(160, 160, 160, 0.1);
+}
+.longpress .menu-item.active .mark {
+  background: var(--button-color);
+  border-radius: 20px;
+  width: 6px;
+  height: 6px;
 }
 .uppercase {
     text-transform: uppercase;
