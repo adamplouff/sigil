@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Menus
@@ -23,7 +23,7 @@
     callback: () => void
   }[] = []
   export let locale = 'en'
-  
+
 
   const lang = {
     'en': { },
@@ -41,11 +41,9 @@
     'ru': { },
     // German
     'de': { },
-    // Chinese 
+    // Chinese
     'zh': { },
   }
-  const _lang = lang[locale]
-
   //#region Authentication strings
   lang.en.reload = 'Reload panel'
   lang.es.reload = 'Panel de recarga'
@@ -58,6 +56,9 @@
   lang.fr.reload = 'Panneau de rechargement'
   //#endregion
 
+  const _lang = lang[locale] || lang.en
+
+
 
   const refreshPage = () => {
       location.reload()
@@ -66,7 +67,7 @@
   let contextMenu = {
     menu: [ ]
   }
-  
+
 
   const callback = (event) => {
     let clickedItem
@@ -74,7 +75,7 @@
       if (menuItem.id == event) {
         clickedItem = menuItem
       }
-    })      
+    })
     clickedItem.callback()
   }
   const flyoutCallback = (event) => {
@@ -83,7 +84,7 @@
 
   const buildContextMenu = (menuItems) => {
     contextMenu.menu = []
-    
+
     if (refresh) { contextMenu.menu.push({
         id: 'refresh',
         label: _lang.reload,
@@ -97,7 +98,7 @@
     contextMenu.menu.push({ label: '---' })
 
     if (menuItems.length > 0) {
-      menuItems.forEach(item => { 
+      menuItems.forEach(item => {
         contextMenu.menu.push({
           id: item.label.replace(' ', '_'),
           label: item.label,
@@ -107,9 +108,9 @@
           callback: item.callback,
         })
       })
-    }    
+    }
   }
-  const buildFlyoutMenuItemInXML = (item) => {      
+  const buildFlyoutMenuItemInXML = (item) => {
     let str = ``;
     if (item.id) {
       str += `<MenuItem Id="${item.id}" Label="${item.label}" Enabled="${
@@ -131,14 +132,14 @@
     let str = `<Menu>`;
     contextMenu.menu.forEach((item, i) => {
       str += buildFlyoutMenuItemInXML(item, i);
-    });      
+    });
     return (str += `</Menu>`);
   }
 
   $: {
     buildContextMenu(menuItems)
-    
-    
+
+
     csi.setContextMenuByJSON(JSON.stringify(contextMenu), callback)
     csi.setPanelFlyoutMenu(buildFlyoutMenuInXML(contextMenu))
     csi.addEventListener("com.adobe.csxs.events.flyoutMenuClicked", flyoutCallback)
