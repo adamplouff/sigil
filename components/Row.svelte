@@ -1,4 +1,4 @@
-<!-- 
+<!--
 
 @component
 
@@ -18,7 +18,7 @@
 </script>
 
 
-<div class="row" 
+<div class="row"
 	class:fill
 	class:center
 	class:column
@@ -50,6 +50,6 @@
 	margin-right: 0;
 }
 .row.fill :global(div) {
-	flex: 1
-} 
+	flex: 1;
+}
 </style>

@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Input
@@ -26,7 +26,7 @@
 
  -->
 <script lang="ts">
-  import { onMount, createEventDispatcher } from 'svelte'  
+  import { onMount, createEventDispatcher } from 'svelte'
   import { fade } from 'svelte/transition';
   import util from '../lib/mixinPrefs.js'
 
@@ -116,6 +116,7 @@
     }
   }
 
+
   ///// autofocus input
   function inputFocus(el){
     // console.log('input focus');
@@ -136,11 +137,11 @@
     });
     const extraOpts = {
         modifiers: [
-            { name: 
-                'offset', 
-                options: { 
+            { name:
+                'offset',
+                options: {
                     offset: [0, 4] ,
-                } 
+                }
             }
         ],
     }
@@ -160,12 +161,12 @@
 </script>
 
 
-<div 
+<div
   class="input-container"
-  class:readOnly
   class:disabled
   class:inputFirst
   style="width: { totalWdth }"
+  on:click={() => { if (!disabled) dispatch('click') }}
   use:popperRef
   >
   {#if label && !inputFirst}
@@ -173,8 +174,8 @@
   {/if}
 
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div class="input-wrapper" 
-    class:flat class:filled 
+  <div class="input-wrapper"
+    class:flat class:filled class:readOnly
     style="width: { width }"
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}>
@@ -182,17 +183,17 @@
       {#if prefix}
       <span class="input-label suffix">{ prefix }</span>
       {/if}
-      <div class="input-inside" 
+      <div class="input-inside"
         class:spinner={type == 'number'}
-        class:active 
-        class:filled 
+        class:active
+        class:filled
         class:flat
         >
 
         {#if type == 'number'}
-        <!-- <input 
+        <!-- <input
           type="number"
-          class="input-value" 
+          class="input-value"
           bind:value={value}
           class:truncate
           class:uppercase
@@ -204,9 +205,9 @@
           on:blur={ blur }
           /> -->
           <!-- mainStyle={`width: ${ width }`} -->
-          <NumberSpinner 
+          <NumberSpinner
             class="spinner-input"
-            bind:value 
+            bind:value
             options={ numberOptions }
             on:focus={ focusNumber }
             on:blur={ numberBlur }
@@ -214,14 +215,14 @@
             />
             <!-- on:input={ changeValue } -->
         {:else}
-        <input 
+        <input
         use:inputFocus
-          class="input-value" 
+          class="input-value"
           bind:value={value}
           class:truncate
           class:uppercase
           class:active
-          class:flat 
+          class:flat
           class:filled
           placeholder={ placeholder }
 
@@ -233,7 +234,7 @@
           {/if}
 
         </div>
-        
+
         {#if suffix}
         <span class="input-label suffix">{ suffix }</span>
         {/if}
@@ -280,7 +281,7 @@
   align-items: center;
   gap: 4px;
 }
-.input-container.readOnly {
+.readOnly {
   pointer-events: none;
 }
 .input-container.pseudo {
@@ -398,7 +399,7 @@
 }
 
 /* input is active after dragging and may still be edited with arrows */
-:global(.spinner-input:focus) {   
+:global(.spinner-input:focus) {
   outline: none; /* removes the standard focus border */
   background-color: transparent !important;
   /* background: skyblue !important; */

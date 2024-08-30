@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Toggle
@@ -71,11 +71,11 @@
     });
     const extraOpts = {
         modifiers: [
-            { name: 
-                'offset', 
-                options: { 
+            { name:
+                'offset',
+                options: {
                     offset: [0, 4] ,
-                } 
+                }
             }
         ],
     }
@@ -114,7 +114,7 @@
 	--box-size: 1.4em;
 	--enable-inset: 3px;
 	--enable-size: calc(var(--box-size) - calc(var(--enable-inset) * 2));
-	
+
 	position: relative;
 	box-sizing: border-box;
   /* width: fit-content; */
@@ -124,6 +124,7 @@
   overflow: hidden;
   color: var(--color-icon);
 	white-space: nowrap;
+  max-width: fit-content;
 }
 .toggle-contents {
   display: flex;
@@ -147,7 +148,7 @@
 }
 .label {
   padding-left: 6px;
-	margin-right: 16px;
+	margin-right: 6px;
 	text-align: left;
 }
 .custom .label {
@@ -159,6 +160,7 @@
 	box-sizing: border-box;
 	width: var(--box-size);
 	min-width: var(--box-size);
+	max-width: var(--box-size);
 	height: var(--box-size);
 	padding: 0 !important;
 }
