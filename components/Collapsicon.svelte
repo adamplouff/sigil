@@ -1,6 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
   import util from '../lib/mixinPrefs'
+
+  const dispatch = createEventDispatcher();
 
   import Button from "./Button.svelte";
 
@@ -24,27 +27,28 @@
       if (compareVersions(appVersion, beta[app]) === 'newer') app = `${app}_beta`
     }
 
-    borderColor = appBorderColors[app]
+    // isOpen = open
 
-    if (name?.length) {
-      util.checkLocalPrefs();
-      let lastState = util.checkPrefsFor(name, 'collapsicon');
-      if (lastState === null) {
-        isOpen = open
-      } else {
-        isOpen = lastState.value;
-      }
-    } else {
-      isOpen = open
-    }
+    // if (name?.length) {
+    //   util.checkLocalPrefs();
+    //   let lastState = util.checkPrefsFor(name, 'collapsicon');
+    //   if (lastState === null) {
+    //     isOpen = open
+    //   } else {
+    //     isOpen = lastState.value;
+    //   }
+    // } else {
+    //   isOpen = open
+    // }
   })
 
   const toggle = () => {
-    isOpen = !isOpen
+    // isOpen = !isOpen
 
-    if (name) {
-      util.setPrefsById(name, isOpen, 'collapsicon')
-    }
+    dispatch('click')
+    // if (name) {
+    //   util.setPrefsById(name, isOpen, 'collapsicon')
+    // }
   }
 
   export const compareVersions = (a: string, b: string): 'newer' | 'older' | 'same' => {
@@ -60,14 +64,6 @@
     }
     return 'same'
   }
-
-  const appBorderColors = {
-    AEFT: 'rgba(153, 153, 255, 0.25)',
-    AEFT_beta: 'rgba(20, 115, 230, 0.25)',
-    ILST: 'rgba(255, 154, 0, 0.25)',
-    ILST_beta: 'rgba(20, 115, 230, 0.25)',
-    FIGMA: 'rgba(255, 0, 33, 0.25)',
-  }
   const appIcons = {
     AEFT: `<svg style="width: 100%; height: 100%" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_d_484_88)"> <path d="M6 36.4C6 25.759 6 20.4385 8.07088 16.3742C9.89247 12.7991 12.7991 9.89247 16.3742 8.07088C20.4385 6 25.759 6 36.4 6H59.6C70.241 6 75.5615 6 79.6258 8.07088C83.2009 9.89247 86.1075 12.7991 87.9291 16.3742C90 20.4385 90 25.759 90 36.4V59.6C90 70.241 90 75.5615 87.9291 79.6258C86.1075 83.2009 83.2009 86.1075 79.6258 87.9291C75.5615 90 70.241 90 59.6 90H36.4C25.759 90 20.4385 90 16.3742 87.9291C12.7991 86.1075 9.89247 83.2009 8.07088 79.6258C6 75.5615 6 70.241 6 59.6V36.4Z" fill="#00005B"/> </g> <path d="M41.368 58.6915H28.3512L25.7028 67.1457C25.6292 67.4592 25.3406 67.6813 25.0265 67.6659H18.4336C18.0576 67.6659 17.9262 67.454 18.0392 67.0302L29.3091 33.8779C29.4219 33.5312 29.5345 33.1922 29.6473 32.7488C29.7947 31.9777 29.8702 31.1939 29.8727 30.4082C29.8404 30.176 30.0407 29.9704 30.2671 30.0035H39.2267C39.4892 30.0035 39.6394 30.0999 39.6775 30.2926L52.4691 67.0879C52.5817 67.4735 52.4689 67.6662 52.1309 67.6659H44.8053C44.5484 67.6951 44.303 67.519 44.2418 67.2613L41.368 58.6915ZM30.3798 51.5631H39.2831C37.8203 46.5646 36.1695 41.6318 34.8315 36.5943C33.3153 41.8198 31.9153 46.6659 30.3798 51.5631Z" fill="#9999FF"/> <path d="M61.9825 55.4271C62.5005 59.7199 66.1052 61.7664 70.0969 61.6792C72.3477 61.6349 74.7532 61.2856 76.8563 60.4344C77.0437 60.281 77.1381 60.3767 77.1381 60.7235V66.214C77.1558 66.4996 77.0365 66.7548 76.7999 66.9075C74.1859 68.095 71.1851 68.453 68.35 68.4076C59.8965 68.4076 54.0911 62.4513 54.0935 53.7855C54.0714 45.5733 59.399 38.645 67.6737 38.645C74.6879 38.4632 79.544 44.0791 79.5636 51.0692C79.5636 52.3423 79.4926 53.6198 79.3382 54.8836C79.3083 55.144 79.0866 55.3461 78.831 55.346C73.229 55.346 67.5998 55.4271 61.9825 55.4271ZM61.9825 50.1621C65.1044 50.1621 68.2445 50.2725 71.3646 50.1332C71.8336 50.0852 72.1819 49.9963 72.1819 49.5086C72.1167 46.9172 69.9298 44.7859 67.3921 44.8851C64.3259 44.695 62.3636 47.2832 61.9825 50.1621Z" fill="#9999FF"/> <defs> <filter id="filter0_d_484_88" x="2" y="3" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_484_88"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_484_88" result="shape"/> </filter> </defs> </svg>`,
     AEFT_beta: `<svg style="width: 100%; height: 100%" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_d_484_91)"> <path d="M6 36.4C6 25.759 6 20.4385 8.07088 16.3742C9.89247 12.7991 12.7991 9.89247 16.3742 8.07088C20.4385 6 25.759 6 36.4 6H59.6C70.241 6 75.5615 6 79.6258 8.07088C83.2009 9.89247 86.1075 12.7991 87.9291 16.3742C90 20.4385 90 25.759 90 36.4V59.6C90 70.241 90 75.5615 87.9291 79.6258C86.1075 83.2009 83.2009 86.1075 79.6258 87.9291C75.5615 90 70.241 90 59.6 90H36.4C25.759 90 20.4385 90 16.3742 87.9291C12.7991 86.1075 9.89247 83.2009 8.07088 79.6258C6 75.5615 6 70.241 6 59.6V36.4Z" fill="#EAEAEA"/> </g> <line x1="27.5" y1="6" x2="27.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="48.5" y1="6" x2="48.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="69.5" y1="6" x2="69.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="27.5" x2="6" y2="27.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="48.5" x2="6" y2="48.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="69.5" x2="6" y2="69.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <path d="M41.368 58.6915H28.3512L25.7028 67.1457C25.6292 67.4592 25.3406 67.6813 25.0265 67.6659H18.4336C18.0576 67.6659 17.9262 67.454 18.0392 67.0302L29.3091 33.8779C29.4219 33.5312 29.5345 33.1922 29.6473 32.7488C29.7947 31.9777 29.8702 31.1939 29.8727 30.4082C29.8404 30.176 30.0407 29.9704 30.2671 30.0035H39.2267C39.4892 30.0035 39.6394 30.0999 39.6775 30.2926L52.4691 67.0879C52.5817 67.4735 52.4689 67.6662 52.1309 67.6659H44.8053C44.5484 67.6951 44.303 67.519 44.2418 67.2613L41.368 58.6915ZM30.3798 51.5631H39.2831C37.8203 46.5646 36.1695 41.6318 34.8315 36.5943C33.3153 41.8198 31.9153 46.6659 30.3798 51.5631Z" fill="#1473E6"/> <path d="M61.9825 55.4271C62.5005 59.7199 66.1052 61.7664 70.0969 61.6792C72.3477 61.6349 74.7532 61.2856 76.8563 60.4344C77.0437 60.281 77.1381 60.3767 77.1381 60.7235V66.214C77.1558 66.4996 77.0365 66.7548 76.7999 66.9075C74.1859 68.095 71.1851 68.453 68.35 68.4076C59.8965 68.4076 54.0911 62.4513 54.0935 53.7855C54.0714 45.5733 59.399 38.645 67.6737 38.645C74.6879 38.4632 79.544 44.0791 79.5636 51.0692C79.5636 52.3423 79.4926 53.6198 79.3382 54.8836C79.3083 55.144 79.0866 55.3461 78.831 55.346C73.229 55.346 67.5998 55.4271 61.9825 55.4271ZM61.9825 50.1621C65.1044 50.1621 68.2445 50.2725 71.3646 50.1332C71.8336 50.0852 72.1819 49.9963 72.1819 49.5086C72.1167 46.9172 69.9298 44.7859 67.3921 44.8851C64.3259 44.695 62.3636 47.2832 61.9825 50.1621Z" fill="#1473E6"/> <defs> <filter id="filter0_d_484_91" x="2" y="3" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_484_91"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_484_91" result="shape"/> </filter> </defs> </svg>`,
@@ -82,28 +78,20 @@
   class="collapsicon"
   class:column
   >
-  <!-- style={isOpen ? `border: 1px solid ${borderColor}` : ``} -->
   <!-- icon -->
   <Button width={buttonSize} height={buttonSize} flat tooltip={name} on:click={toggle}>
-    {#if mini}
-    <div class="host-icon" class:mini
-    style={ `width: ${buttonSize}; height: ${buttonSize}`}>
-      <div class="mini-text">{ name.slice(0, 6) }</div>
+    <div class="icon-wrapper" class:mini={!open} >
+    <!-- style={ `width: ${buttonSize}; height: ${buttonSize}`} -->
       <!-- <div class="mini-text">{ name.slice(0, 6) }</div> -->
-      <div class="mini-icon">
+      <div class="mini-text">{ name }</div>
+      <div class="host-icon">
         {@html hostIcon}
       </div>
     </div>
-    {:else}
-    <div class="host-icon"
-    style={ `width: ${buttonSize}; height: ${buttonSize}`}>
-    {@html hostIcon}
-    </div>
-    {/if}
   </Button>
 <!-- {isOpen} -->
   <!-- nested buttons -->
-  {#if isOpen}
+  {#if open}
   <!-- <div> -->
     <slot/>
   <!-- </div> -->
@@ -132,6 +120,17 @@
   .collapsicon.column {
     flex-direction: column;
   }
+  .icon-wrapper {
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 38px;
+    height: 38px;
+  }
+  .icon-wrapper > * {
+    transition: all 0.07s ease-out;
+  }
   .host-icon {
     display: flex;
     flex-direction: column;
@@ -139,32 +138,39 @@
     align-items: start;
     gap: 4px;
     white-space: normal;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+
   }
-  .host-icon.mini {
+  .mini > .host-icon {
+    bottom: -2px;
+    right: -2px;
+    width: 20px;
+    height: 20px;
     border-radius: 2px;
     box-sizing: border-box;
     /* border: 1px solid var(--button-color);; */
     /* border: 1px solid rgba(0, 0, 0, 0.3); */
   }
   .mini-text {
-    font-size: 10px;
-    line-height: 12px;
     color: var(--button-color);
     text-transform: uppercase;
-    width: 100%;
-    word-wrap: break-word;
-    white-space: wrap;
+    /* word-wrap: break-word;
+    white-space: wrap; */
     text-align: start;
     font-size: 15px;
     line-height: 16px;
-    opacity: 0.7;
+    height: 100%;
+    width: 24px;
+    max-width: 24px;
+    opacity: 0;
+    overflow-wrap: anywhere;
   }
-  .mini-icon {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
+  .mini > .mini-text {
+    opacity: 0.7;
   }
   .show-more {
     display: flex;

@@ -15,6 +15,7 @@
 	export let fill = false
 	export let center = false
 	export let column = false
+  export let gap = 4
 </script>
 
 
@@ -22,6 +23,7 @@
 	class:fill
 	class:center
 	class:column
+  style="gap: {gap}px"
 	>
     <slot/>
 </div>
@@ -32,8 +34,7 @@
 	flex-direction: row;
 	justify-content: start;
 	flex-wrap: wrap;
-	margin-bottom: 4px;
-	gap: 4px;
+	/* margin-bottom: 4px; */
 }
 .column {
 	flex-direction: column;
