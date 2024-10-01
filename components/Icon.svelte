@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Icon
@@ -27,7 +27,17 @@
   export let removeInitialStyle = false;
   export const style = {};
 
-  const props = { name, title, color, size, disableFill, removeInitialStyle };
+  let props = { name, title, color, size, disableFill, removeInitialStyle }
+
+  // force the component to re-render when the name changes
+  $: {
+    props.name = null
+    setTimeout(() => {
+      props = { name, title, color, size, disableFill, removeInitialStyle }
+    }, 4);
+  }
 </script>
 
-<Icomoon {...props} iconSet="{iconSet}" />
+{#if props.name}
+  <Icomoon {...props} iconSet="{iconSet}" />
+{/if}
