@@ -133,7 +133,7 @@
 >
     <div class="button-content" class:left>
         {#if icon}
-            <Icon name="{ icon }" size="{ iconSize }" />
+            <Icon name="{ icon }" size="{ iconSize }" color={color} />
         {/if}
 
         {#if label}
@@ -168,10 +168,13 @@
     gap: 8px;
     max-width: -webkit-fill-available;
 }
-.button:hover {
+:global(.button svg) {
+    /* fill: var(--color-icon) !important; */
+}
+.button:not(.nonclickable):hover {
     background: var(--button-hover);
 }
-.button:active {
+.button:not(.nonclickable):active {
     background: var(--button-active);
 }
 .button-content {
@@ -209,7 +212,7 @@
     /* border-color: var(--button-primary-border); */
     border-color: rgba(160, 160, 160, 0.5);
 }
-.primary:hover {
+.primary:not(.nonclickable):hover:not(.nonclickable) {
     background: rgba(160, 160, 160, 0.4);
 }
 .outline {
@@ -220,32 +223,32 @@
 .toolbar {
     background: transparent;
 }
-.flat:hover,
-.toolbar:hover {
+.flat:not(.nonclickable):hover,
+.toolbar:not(.nonclickable):hover {
     background: var(--button-flat-hover);
     border-color: var(--button-flat-hover-border);
 }
 .colorHover {
     opacity: 0.95;
 }
-.colorHover:hover {
+.colorHover:not(.nonclickable):hover {
     opacity: 1;
     border-color: rgba(255, 255, 255, 0.25);
 }
-.flat:active,
-.toolbar:active {
+.flat:not(.nonclickable):active,
+.toolbar:not(.nonclickable):active {
     background: var(--button-flat-active);
     border-color: var(--button-flat-active-border);
 }
 .filled {
     background: var(--button-filled);
 }
-.filled:hover {
+.filled:not(.nonclickable):hover {
     background: var(--button-filled);
     border-color: var(--button-filled-hover-border);
 }
-.filled:active,
-.filled.active {
+.filled:not(.nonclickable):active,
+.filled.active:not(.nonclickable) {
     color: var(--color-bg);
     background: var(--button-filled-active);
 }
@@ -283,7 +286,7 @@
     pointer-events: none;
 }
 .nonclickable {
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 .icon-button:not(.mini) {
     min-width: 32px;

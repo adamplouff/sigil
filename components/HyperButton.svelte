@@ -225,7 +225,7 @@
     <div class="corner-arrow" />
 </div>
 
-{#if menu[activeItem].tooltip && hover}
+{#if menu[activeItem]?.tooltip && hover}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
     { @html menu[activeItem].tooltip }
     <div id="arrow" data-popper-arrow />
@@ -363,6 +363,22 @@
   border-radius: 20px;
   width: 6px;
   height: 6px;
+}
+/* .menu-item :nth-child(1) {
+  width: 6px;
+  height: 6px;
+}
+.menu-item :nth-child(2) {
+  width: 6px;
+  height: 6px;
+} */
+.menu-item :nth-child(3) {
+  /* background: var(--button-color); */
+  /* border-radius: 20px; */
+
+  /* fill the remaining space or max content */
+  width: 100%;
+  text-align: start;
 }
 .uppercase {
     text-transform: uppercase;

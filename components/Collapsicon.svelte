@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { fade } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte'
-  import util from '../lib/mixinPrefs'
 
   const dispatch = createEventDispatcher();
 
@@ -10,14 +10,11 @@
   export let app = 'AEFT'
   export let hostName = ''
   export let name = 'After Effects'
-  export let buttonSize = '38px'
+  export let buttonSize = '36px'
   export let column = false
   export let mini = false
   export let open = true
   export let beta = { AEFT: 100, ILST: 100 }
-
-  let isOpen
-  let borderColor = 'rgba(128, 128, 128, 0.2)'
 
   onMount(() => {
     // if app is AEFT or ILST, check for beta icons
@@ -26,29 +23,10 @@
 
       if (compareVersions(appVersion, beta[app]) === 'newer') app = `${app}_beta`
     }
-
-    // isOpen = open
-
-    // if (name?.length) {
-    //   util.checkLocalPrefs();
-    //   let lastState = util.checkPrefsFor(name, 'collapsicon');
-    //   if (lastState === null) {
-    //     isOpen = open
-    //   } else {
-    //     isOpen = lastState.value;
-    //   }
-    // } else {
-    //   isOpen = open
-    // }
   })
 
   const toggle = () => {
-    // isOpen = !isOpen
-
     dispatch('click')
-    // if (name) {
-    //   util.setPrefsById(name, isOpen, 'collapsicon')
-    // }
   }
 
   export const compareVersions = (a: string, b: string): 'newer' | 'older' | 'same' => {
@@ -72,6 +50,16 @@
     FIGMA: `<svg style="width: 100%; height: 100%" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_d_449_76)"> <rect x="6" y="6" width="84" height="84" rx="18" fill="#141414"/> </g> <g clip-path="url(#clip0_449_76)"> <path d="M48 48C48 43.4445 51.7668 39.7515 56.4135 39.7515C61.06 39.7515 64.8269 43.4445 64.8269 48C64.8269 52.5555 61.06 56.2485 56.4135 56.2485C51.7668 56.2485 48 52.5555 48 48Z" fill="#00B5FF"/> <path d="M31.1731 64.497C31.1731 59.9416 34.9399 56.2485 39.5866 56.2485H48V64.497C48 69.0526 44.2332 72.7455 39.5866 72.7455C34.9399 72.7455 31.1731 69.0526 31.1731 64.497Z" fill="#00D46C"/> <path d="M48 23.2545V39.7515H56.4135C61.0601 39.7515 64.8269 36.0585 64.8269 31.503C64.8269 26.9475 61.0601 23.2545 56.4135 23.2545H48Z" fill="#FF600A"/> <path d="M31.1731 31.503C31.1731 36.0585 34.9399 39.7515 39.5866 39.7515H48V23.2545H39.5866C34.9399 23.2545 31.1731 26.9475 31.1731 31.503Z" fill="#FF0021"/> <path d="M31.1731 48C31.1731 52.5555 34.9399 56.2485 39.5866 56.2485H48V39.7515H39.5866C34.9399 39.7515 31.1731 43.4445 31.1731 48Z" fill="#8C47FF"/> </g> <defs> <filter id="filter0_d_449_76" x="2" y="3" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_449_76"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_449_76" result="shape"/> </filter> <clipPath id="clip0_449_76"> <rect width="34" height="50" fill="white" transform="translate(31 23)"/> </clipPath> </defs> </svg>`
   }
   $: hostIcon = appIcons[app] || appIcons['AEFT']
+
+  let showName = false
+  $: {
+    console.log(hostName, open);
+    showName = open
+
+    setTimeout(() => {
+      showName = false
+    }, 600);
+  }
 </script>
 
 <div
@@ -79,7 +67,7 @@
   class:column
   >
   <!-- icon -->
-  <Button width={buttonSize} height={buttonSize} flat tooltip={name} on:click={toggle}>
+  <Button width={buttonSize} height={buttonSize} flat tooltip={name} on:click={toggle} nonclickable={open}>
     <div class="icon-wrapper" class:mini={!open} >
     <!-- style={ `width: ${buttonSize}; height: ${buttonSize}`} -->
       <!-- <div class="mini-text">{ name.slice(0, 6) }</div> -->
@@ -89,24 +77,32 @@
       </div>
     </div>
   </Button>
-<!-- {isOpen} -->
+
+  {#if showName}
+  <div class="name-overlay visible" class:column out:fade={{delay: 100, duration: 200}} >
+    {name}
+  </div>
+  {/if}
+
   <!-- nested buttons -->
-  {#if open}
-  <!-- <div> -->
+  <div class="hide" class:show={open}>
     <slot/>
-  <!-- </div> -->
-  {:else}
-  <div class="show-more">
+  </div>
+
+  <div class="show-more" class:hide={open} class:column>
     <svg viewBox="0 0 128 512" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M32 96L92 260L32 424" stroke-width="32"/>
     </svg>
   </div>
-  {/if}
+
 
 
 </div>
 
 <style>
+  :global(.collapsicon .button, .collapsicon .button-content) {
+    white-space: normal !important;
+  }
   .collapsicon {
     display: flex;
     flex-direction: row;
@@ -115,7 +111,7 @@
     gap: 4px;
     box-sizing: content-box;
     /* width: fit-content; */
-    border: 1px solid rgba(0, 0, 0, 0);
+    /* border: 1px solid rgba(0, 0, 0, 0); */
   }
   .collapsicon.column {
     flex-direction: column;
@@ -127,9 +123,10 @@
     align-items: start;
     width: 38px;
     height: 38px;
+
   }
   .icon-wrapper > * {
-    transition: all 0.07s ease-out;
+    transition: all 0.17s;
   }
   .host-icon {
     display: flex;
@@ -155,22 +152,23 @@
     /* border: 1px solid var(--button-color);; */
     /* border: 1px solid rgba(0, 0, 0, 0.3); */
   }
-  .mini-text {
-    color: var(--button-color);
-    text-transform: uppercase;
-    /* word-wrap: break-word;
-    white-space: wrap; */
-    text-align: start;
-    font-size: 15px;
-    line-height: 16px;
-    height: 100%;
-    width: 24px;
-    max-width: 24px;
-    opacity: 0;
-    overflow-wrap: anywhere;
-  }
   .mini > .mini-text {
     opacity: 0.7;
+  }
+  .mini-text {
+    position: relative;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    text-align: start;
+    font-size: 12px;
+    line-height: 13px;
+    height: 100%;
+    width: 44px;
+    max-height: 28px;
+    opacity: 0;
+    margin-top: -1px;
+    overflow: hidden;
+    padding-left: 2px;
   }
   .show-more {
     display: flex;
@@ -179,18 +177,51 @@
     fill: var(--button-color);
     stroke: var(--button-color);
     opacity: 0.5;
-    transform-origin: 50% 50%;
-    width: 6px;
-    height: 36px;
+    /* width: 6px;
+    height: 36px; */
+    /* transform-origin: 50% 50%; */
   }
   .show-more > svg {
     width: 6px;
     height: 36px;
+    opacity: 0.7;
   }
-  .column > .show-more {
-    width: 36px;
-    height: 6px;
-    transform: rotate(90deg);
-    margin-left: 2px;
+  .show-more.column > svg {
+    /* transform-origin: 50% 100%; */
+    transform: rotate(90deg) translate(-14px, -16px)
+  }
+  .show-more.column {
+    max-height: 6px;
+    display: block;
+  }
+
+  .name-overlay {
+    position: absolute;
+    background-color: var(--tooltip-bg);
+    padding: 1px 2px;
+    z-index: 10;
+    margin-left: 38px;
+    pointer-events: none;
+    transform-origin: top left;
+    line-break: loose;
+    hyphens: auto;
+    /* margin-left: 50%; */
+  }
+  .name-overlay.column {
+    margin-left: 4px;
+    margin-top: 38px;
+    max-width: 48px;
+    text-align: start;
+    /* width: min-content; */
+    /* margin-right: 4px;
+    margin-top: 38px; */
+    /* transform: rotate(90deg); */
+  }
+
+  .hide {
+    display: none;
+  }
+  .show {
+    display: contents;
   }
 </style>

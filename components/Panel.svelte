@@ -1,24 +1,26 @@
-<!-- 
+<!--
 @component
 
 ### Panel
 
 @props
 - `backgroundColor` - Background color of the panel
+- `padding` - Padding of the panel
 
 -->
 
 <script lang="ts">
   import starlette from "starlette";
-  
+
   if (window.__adobe_cep__) {
       starlette.init()
   } else {
       starlette.initAs('AEFT', 'gradient', 0)
       // starlette.initAs('ILST', 'darkest')
   }
-  
+
   export let backgroundColor = ''
+  export let padding = 8
 
   window.addEventListener("dragover",function(e){
     e = e || event;
@@ -30,7 +32,7 @@
   },false);
 </script>
 
-<div class="panel" style="background-color: { backgroundColor }">
+<div class="panel" style="background-color: { backgroundColor }; padding: { padding }px">
     <slot />
 </div>
 
