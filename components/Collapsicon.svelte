@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
   import { fade } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte'
 
@@ -15,15 +14,6 @@
   export let mini = false
   export let open = true
   export let beta = { AEFT: 100, ILST: 100 }
-
-  onMount(() => {
-    // if app is AEFT or ILST, check for beta icons
-    if (app === 'AEFT' || app === 'ILST') {
-      const appVersion = name.replace(`${app}-`, '')
-
-      if (compareVersions(appVersion, beta[app]) === 'newer') app = `${app}_beta`
-    }
-  })
 
   const toggle = () => {
     dispatch('click')
@@ -53,12 +43,18 @@
 
   let showName = false
   $: {
-    console.log(hostName, open);
+    console.log(hostName, open);    // for the responsive update
     showName = open
 
     setTimeout(() => {
       showName = false
     }, 600);
+
+    if (app === 'AEFT' || app === 'ILST') {
+      const appVersion = name.replace(`${app}-`, '')
+
+      if (compareVersions(appVersion, beta[app]) !== 'older') app = `${app}_beta`
+    }
   }
 </script>
 
