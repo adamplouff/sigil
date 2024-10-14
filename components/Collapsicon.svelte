@@ -193,6 +193,7 @@
 
   .name-overlay {
     position: absolute;
+    color: var(--tooltip-color);
     background-color: var(--tooltip-bg);
     padding: 1px 2px;
     z-index: 10;
