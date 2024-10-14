@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Footer
@@ -22,7 +22,7 @@
   export let color = 'var(--color-selection)'
   $: showFooterMessage = false
 
-  let footerText    // local var to store 
+  let footerText    // local var to store
 
   let footerTimeout
   $: if (footerMessage) {
@@ -59,6 +59,7 @@
 	overflow: hidden;
 }
 .footer {
+  color: var(--tooltip-color);
 	text-align: center;
 	padding: 4px 20px;
 	line-height: 1.15em;
