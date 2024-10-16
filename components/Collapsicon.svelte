@@ -45,7 +45,7 @@
 
   let showName = false
   $: {
-    console.log(hostName, open);    // for the responsive update
+    console.log(hostName, open, app);    // for the responsive update
     showName = open
 
     setTimeout(() => {
@@ -56,6 +56,8 @@
       const appVersion = name.replace(`${app}-`, '')
 
       iconName = (compareVersions(appVersion, beta[app]) !== 'older') ? `${app}_beta` : app
+    } else {
+      iconName = app
     }
   }
 </script>
@@ -157,11 +159,11 @@
     text-transform: uppercase;
     overflow-wrap: anywhere;
     text-align: start;
-    font-size: 12px;
-    line-height: 13px;
+    font-size: 10px;
+    line-height: 12px;
     height: 100%;
     width: 44px;
-    max-height: 28px;
+    max-height: 26px;
     opacity: 0;
     margin-top: -1px;
     overflow: hidden;
