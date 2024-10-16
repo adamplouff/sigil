@@ -13,7 +13,9 @@
   export let column = false
   export let mini = false
   export let open = true
-  export let beta = { AEFT: 100, ILST: 100 }
+  export let beta = { AEFT: '100', ILST: '100' }
+
+  let iconName = 'AEFT'
 
   const toggle = () => {
     dispatch('click')
@@ -39,7 +41,7 @@
     ILST_beta: `<svg style="width: 100%; height: 100%" viewBox="0 0 96 98" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_d_484_97)"> <g filter="url(#filter1_d_484_97)"> <path d="M6 36.4C6 25.759 6 20.4385 8.07088 16.3742C9.89247 12.7991 12.7991 9.89247 16.3742 8.07088C20.4385 6 25.759 6 36.4 6H59.6C70.241 6 75.5615 6 79.6258 8.07088C83.2009 9.89247 86.1075 12.7991 87.9291 16.3742C90 20.4385 90 25.759 90 36.4V59.6C90 70.241 90 75.5615 87.9291 79.6258C86.1075 83.2009 83.2009 86.1075 79.6258 87.9291C75.5615 90 70.241 90 59.6 90H36.4C25.759 90 20.4385 90 16.3742 87.9291C12.7991 86.1075 9.89247 83.2009 8.07088 79.6258C6 75.5615 6 70.241 6 59.6V36.4Z" fill="#EAEAEA"/> </g> <line x1="27.5" y1="6" x2="27.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="48.5" y1="6" x2="48.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="69.5" y1="6" x2="69.5" y2="90" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="27.5" x2="6" y2="27.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="48.5" x2="6" y2="48.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <line x1="90" y1="69.5" x2="6" y2="69.5" stroke="#A4C2E6" stroke-opacity="0.4"/> <path d="M46.7052 58.7888H33.6884L31.04 67.2269C30.9664 67.5404 30.6777 67.7624 30.3637 67.747H23.7708C23.3948 67.747 23.2633 67.5351 23.3763 67.1113L34.6463 33.8214C34.759 33.4747 34.8718 33.0798 34.9845 32.6366C35.1319 31.8655 35.2073 31.0818 35.2099 30.296C35.1776 30.0639 35.3816 29.8588 35.6043 29.8914H44.5638C44.8263 29.8914 44.9766 29.9877 45.0147 30.1804L57.8063 67.169C57.9189 67.5546 57.8061 67.7473 57.468 67.747H50.1425C49.8855 67.7762 49.6402 67.6001 49.579 67.3425L46.7052 58.7888ZM35.7169 51.5067H44.6202C43.1575 46.5081 41.5066 41.5753 40.1687 36.5378C38.7251 41.5838 37.1501 46.6094 35.7169 51.5067Z" fill="#1473E6"/> <path d="M65.4128 36.0175C64.838 36.0411 64.2649 35.9401 63.7308 35.721C63.1967 35.5019 62.7138 35.1697 62.3135 34.746C61.9143 34.3039 61.6043 33.7853 61.4012 33.22C61.1981 32.6546 61.1059 32.0537 61.13 31.4517C61.1096 30.8556 61.2119 30.2619 61.4304 29.7091C61.6488 29.1564 61.9785 28.6572 62.3979 28.244C62.8133 27.8352 63.3035 27.5148 63.8403 27.3016C64.3771 27.0883 64.9499 26.9863 65.5254 27.0015C66.8779 27.0015 67.9391 27.4157 68.7092 28.244C69.0979 28.6745 69.4 29.1795 69.5982 29.7299C69.7964 30.2803 69.8869 30.8654 69.8643 31.4517C69.8879 32.056 69.7928 32.6591 69.5846 33.225C69.3765 33.7909 69.0596 34.3081 68.6528 34.746C68.2276 35.1759 67.7202 35.5108 67.1626 35.7296C66.6049 35.9485 66.0091 36.0465 65.4128 36.0175ZM61.5245 67.1688V39.5429C61.5245 39.1962 61.6742 39.0227 61.9753 39.0227H68.9064C69.2067 39.0227 69.357 39.1961 69.3573 39.5429V67.1688C69.3573 67.5545 69.207 67.7471 68.9064 67.7468H62.0317C61.6937 67.7468 61.5246 67.5542 61.5245 67.1688Z" fill="#1473E6"/> </g> <defs> <filter id="filter0_d_484_97" x="-4" y="0" width="104" height="104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="4"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_484_97"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_484_97" result="shape"/> </filter> <filter id="filter1_d_484_97" x="2" y="3" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_484_97"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_484_97" result="shape"/> </filter> </defs> </svg>`,
     FIGMA: `<svg style="width: 100%; height: 100%" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_d_449_76)"> <rect x="6" y="6" width="84" height="84" rx="18" fill="#141414"/> </g> <g clip-path="url(#clip0_449_76)"> <path d="M48 48C48 43.4445 51.7668 39.7515 56.4135 39.7515C61.06 39.7515 64.8269 43.4445 64.8269 48C64.8269 52.5555 61.06 56.2485 56.4135 56.2485C51.7668 56.2485 48 52.5555 48 48Z" fill="#00B5FF"/> <path d="M31.1731 64.497C31.1731 59.9416 34.9399 56.2485 39.5866 56.2485H48V64.497C48 69.0526 44.2332 72.7455 39.5866 72.7455C34.9399 72.7455 31.1731 69.0526 31.1731 64.497Z" fill="#00D46C"/> <path d="M48 23.2545V39.7515H56.4135C61.0601 39.7515 64.8269 36.0585 64.8269 31.503C64.8269 26.9475 61.0601 23.2545 56.4135 23.2545H48Z" fill="#FF600A"/> <path d="M31.1731 31.503C31.1731 36.0585 34.9399 39.7515 39.5866 39.7515H48V23.2545H39.5866C34.9399 23.2545 31.1731 26.9475 31.1731 31.503Z" fill="#FF0021"/> <path d="M31.1731 48C31.1731 52.5555 34.9399 56.2485 39.5866 56.2485H48V39.7515H39.5866C34.9399 39.7515 31.1731 43.4445 31.1731 48Z" fill="#8C47FF"/> </g> <defs> <filter id="filter0_d_449_76" x="2" y="3" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1"/> <feGaussianBlur stdDeviation="2"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_449_76"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_449_76" result="shape"/> </filter> <clipPath id="clip0_449_76"> <rect width="34" height="50" fill="white" transform="translate(31 23)"/> </clipPath> </defs> </svg>`
   }
-  $: hostIcon = appIcons[app] || appIcons['AEFT']
+  $: hostIcon = appIcons[iconName] || appIcons['AEFT']
 
   let showName = false
   $: {
@@ -53,7 +55,7 @@
     if (app === 'AEFT' || app === 'ILST') {
       const appVersion = name.replace(`${app}-`, '')
 
-      if (compareVersions(appVersion, beta[app]) !== 'older') app = `${app}_beta`
+      iconName = (compareVersions(appVersion, beta[app]) !== 'older') ? `${app}_beta` : app
     }
   }
 </script>
@@ -90,7 +92,6 @@
       <path d="M32 96L92 260L32 424" stroke-width="32"/>
     </svg>
   </div>
-
 
 
 </div>
