@@ -46,11 +46,16 @@
   let showName = false
   $: {
     console.log(hostName, open, app);    // for the responsive update
-    showName = open
+    // showName = false
+    // if (open) {
+    //   setTimeout(() => {
+    //     showName = true
+    //   }, 450);
+    //   setTimeout(() => {
+    //     showName = false
+    //   }, 1200);
+    // }
 
-    setTimeout(() => {
-      showName = false
-    }, 600);
 
     if (app === 'AEFT' || app === 'ILST') {
       const appVersion = name.replace(`${app}-`, '')
@@ -78,11 +83,14 @@
     </div>
   </Button>
 
-  {#if showName}
+  <!-- <div class="name-overlay text-show {showName ? 'text-show' : ''}" class:column >
+    {name}
+  </div> -->
+  <!-- {#if showName}
   <div class="name-overlay visible" class:column out:fade={{delay: 100, duration: 200}} >
     {name}
   </div>
-  {/if}
+  {/if} -->
 
   <!-- nested buttons -->
   <div class="hide" class:show={open}>
@@ -139,7 +147,7 @@
     right: 0;
     width: 100%;
     height: 100%;
-
+    transition: all 0.3s ease 0.1s;
   }
   .mini > .host-icon {
     bottom: -2px;
@@ -164,10 +172,10 @@
     height: 100%;
     width: 44px;
     max-height: 26px;
-    opacity: 0;
     margin-top: -1px;
     overflow: hidden;
     padding-left: 2px;
+    opacity: 0;
   }
   .show-more {
     display: flex;
@@ -205,7 +213,13 @@
     transform-origin: top left;
     line-break: loose;
     hyphens: auto;
+    pointer-events: none;
     /* margin-left: 50%; */
+    opacity: 0;
+  }
+  .name-overlay .text-show {
+    opacity: 1;
+    transition: opacity 0.3s ease;
   }
   .name-overlay.column {
     margin-left: 4px;
