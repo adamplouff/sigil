@@ -1,16 +1,16 @@
 import Panel from './components/Panel.svelte';
 import Fold from './components/Fold.svelte';
 import Button from './components/Button.svelte';
-import ButtonCombo from './components/ButtonCombo.svelte';
+// import ButtonCombo from './components/ButtonCombo.svelte';
 import Input from './components/Input.svelte';
 import Row from './components/Row.svelte';
-import PanelInfo from './components/Panel-Info.svelte';
+import PanelInfo from './components/PanelInfo.svelte';
 import Footer from './components/Footer.svelte';
 import Update from './components/Update.svelte';
 import TreeView from './components/TreeView.svelte';
 import FileNode from './components/FileNode.svelte';
 import Menus from './components/Menus.svelte';
-import ColorPicker from './components/Color-Picker.svelte';
+import ColorPicker from './components/ColorPicker.svelte';
 import Toggle from './components/Toggle.svelte';
 import Auth from './components/Auth.svelte';
 import Modal from './components/Modal.svelte';
@@ -23,7 +23,7 @@ export {
   Panel,
   Fold,
   Button,
-  ButtonCombo,
+  // ButtonCombo,
   Input,
   Row,
   PanelInfo,
