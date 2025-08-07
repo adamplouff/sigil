@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Update
@@ -46,7 +46,7 @@
 
   //// update check
   let updateData = {}
-  const versionCheck = () => {        
+  const versionCheck = () => {
     fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -58,7 +58,7 @@
       if (versionCompare(availableVersion, version) > 0) {
         updateAvailable = true
         details = updateData[locale] || updateData.en
-        downloadURL = `https://license.battleaxe.co/download?product=${ name }&key=${ key }`
+        downloadURL = `https://battleaxe.co/download?product=${ name }&key=${ key }`
         newVersion = availableVersion
       }
     })
@@ -71,7 +71,7 @@
 
   const versionCompare = (a: string, b: string) => {
     // console.log(`a: ${a}\nb: ${b}`);
-    
+
     if (a === b) {
       return 0;
     }
