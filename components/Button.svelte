@@ -60,6 +60,7 @@
     export let color = ''
     export let label = ''
     export let tooltip = ''
+    export let tooltipLofi = false
     export let goto = null
     export let mini = false
     export let center = false
@@ -124,10 +125,9 @@
     class:mini
     class:center
     class:outline
+    class:hover
     class:icon-button={!label && icon}
     style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
-    on:mouseenter={() => hover = true}
-    on:mouseleave={() => hover = false}
     on:click={ (event) => handleClick(event) }
     use:popperRef
 >
@@ -143,15 +143,24 @@
         {/if}
         <slot />
     </div>
+
+    {#if tooltipLofi}
+      <div id="tooltip" class="tooltipLofi" class:hover >
+        { @html tooltip }
+      </div>
+    {/if}
+    <div class="hover-target"
+      on:mouseenter={() => hover = true}
+      on:mouseleave={() => hover = false}
+    ></div>
 </div>
 
-{#if tooltip && hover}
+{#if hover && tooltip && !tooltipLofi}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
     { @html tooltip }
     <div id="arrow" data-popper-arrow />
   </div>
 {/if}
-
 
 
 <style>
@@ -171,7 +180,7 @@
 :global(.button svg) {
     /* fill: var(--color-icon) !important; */
 }
-.button:not(.nonclickable):hover {
+.button:not(.nonclickable).hover {
     background: var(--button-hover);
 }
 .button:not(.nonclickable):active {
@@ -212,7 +221,7 @@
     /* border-color: var(--button-primary-border); */
     border-color: rgba(160, 160, 160, 0.5);
 }
-.primary:not(.nonclickable):hover:not(.nonclickable) {
+.primary:not(.nonclickable).hover:not(.nonclickable) {
     background: rgba(160, 160, 160, 0.4);
 }
 .outline {
@@ -223,15 +232,15 @@
 .toolbar {
     background: transparent;
 }
-.flat:not(.nonclickable):hover,
-.toolbar:not(.nonclickable):hover {
+.flat:not(.nonclickable).hover,
+.toolbar:not(.nonclickable).hover {
     background: var(--button-flat-hover);
     border-color: var(--button-flat-hover-border);
 }
 .colorHover {
     opacity: 0.95;
 }
-.colorHover:not(.nonclickable):hover {
+.colorHover:not(.nonclickable).hover {
     opacity: 1;
     border-color: rgba(255, 255, 255, 0.25);
 }
@@ -243,7 +252,7 @@
 .filled {
     background: var(--button-filled);
 }
-.filled:not(.nonclickable):hover {
+.filled:not(.nonclickable).hover {
     background: var(--button-filled);
     border-color: var(--button-filled-hover-border);
 }
@@ -300,5 +309,23 @@
 }
 .center {
     margin: auto;
+}
+.tooltipLofi {
+  position: fixed;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateY(150%) translateX(40%);
+  opacity: 0;
+}
+.tooltipLofi.hover {
+  opacity: 1;
+}
+.hover-target {
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
 }
 </style>

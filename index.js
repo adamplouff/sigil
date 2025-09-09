@@ -16,6 +16,7 @@ import Auth from './components/Auth.svelte';
 import Modal from './components/Modal.svelte';
 import Select from './components/Select.svelte';
 import Icon from './components/Icon.svelte';
+import Collapsicon from './components/Collapsicon.svelte';
 
 
 
@@ -37,5 +38,6 @@ export {
   Auth,
   Modal,
   Select,
-  Icon
+  Icon,
+  Collapsicon
 }
