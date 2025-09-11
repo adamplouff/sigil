@@ -20,6 +20,7 @@
   export let footerMessage = ''
   export let timeout = 5000
   export let color = 'var(--color-selection)'
+  export let lofi = false   // support UXP with no animation
   $: showFooterMessage = false
 
   let footerText    // local var to store
@@ -42,10 +43,19 @@
 </script>
 
 <div class="footer-container">
-  {#if showFooterMessage}
-  <div class="footer" in:fly="{{ y: 100, duration: 500 }}" out:fade style="background: {color}" >
-    {footerText}
-  </div>
+  {#if lofi}
+    {#if showFooterMessage}
+    <div class="footer" style="background: {color}" >
+      {footerText}
+    </div>
+    {/if}
+  {:else}
+
+    {#if showFooterMessage}
+    <div class="footer" in:fly="{{ y: 100, duration: 500 }}" out:fade style="background: {color}" >
+      {footerText}
+    </div>
+    {/if}
   {/if}
 </div>
 
