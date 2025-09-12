@@ -13,7 +13,7 @@
   export let column = false
   export let mini = false
   export let open = true
-  export let tooltipLofi = false
+  export let lofi = false
   export let beta = { AEFT: '100', ILST: '100' }
 
   let iconName = 'AEFT'
@@ -74,7 +74,7 @@
   class:column
   >
   <!-- icon -->
-  <Button width={buttonSize} height={buttonSize} flat tooltip={name} tooltipLofi on:click={toggle} nonclickable={open}>
+  <Button width={buttonSize} height={buttonSize} flat tooltip={name} lofi on:click={toggle} nonclickable={open}>
     <div class="icon-wrapper" class:mini={!open} >
     <!-- style={ `width: ${buttonSize}; height: ${buttonSize}`} -->
       <!-- <div class="mini-text">{ name.slice(0, 6) }</div> -->

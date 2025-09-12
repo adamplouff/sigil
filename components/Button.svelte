@@ -60,7 +60,7 @@
     export let color = ''
     export let label = ''
     export let tooltip = ''
-    export let tooltipLofi = false
+    export let lofi = false
     export let goto = null
     export let mini = false
     export let center = false
@@ -144,7 +144,7 @@
         <slot />
     </div>
 
-    {#if tooltipLofi}
+    {#if lofi}
       <div id="tooltip" class="tooltipLofi" class:hover >
         { @html tooltip }
       </div>
@@ -155,7 +155,7 @@
     ></div>
 </div>
 
-{#if hover && tooltip && !tooltipLofi}
+{#if hover && tooltip && !lofi}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
     { @html tooltip }
     <div id="arrow" data-popper-arrow />
