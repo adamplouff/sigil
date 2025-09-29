@@ -74,7 +74,7 @@
   class:column
   >
   <!-- icon -->
-  <Button width={buttonSize} height={buttonSize} flat tooltip={name} lofi on:click={toggle} nonclickable={open}>
+  <Button width={buttonSize} height={buttonSize} flat tooltip={name} lofi custom on:click={toggle} nonclickable={open}>
     <div class="icon-wrapper" class:mini={!open} >
     <!-- style={ `width: ${buttonSize}; height: ${buttonSize}`} -->
       <!-- <div class="mini-text">{ name.slice(0, 6) }</div> -->

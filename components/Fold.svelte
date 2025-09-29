@@ -1,4 +1,4 @@
-<!-- 
+<!--
 @component
 
 ### Fold
@@ -14,9 +14,12 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import util from '../lib/mixinPrefs'
+  import Icon from './Icon.svelte'
+
 	export let label = 'fold'
 	export let open = true
 	export let removeBorder = false
+	export let lofi = false
   export let prefsId
 
   let isOpen
@@ -34,7 +37,7 @@
       isOpen = open
     }
   })
-  
+
   const toggle = () => {
     isOpen = !isOpen
 
@@ -48,12 +51,24 @@
 <div class="fold" class:removeBorder>
   <div class="fold-label" on:click={toggle}>
 	<div class="fold-label-text">{ label }</div>
+  {#if lofi}
+    {#if isOpen}
+    <svg class="fold-icon" width="18" height="18" viewBox="0 0 24 24">
+      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+    </svg>
+    {:else}
+    <svg class="fold-icon" width="18" height="18" viewBox="0 0 24 24">
+      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+    </svg>
+    {/if}
+  {:else}
 		<div class="fold-icon" class:isOpen>
-			<svg width="18" height="18" viewBox="0 0 24 24">
-			<path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
-			<path d="M0 0h24v24H0z" fill="none" />
+      <svg width="18" height="18" viewBox="0 0 24 24">
+        <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+        <path d="M0 0h24v24H0z" fill="none" />
 			</svg>
 		</div>
+    {/if}
 	</div>
 
   <div class="fold-content {isOpen ? '' : 'isClosed'}">

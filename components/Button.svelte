@@ -61,6 +61,7 @@
     export let label = ''
     export let tooltip = ''
     export let lofi = false
+    export let custom = false
     export let goto = null
     export let mini = false
     export let center = false
@@ -126,6 +127,7 @@
     class:center
     class:outline
     class:hover
+    class:custom
     class:icon-button={!label && icon}
     style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
     on:click={ (event) => handleClick(event) }
@@ -319,10 +321,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   transform: translateY(150%) translateX(40%);
-  opacity: 0;
+  /* opacity: 0; */
+  display: none;
 }
 .tooltipLofi.hover {
-  opacity: 1;
+  /* opacity: 1; */
+  display: block;
 }
 .hover-target {
     position: absolute;

@@ -17,6 +17,7 @@ import Modal from './components/Modal.svelte';
 import Select from './components/Select.svelte';
 import Icon from './components/Icon.svelte';
 import Collapsicon from './components/Collapsicon.svelte';
+import Divider from './components/Divider.svelte';
 
 
 
@@ -39,5 +40,6 @@ export {
   Modal,
   Select,
   Icon,
-  Collapsicon
+  Collapsicon,
+  Divider,
 }

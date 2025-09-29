@@ -31,6 +31,7 @@
 	export let state = true
 	export let tooltip = ''
 	export let prefsId: string|null = null
+  export let lofi = false
 
 	$: hover = false
 	let isEnabled = false
@@ -101,12 +102,12 @@
 	</div>
 </div>
 
-{#if tooltip && hover}
+<!-- {#if tooltip && hover}
 <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
 	{ @html tooltip }
 	<div id="arrow" data-popper-arrow />
 </div>
-{/if}
+{/if} -->
 
 
 <style>
