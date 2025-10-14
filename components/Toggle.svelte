@@ -126,6 +126,7 @@
   color: var(--color-icon);
 	white-space: nowrap;
   max-width: fit-content;
+  min-width: fit-content;
 }
 .toggle-contents {
   display: flex;

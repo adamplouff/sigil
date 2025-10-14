@@ -128,6 +128,7 @@
     class:outline
     class:hover
     class:custom
+    class:label={label != ''}
     class:icon-button={!label && icon}
     style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
     on:click={ (event) => handleClick(event) }
@@ -187,6 +188,9 @@
 }
 .button:not(.nonclickable):active {
     background: var(--button-active);
+}
+.button.label {
+  min-width: fit-content;
 }
 .button-content {
     display: flex;

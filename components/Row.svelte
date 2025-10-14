@@ -34,10 +34,11 @@
 	flex-direction: row;
 	justify-content: start;
 	flex-wrap: wrap;
-	/* margin-bottom: 4px; */
+	margin-bottom: 4px;
 }
 .column {
 	flex-direction: column;
+  align-items: stretch;
 }
 .center {
 	justify-content: center;
