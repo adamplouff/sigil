@@ -182,6 +182,7 @@
 }
 :global(.button svg) {
     /* fill: var(--color-icon) !important; */
+    stroke: none !important;
 }
 .button:not(.nonclickable).hover {
     background: var(--button-hover);
