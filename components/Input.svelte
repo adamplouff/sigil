@@ -40,6 +40,7 @@
   export let inputFirst = false
   export let readOnly = false
   export let disabled = false
+  export let nonclickable = false
   export let flat = false
   export let filled = false
   export let prefix: string|boolean = false
@@ -52,6 +53,7 @@
   export let autoSelect = false
   export let autoFocus = false
   export let tooltip = ''
+  export let lofi = false
   export let type = 'text'
   export let prefsId: string|null = null
 
@@ -153,6 +155,7 @@
   export let decimals = 0
 
   const numberOptions = {
+    precision: 0.05,
     min,
     max,
     step,
@@ -164,6 +167,7 @@
 <div
   class="input-container"
   class:disabled
+  class:nonclickable
   class:inputFirst
   style="width: { totalWdth }"
   on:click={() => { if (!disabled) dispatch('click') }}
@@ -256,10 +260,9 @@
   </div> -->
   <!-- <div v-if="error" class="input-error-message">{{ error }}</div> -->
 </div>
-
-{#if tooltip && hover}
+{#if hover && tooltip && !lofi}
   <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
-    {tooltip}
+    { @html tooltip }
     <div id="arrow" data-popper-arrow />
   </div>
 {/if}
@@ -399,7 +402,7 @@
 }
 
 /* input is active after dragging and may still be edited with arrows */
-:global(.spinner-input:focus) {
+:global(.spinner-input .has-focus) {
   outline: none; /* removes the standard focus border */
   background-color: transparent !important;
   /* background: skyblue !important; */
@@ -440,6 +443,10 @@
   color: var(--tooltip-color);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+.nonclickable input {
+  pointer-events: none;
 }
 
 </style>

@@ -430,8 +430,8 @@
 <!-- DOM --------------------------------------------------------------->
 
 <svelte:window
-  on:mousemove={dragging ? dragmoveHandler : ""}
-  on:touchmove={dragging ? touchmoveHandler : ""}
+  on:mousemove={dragging ? dragmoveHandler : undefined}
+  on:touchmove={dragging ? touchmoveHandler : undefined}
   on:mouseup|stopPropagation={dragging ? mouseupHandler : editBlurHandler}
   on:touchend|stopPropagation={dragging ? touchendHandler : editBlurHandler}
   on:keydown={keydownHandler}
