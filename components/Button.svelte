@@ -16,6 +16,7 @@
 - `nonclickable` - Make the button non-clickable
 - `toolbar` - Make the button a toolbar button
 - `bg` - Set the background color of the button
+- `border` - Set the border color of the button
 - `color` - Set the text color of the button
 - `label` - Set the button text
 - `tooltip` - Set the button tooltip
@@ -57,6 +58,7 @@
     export let nonclickable = false
     export let toolbar = false
     export let bg = ''
+    export let border = ''
     export let color = ''
     export let label = ''
     export let tooltip = ''
@@ -130,7 +132,7 @@
     class:custom
     class:label={label != ''}
     class:icon-button={!label && icon}
-    style={`background-color: ${bg}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
+    style={`background-color: ${bg}; border-color: ${border}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
     on:click={ (event) => handleClick(event) }
     use:popperRef
 >

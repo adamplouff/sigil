@@ -55,6 +55,8 @@
   export let tooltip = ''
   export let lofi = false
   export let type = 'text'
+  export let bg = ''
+  export let border = ''
   export let prefsId: string|null = null
 
   onMount(() => {
@@ -74,6 +76,19 @@
     if (prefsId) {
       util.setPrefsById(prefsId, value, 'input')
     }
+    dispatch('change', value)
+  }
+  const blurNumberLofi = (evt) => {
+    console.log('change', value);
+    // parse number inputs with min, max and decimals to 0.05 precision
+    let num = parseFloat(value)
+    if (isNaN(num)) num = 1
+    if (num < min) num = min
+    if (num > max) num = max
+    num = parseFloat(num.toFixed(decimals))
+    value = num
+
+
     dispatch('change', value)
   }
 
@@ -180,7 +195,7 @@
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="input-wrapper"
     class:flat class:filled class:readOnly
-    style="width: { width }"
+    style={`width: ${ width }; background-color: ${bg}; border-color: ${border};`}
     on:mouseenter={() => hover = true}
     on:mouseleave={() => hover = false}>
     <div class="input-contents" class:hover>
@@ -195,19 +210,20 @@
         >
 
         {#if type == 'number'}
-        <!-- <input
-          type="number"
-          class="input-value"
-          bind:value={value}
-          class:truncate
-          class:uppercase
-          class:active
-          class:flat class:filled
+          {#if lofi}
+            <input
+            type="number"
+            class="input-value"
+            bind:value={value}
+            class:truncate
+            class:uppercase
+            class:active
+            class:flat class:filled
 
-          on:change={ changeValue }
-          on:focus={ focus }
-          on:blur={ blur }
-          /> -->
+            on:focus={ focus }
+            on:blur={ blurNumberLofi }
+            />
+          {:else}
           <!-- mainStyle={`width: ${ width }`} -->
           <NumberSpinner
             class="spinner-input"
@@ -218,6 +234,7 @@
             on:dragend={ numberBlur }
             />
             <!-- on:input={ changeValue } -->
+          {/if}
         {:else}
         <input
         use:inputFocus
@@ -305,6 +322,8 @@
   position: relative;
   height: auto;
   text-align: left;
+  /* padding-left: 6px; */
+	margin-right: 6px;
   /* top: -4px; */
 }
 .suffix {
