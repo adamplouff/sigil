@@ -318,7 +318,7 @@
   pointer-events: none;
 }
 .input-label {
-  font-size: 10px;
+  /* font-size: 10px; */
   position: relative;
   height: auto;
   text-align: left;
