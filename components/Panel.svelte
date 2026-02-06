@@ -11,9 +11,28 @@
 
 <script lang="ts">
   import starlette from "starlette";
+  const cep = window.__adobe_cep__
 
-  if (window.__adobe_cep__) {
+
+  const checkAeLightMode = () => {
+    const hostEnv = (cep) ? JSON.parse(cep.getHostEnvironment()) : null
+    if (hostEnv.appSkinInfo.panelBackgroundColor.color.red > 240) {
+      starlette.initAs('ILST', 'lightest')
+    } else {
       starlette.init()
+    }
+  }
+
+  if (cep) {
+    const hostEnv = (cep) ? JSON.parse(cep.getHostEnvironment()) : null
+    const appVersion = hostEnv.appVersion
+    checkAeLightMode()
+
+    if (parseInt(appVersion.split('.')[0]) >= 25) {
+      cep.addEventListener( "com.adobe.csxs.events.ThemeColorChanged", checkAeLightMode )
+    } else {
+      starlette.init()
+    }
   } else {
       starlette.initAs('AEFT', 'gradient', 0)
       // starlette.initAs('ILST', 'darkest')
