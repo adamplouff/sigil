@@ -99,15 +99,21 @@
 		</div>
 		<div class="{isEnabled ? 'enabled' : ''}" />
 		<span class="label">{ label }</span>
+    {#if lofi}
+      <div id="tooltip" class="tooltipLofi" class:hover >
+        { @html tooltip }
+      </div>
+    {/if}
 	</div>
 </div>
 
-<!-- {#if tooltip && hover}
+
+{#if tooltip && hover && !lofi}
 <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
 	{ @html tooltip }
 	<div id="arrow" data-popper-arrow />
 </div>
-{/if} -->
+{/if}
 
 
 <style>
@@ -155,6 +161,22 @@
 }
 .custom .label {
   margin-top: 2px;
+}
+.tooltipLofi {
+  position: fixed;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateY(150%) translateX(40%);
+  /* opacity: 0; */
+  display: none;
+}
+.tooltipLofi.hover {
+  /* opacity: 1; */
+  display: block;
 }
 .outer {
 	border: 1px solid var(--color-icon);
