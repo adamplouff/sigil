@@ -37,76 +37,76 @@
  -->
 
 <script lang="ts">
-    import { fade } from 'svelte/transition';
-    import { createEventDispatcher } from 'svelte'
-    import { openLinkInBrowser, } from "../lib/utils";
+    import { fade } from "svelte/transition";
+    import { createEventDispatcher } from "svelte";
+    import { openLinkInBrowser } from "../lib/utils";
 
     const dispatch = createEventDispatcher();
 
-    import Icon from './Icon.svelte';
+    import Icon from "./Icon.svelte";
 
-    export let uppercase = false
-    export let block = false
-    export let tall = false
-    export let left = false
-    export let right = false
-    export let primary = false
-    export let outline = false
-    export let flat = false
-    export let filled = false
-    export let disabled = false
-    export let nonclickable = false
-    export let toolbar = false
-    export let bg = ''
-    export let border = ''
-    export let color = ''
-    export let label = ''
-    export let tooltip = ''
-    export let lofi = false
-    export let custom = false
-    export let goto = null
-    export let mini = false
-    export let center = false
-    export let icon = ''
-    export let iconSize: null | string = '18px'
-    export let height: null | string = null
-    export let width: null | string = null
+    export let uppercase = false;
+    export let block = false;
+    export let tall = false;
+    export let left = false;
+    export let right = false;
+    export let primary = false;
+    export let outline = false;
+    export let flat = false;
+    export let filled = false;
+    export let disabled = false;
+    export let nonclickable = false;
+    export let toolbar = false;
+    export let bg = "";
+    export let border = "";
+    export let color = "";
+    export let label = "";
+    export let tooltip = "";
+    export let lofi = false;
+    export let custom = false;
+    export let goto = null;
+    export let mini = false;
+    export let center = false;
+    export let icon = "";
+    export let iconSize: null | string = "18px";
+    export let height: null | string = null;
+    export let width: null | string = null;
 
-    let colorHover = (bg !== '')
+    let colorHover = bg !== "";
 
-    $: hover = false
+    $: hover = false;
 
-    import { createPopperActions } from 'svelte-popperjs';
-    import { preprocess } from 'svelte/compiler';
+    import { createPopperActions } from "svelte-popperjs";
+    import { preprocess } from "svelte/compiler";
     const [popperRef, popperContent] = createPopperActions({
-        placement: 'bottom',
-        strategy: 'fixed',
+        placement: "bottom",
+        strategy: "fixed",
         applyStyles: true,
     });
     const extraOpts = {
         modifiers: [
-            { name:
-                'offset',
+            {
+                name: "offset",
                 options: {
-                    offset: [0, 4] ,
-                }
-            }
+                    offset: [0, 4],
+                },
+            },
         ],
-    }
+    };
 
     const handleClick = (event) => {
         if (goto) {
-            openLinkInBrowser(goto)
+            openLinkInBrowser(goto);
         } else if (event.shiftKey) {
-            dispatch('shiftClick')
+            dispatch("shiftClick");
         } else if (event.altKey) {
-            dispatch('altClick')
+            dispatch("altClick");
         } else if (event.altKey && event.shiftKey) {
-            dispatch('altShiftClick')
+            dispatch("altShiftClick");
         } else {
-            dispatch('normalClick')
+            dispatch("normalClick");
         }
-    }
+    };
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -130,213 +130,222 @@
     class:outline
     class:hover
     class:custom
-    class:label={label != ''}
+    class:label={label != ""}
     class:icon-button={!label && icon}
-    style={`background-color: ${bg}; border-color: ${border}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? '6px' : ''}`}
-    on:click={ (event) => handleClick(event) }
+    style={`background-color: ${bg}; border-color: ${border}; color: ${color}; height: ${height}; width: ${width}; padding: ${!(width || height) ? "6px" : ""}`}
+    on:click={(event) => handleClick(event)}
     use:popperRef
 >
     <div class="button-content" class:left>
         {#if icon}
-            <Icon name="{ icon }" size="{ iconSize }" color={color} />
+            <Icon name={icon} size={iconSize} {color} />
         {/if}
 
         {#if label}
             <span class="label">
-                { label }
+                {label}
             </span>
         {/if}
         <slot />
     </div>
 
     {#if lofi}
-      <div id="tooltip" class="tooltipLofi" class:hover >
-        { @html tooltip }
-      </div>
+        <div id="tooltip" class="tooltipLofi" class:hover>
+            {@html tooltip}
+        </div>
     {/if}
-    <div class="hover-target"
-      on:mouseenter={() => hover = true}
-      on:mouseleave={() => hover = false}
+    <div
+        class="hover-target"
+        on:mouseenter={() => (hover = true)}
+        on:mouseleave={() => (hover = false)}
     ></div>
 </div>
 
 {#if hover && tooltip && !lofi}
-  <div id="tooltip" in:fade="{{ duration: 100, delay: 400 }}" out:fade="{{duration: 100}}" class:hover use:popperContent={extraOpts}>
-    { @html tooltip }
-    <div id="arrow" data-popper-arrow />
-  </div>
+    <div
+        id="tooltip"
+        in:fade={{ duration: 100, delay: 400 }}
+        out:fade={{ duration: 100 }}
+        class:hover
+        use:popperContent={extraOpts}
+    >
+        {@html tooltip}
+        <div id="arrow" data-popper-arrow />
+    </div>
 {/if}
 
-
 <style>
-.button {
-    position: relative;
-    background: var(--button);
-    color: var(--button-color);
-    border: 1px solid transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2px;
-    white-space: nowrap;
-    gap: 8px;
-    max-width: -webkit-fill-available;
-}
-:global(.button svg) {
-    /* fill: var(--color-icon) !important; */
-    stroke: none !important;
-}
-.button:not(.nonclickable).hover {
-    background: var(--button-hover);
-}
-.button:not(.nonclickable):active {
-    background: var(--button-active);
-}
-.button.label {
-  min-width: fit-content;
-}
-.button-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.button-content .label {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100%;
-}
-.uppercase {
-    text-transform: uppercase;
-}
-.block {
-    width: 100%;
-    margin-right: 0;
-}
-.tall {
-    height: 26px;
-}
-.left {
-    justify-content: flex-start;
-}
-.right {
-    justify-content: flex-end;
-}
-.primary {
-    background: rgba(160, 160, 160, 0.3);
-    /* border-color: var(--button-primary-border); */
-    border-color: rgba(160, 160, 160, 0.5);
-}
-.primary:not(.nonclickable).hover:not(.nonclickable) {
-    background: rgba(160, 160, 160, 0.4);
-}
-.outline {
-    background: transparent;
-    border-color: rgba(160, 160, 160, 0.2);
-}
-.flat,
-.toolbar {
-    background: transparent;
-}
-.flat:not(.nonclickable).hover,
-.toolbar:not(.nonclickable).hover {
-    background: var(--button-flat-hover);
-    border-color: var(--button-flat-hover-border);
-}
-.colorHover {
-    opacity: 0.95;
-}
-.colorHover:not(.nonclickable).hover {
-    opacity: 1;
-    border-color: rgba(255, 255, 255, 0.25);
-}
-.flat:not(.nonclickable):active,
-.toolbar:not(.nonclickable):active {
-    background: var(--button-flat-active);
-    border-color: var(--button-flat-active-border);
-}
-.filled {
-    background: var(--button-filled);
-}
-.filled:not(.nonclickable).hover {
-    background: var(--button-filled);
-    border-color: var(--button-filled-hover-border);
-}
-.filled:not(.nonclickable):active,
-.filled.active:not(.nonclickable) {
-    color: var(--color-bg);
-    background: var(--button-filled-active);
-}
-.button.toolbar {
-    width: 34px;
-    height: 34px;
-    margin: 0;
-}
-.button :global(*) {
-    margin-bottom: 0 !important;
-}
-.button.toolbar :global(svg) {
-    margin: auto;
-    min-width: 22px;
-    width: 22px;
-    height: 22px;
-}
-.button:not(.custom) :global(svg) {
-    min-width: 16px;
-    width: 16px;
-    height: 16px;
-    /* margin-top: -1px;
+    .button {
+        position: relative;
+        background: var(--button);
+        color: var(--button-color);
+        border: 1px solid transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2px;
+        white-space: nowrap;
+        gap: 8px;
+        max-width: -webkit-fill-available;
+    }
+    :global(.button svg) {
+        /* fill: var(--color-icon) !important; */
+        stroke: none !important;
+    }
+    .button:not(.nonclickable).hover {
+        background: var(--button-hover);
+    }
+    .button:not(.nonclickable):active {
+        background: var(--button-active);
+    }
+    .button.label {
+        min-width: fit-content;
+    }
+    .button-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .button-content .label {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .uppercase {
+        text-transform: uppercase;
+    }
+    .block {
+        width: 100%;
+        margin-right: 0;
+    }
+    .tall {
+        height: 26px;
+    }
+    .left {
+        justify-content: flex-start;
+    }
+    .right {
+        justify-content: flex-end;
+    }
+    .primary {
+        background: rgba(160, 160, 160, 0.3);
+        /* border-color: var(--button-primary-border); */
+        border-color: rgba(160, 160, 160, 0.5);
+    }
+    .primary:not(.nonclickable).hover:not(.nonclickable) {
+        background: rgba(160, 160, 160, 0.4);
+    }
+    .outline {
+        background: transparent;
+        border-color: rgba(160, 160, 160, 0.2);
+    }
+    .flat,
+    .toolbar {
+        background: transparent;
+    }
+    .flat:not(.nonclickable).hover,
+    .toolbar:not(.nonclickable).hover {
+        background: var(--button-flat-hover);
+        border-color: var(--button-flat-hover-border);
+    }
+    .colorHover {
+        opacity: 0.95;
+    }
+    .colorHover:not(.nonclickable).hover {
+        opacity: 1;
+        border-color: rgba(255, 255, 255, 0.25);
+    }
+    .flat:not(.nonclickable):active,
+    .toolbar:not(.nonclickable):active {
+        background: var(--button-flat-active);
+        border-color: var(--button-flat-active-border);
+    }
+    .filled {
+        background: var(--button-filled);
+    }
+    .filled:not(.nonclickable).hover {
+        background: var(--button-filled);
+        border-color: var(--button-filled-hover-border);
+    }
+    .filled:not(.nonclickable):active,
+    .filled.active:not(.nonclickable) {
+        color: var(--color-bg);
+        background: var(--button-filled-active);
+    }
+    .button.toolbar {
+        width: 34px;
+        height: 34px;
+        margin: 0;
+    }
+    .button :global(*) {
+        margin-bottom: 0 !important;
+    }
+    .button.toolbar :global(svg) {
+        margin: auto;
+        min-width: 22px;
+        width: 22px;
+        height: 22px;
+    }
+    .button:not(.custom) :global(svg) {
+        min-width: 16px;
+        width: 16px;
+        height: 16px;
+        /* margin-top: -1px;
     margin-bottom: -1px !important; */
-    fill: var(--color-icon);
-}
-.button.custom :global(svg) {
-    /* min-width: 24px; */
-    width: 24px;
-    height: 24px;
-    margin-top: -1px;
-    margin-bottom: -1px;
-}
-.disabled {
-    opacity: 0.4;
-    pointer-events: none;
-}
-.nonclickable {
-    /* pointer-events: none; */
-}
-.icon-button:not(.mini) {
-    min-width: 32px;
-}
-.mini {
-    width: fit-content;
-    padding: 0 !important;
-    height: 14px;
-    width: 14px;
-    margin: auto 0;
-}
-.center {
-    margin: auto;
-}
-.tooltipLofi {
-  position: fixed;
-  text-align: left;
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transform: translateY(150%) translateX(40%);
-  /* opacity: 0; */
-  display: none;
-}
-.tooltipLofi.hover {
-  /* opacity: 1; */
-  display: block;
-}
-.hover-target {
-    position: absolute;
-    top: -1px; left: -1px; right: -1px; bottom: -1px;
-}
+        fill: var(--color-icon);
+    }
+    .button.custom :global(svg) {
+        /* min-width: 24px; */
+        width: 24px;
+        height: 24px;
+        margin-top: -1px;
+        margin-bottom: -1px;
+    }
+    .disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+    .nonclickable {
+        /* pointer-events: none; */
+    }
+    .icon-button:not(.mini) {
+        min-width: 32px;
+    }
+    .mini {
+        width: fit-content;
+        padding: 0 !important;
+        height: 14px;
+        width: 14px;
+        margin: auto 0;
+    }
+    .center {
+        margin: auto;
+    }
+    .tooltipLofi {
+        position: fixed;
+        text-align: left;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: translateY(150%) translateX(40%);
+        /* opacity: 0; */
+        display: none;
+    }
+    .tooltipLofi.hover {
+        /* opacity: 1; */
+        display: block;
+    }
+    .hover-target {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+    }
 </style>
